@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project2ver1.InputExpenseController">
+   <children>
+      <HBox layoutX="2.0" layoutY="383.0" prefHeight="25.0" prefWidth="598.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Nhập vào" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToCalendar" prefHeight="25.0" prefWidth="150.0" text="Lịch" />
+            <Button layoutX="157.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToReport" prefHeight="25.0" prefWidth="154.0" text="Báo cáo" />
+            <Button layoutX="304.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToOthers" prefHeight="25.0" prefWidth="153.0" text="Khác" />
+         </children>
+      </HBox>
+      <FlowPane alignment="CENTER" hgap="10.0" layoutX="80.0" layoutY="197.0" prefHeight="114.0" prefWidth="438.0" style="-fx-border-color: gray;" vgap="10.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="86.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="162.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="238.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="314.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="390.0" layoutY="10.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="86.0" layoutY="57.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Ăn uống" />
+            <Label alignment="CENTER" layoutX="162.0" layoutY="57.0" prefHeight="47.0" prefWidth="76.0" style="-fx-border-color: gray;" text="Chỉnh sửa">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </FlowPane>
+      <Label alignment="CENTER" layoutX="78.0" layoutY="168.0" prefHeight="18.0" prefWidth="76.0" text="Danh mục:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="71.0" layoutY="39.0" prefHeight="18.0" prefWidth="76.0" text="Tiền chi:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="219.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Tiền chi" />
+      <Button layoutX="368.0" layoutY="17.0" mnemonicParsing="false" onAction="#switchToInputRevernue" prefHeight="25.0" prefWidth="147.0" text="Tiền thu" />
+      <TextField layoutX="48.0" layoutY="66.0" prefHeight="48.0" prefWidth="126.0" />
+      <Label alignment="CENTER" layoutX="210.0" layoutY="56.0" prefHeight="18.0" prefWidth="76.0" text="Ngày">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="213.0" layoutY="103.0" prefHeight="18.0" prefWidth="76.0" text="Ghi chú">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker layoutX="284.0" layoutY="53.0" prefHeight="25.0" prefWidth="172.0" />
+      <TextArea layoutX="284.0" layoutY="99.0" prefHeight="82.0" prefWidth="240.0" />
+      <Button layoutX="222.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Nhập khoản chi" />
+   </children>
+</AnchorPane>
