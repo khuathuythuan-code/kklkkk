@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project2ver2.controller.AppController">
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Nhập Vào">
+                    <content>
+                        <AnchorPane prefHeight="640" prefWidth="900">
+                            <children>
+                                <Label layoutX="20" layoutY="20" text="Tiền:" />
+                                <TextField fx:id="inputMoneyField" layoutX="80" layoutY="16" prefWidth="180" />
+                                <Label layoutX="280" layoutY="20" text="Ngày:" />
+                                <DatePicker fx:id="inputDateField" layoutX="320" layoutY="16" />
+                                <Label layoutX="20" layoutY="60" text="Danh mục:" />
+                                <ComboBox fx:id="categoryCombo" layoutX="80" layoutY="56" prefWidth="180" />
+                                <Label layoutX="20" layoutY="100" text="Ghi chú:" />
+                                <TextArea fx:id="inputNoteField" layoutX="80" layoutY="96" prefHeight="120" prefWidth="400" />
+                                <Button fx:id="expenseBtn" layoutX="520" layoutY="16" onAction="#toggleType" text="Thu/Chi" />
+                                <Button fx:id="inputDataBtn" layoutX="520" layoutY="56" onAction="#createTransaction" text="Lưu" />
+                                <Button layoutX="520" layoutY="96" onAction="#openCategoryDialog" text="Quản lý danh mục" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <Tab text="Lịch">
+                    <content>
+                        <AnchorPane prefHeight="640" prefWidth="882.0">
+                            <children>
+                                <ComboBox fx:id="monthComboBox" layoutX="20" layoutY="20" prefWidth="90" />
+                                <ComboBox fx:id="yearComboBox" layoutX="120" layoutY="20" prefWidth="100" />
+                                <GridPane fx:id="calendarGrid" hgap="4" layoutX="403.0" layoutY="21.0" prefHeight="300" prefWidth="420" vgap="4" />
+                                <ScrollPane fx:id="transcContainer" layoutX="33.0" layoutY="327.0" prefHeight="262.0" prefWidth="793.0" />
+                                <VBox layoutX="41.0" layoutY="105.0" prefHeight="132.0" prefWidth="177.0" spacing="6">
+                                    <children>
+                                        <Label text="Thu:" />
+                                        <Label fx:id="incomeLabel" text="0" />
+                                        <Label text="Chi:" />
+                                        <Label fx:id="expenseLabel" text="0" />
+                                        <Label text="Tổng:" />
+                                        <Label fx:id="totalLabel" text="0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <Tab text="Thống kê">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <PieChart fx:id="pieChart" layoutX="20" layoutY="20" prefHeight="428.0" prefWidth="430.0" />
+                                <BarChart fx:id="barChart" layoutX="450.0" layoutY="30.0" prefHeight="445.0" prefWidth="459.0">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="barXAxis" label="Tháng" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="barYAxis" label="Số tiền" />
+                                    </yAxis>
+                                </BarChart>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

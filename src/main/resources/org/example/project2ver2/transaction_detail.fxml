@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.project2ver2.controller.TransactionDetailController"
+            prefWidth="600" prefHeight="400">
+    <children>
+        <Label layoutX="220" layoutY="10" text="Chi tiết giao dịch"
+               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Label layoutX="40" layoutY="60" text="Tiền:"/>
+        <TextField fx:id="inputMoneyField" layoutX="100" layoutY="56" prefWidth="160"/>
+        <Label layoutX="280" layoutY="60" text="Ngày:"/>
+        <DatePicker fx:id="inputDateField" layoutX="330" layoutY="56"/>
+        <Label layoutX="40" layoutY="110" text="Danh mục:"/>
+        <ComboBox fx:id="categoryCombo" layoutX="100" layoutY="106" prefWidth="220"/>
+        <Label layoutX="40" layoutY="160" text="Ghi chú:"/>
+        <TextArea fx:id="inputNoteField" layoutX="100" layoutY="156" prefWidth="420" prefHeight="120"/>
+
+        <Button fx:id="updateBtn" layoutX="140" layoutY="300" text="Cập nhật" prefWidth="100" onAction="#updateTransaction"/>
+        <Button fx:id="deleteBtn" layoutX="260" layoutY="300" text="Xóa" prefWidth="100" onAction="#deleteTransaction"/>
+        <Button fx:id="closeBtn" layoutX="380" layoutY="300" text="Đóng" prefWidth="100" onAction="#closeWindow"/>
+    </children>
+</AnchorPane>

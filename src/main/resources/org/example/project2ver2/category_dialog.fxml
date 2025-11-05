@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.project2ver2.controller.CategoryController"
+            prefWidth="400" prefHeight="300">
+    <children>
+        <Label layoutX="20" layoutY="10" text="Quản lý danh mục" style="-fx-font-size:16; -fx-font-weight:bold;"/>
+        <VBox layoutX="20" layoutY="40" spacing="8" prefWidth="360" prefHeight="220">
+            <children>
+                <ListView fx:id="categoryList" prefHeight="140"/>
+                <HBox spacing="8">
+                    <children>
+                        <TextField fx:id="newCategoryField" promptText="Tên danh mục" />
+                        <ComboBox fx:id="typeCombo" prefWidth="120"/>
+                        <Button text="Thêm" onAction="#addCategory" />
+                    </children>
+                </HBox>
+                <HBox spacing="8">
+                    <children>
+                        <Button text="Xóa mục chọn" onAction="#deleteSelected" />
+                        <Button text="Đóng" onAction="#closeDialog" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets top="6" right="6" bottom="6" left="6"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
