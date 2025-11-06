@@ -69,8 +69,9 @@ public class AppController implements Initializable {
     }
 
     private void refreshCategories(){
+        String typeCate = expenseBtn.getText();
         categoryCombo.getItems().clear();
-        List<String> cats = catRepo.findAll(currentUserId);
+        List<String> cats = catRepo.findAll(currentUserId, typeCate);
         if (cats.isEmpty()) {
             cats = Arrays.asList("Ăn uống","Di chuyển","Mua sắm","Học tập","Giải trí","Khác");
         }
@@ -82,6 +83,7 @@ public class AppController implements Initializable {
     private void toggleType(){
         isExpense = !isExpense;
         expenseBtn.setText(isExpense ? "Chi" : "Thu");
+        refreshCategories();
     }
 
     @FXML

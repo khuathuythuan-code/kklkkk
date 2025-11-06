@@ -22,7 +22,11 @@ public class CategoryController {
         typeCombo.getItems().addAll("Chi", "Thu");
         typeCombo.setValue("Chi");
         loadCategories();
+        typeCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            loadCategories();
+        });
     }
+
 
     private void loadCategories() {
         categoryList.getItems().clear();
@@ -31,13 +35,15 @@ public class CategoryController {
     }
 
     private List<String> findCategoriesFromDb() {
+        String typeCate = typeCombo.getValue();
         List<String> list = new ArrayList<>();
         Connection c = DBUtil.getConnection();
         PreparedStatement p = null;
         ResultSet rs = null;
         try {
-            p = c.prepareStatement("SELECT name, type FROM categories WHERE user_id=?");
+            p = c.prepareStatement("SELECT name, type FROM categories WHERE user_id=? AND type = ?");
             p.setInt(1, currentUserId);
+            p.setString(2, typeCate);
             rs = p.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");

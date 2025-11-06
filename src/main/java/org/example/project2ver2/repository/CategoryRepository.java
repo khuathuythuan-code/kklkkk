@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRepository {
-    public List<String> findAll(int userId){
+    public List<String> findAll(int userId, String typeCate){
         List<String> list = new ArrayList<>();
         Connection c = DBUtil.getConnection();
-        try (PreparedStatement p = c.prepareStatement("SELECT name FROM categories WHERE user_id=?")) {
+        try (PreparedStatement p = c.prepareStatement("SELECT name FROM categories WHERE user_id=? And type = ?")) {
             p.setInt(1, userId);
+            p.setString(2, typeCate);
+
             ResultSet rs = p.executeQuery();
             while (rs.next()) list.add(rs.getString("name"));
             rs.close();

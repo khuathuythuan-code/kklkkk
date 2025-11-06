@@ -1,14 +1,20 @@
 package org.example.project2ver2.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.project2ver2.model.Transaction;
+import org.example.project2ver2.repository.CategoryRepository;
 import org.example.project2ver2.repository.TransactionRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 
 public class TransactionDetailController {
     @FXML private TextField inputMoneyField;
@@ -19,14 +25,24 @@ public class TransactionDetailController {
 
     private Transaction transaction;
     private final TransactionRepository repo = new TransactionRepository();
+    private CategoryRepository categoryRepository = new CategoryRepository();
 
     public void setTransaction(Transaction t){
+
         this.transaction = t;
         inputMoneyField.setText(String.valueOf(Math.abs(t.getAmount())));
         inputDateField.setValue(t.getCreatedAt().toLocalDate());
         inputNoteField.setText(t.getNote());
+        List<String> cats = categoryRepository.findAll(t.getUserId(),t.getType());
+
         // load categories (could inject)
-        categoryCombo.getItems().addAll("Ăn uống","Di chuyển","Mua sắm","Học tập","Giải trí","Khác");
+        if(cats.isEmpty()) {
+            cats = Arrays.asList("Ăn uống","Di chuyển","Mua sắm","Học tập","Giải trí","Khác");
+        }
+        categoryCombo.getItems().addAll(cats);
+        if (!cats.contains(t.getCategory())){
+             cats.add(t.getCategory());
+        }
         categoryCombo.setValue(t.getCategory());
     }
 
@@ -56,4 +72,6 @@ public class TransactionDetailController {
         Stage s = (Stage) closeBtn.getScene().getWindow();
         s.close();
     }
+
+
 }
