@@ -26,6 +26,11 @@ public class TransactionDetailController {
     private Transaction transaction;
     private final TransactionRepository repo = new TransactionRepository();
     private CategoryRepository categoryRepository = new CategoryRepository();
+    private TransactionUpdateListener listener;
+
+    public void setListener(TransactionUpdateListener listener) {
+        this.listener = listener;
+    }
 
     public void setTransaction(Transaction t){
 
@@ -57,6 +62,10 @@ public class TransactionDetailController {
             transaction.setCreatedAt(LocalDateTime.of(ld, LocalTime.now()));
             transaction.setCategory(categoryCombo.getValue());
             repo.update(transaction);
+
+            // 🟢 Gọi callback
+            if (listener != null) listener.onTransactionUpdated(transaction);
+
             closeWindow();
         } catch(Exception e) {
             new Alert(Alert.AlertType.ERROR, "Dữ liệu không hợp lệ").showAndWait();
@@ -65,8 +74,13 @@ public class TransactionDetailController {
 
     @FXML private void deleteTransaction(){
         repo.delete(transaction.getId());
+
+        // 🟢 Gọi callback
+        if (listener != null) listener.onTransactionDeleted(transaction);
+
         closeWindow();
     }
+
 
     @FXML private void closeWindow(){
         Stage s = (Stage) closeBtn.getScene().getWindow();

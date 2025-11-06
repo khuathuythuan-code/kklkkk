@@ -23,10 +23,11 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AppController implements Initializable {
+public class AppController implements Initializable, TransactionUpdateListener  {
     private final TransactionRepository repo = new TransactionRepository();
     private final CategoryRepository catRepo = new CategoryRepository();
     private final int currentUserId = 1; // demo; thay bằng session user
+    private LocalDate currentSelectedDate = LocalDate.now();
 
     @FXML private TextField inputMoneyField;
     @FXML private DatePicker inputDateField;
@@ -40,7 +41,8 @@ public class AppController implements Initializable {
     @FXML private ScrollPane transcContainer;
     @FXML private Label incomeLabel, expenseLabel, totalLabel;
 
-    @FXML private PieChart pieChart;
+    @FXML private PieChart expensePieChart;
+    @FXML private PieChart revenuePieChart;
     @FXML private javafx.scene.chart.BarChart<String, Number> barChart;
 
     private boolean isExpense = true;
@@ -61,12 +63,23 @@ public class AppController implements Initializable {
         monthComboBox.setValue(LocalDate.now().getMonthValue());
         yearComboBox.setValue(curYear);
 
-        monthComboBox.setOnAction(e -> refreshCalendar());
-        yearComboBox.setOnAction(e -> refreshCalendar());
+        monthComboBox.setOnAction(e -> {
+            monthlySummary();
+            refreshCalendar();
+        });
+        yearComboBox.setOnAction(e -> {
+            monthlySummary();
+            refreshCalendar();
+        });
 
+        monthlySummary();
         refreshCalendar();
-        updateChartsAndSummary();
+        updateCharts();
+
+
     }
+
+
 
     private void refreshCategories(){
         String typeCate = expenseBtn.getText();
@@ -99,14 +112,23 @@ public class AppController implements Initializable {
             t.setType(isExpense ? "Chi" : "Thu");
             LocalDate ld = inputDateField.getValue();
             t.setCreatedAt(LocalDateTime.of(ld, LocalTime.now()));
+
             repo.add(t);
+
+            // ✅ chờ DB ghi xong rồi mới cập nhật
             clearInput();
-            refreshCalendar();
-            updateChartsAndSummary();
+            monthComboBox.setValue(ld.getMonthValue());
+            yearComboBox.setValue(ld.getYear());
+            refreshCalendar(); // vẽ lại calendar
+            updateCharts(); // cập nhật biểu đồ
+            showTransactionsOfDay(ld); // ✅ cập nhật danh sách giao dịch trong ngày
+            monthlySummary();
+
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, "Số tiền không hợp lệ").showAndWait();
         }
     }
+
 
     private void clearInput(){
         inputMoneyField.clear();
@@ -118,7 +140,7 @@ public class AppController implements Initializable {
         int month = monthComboBox.getValue();
         int year = yearComboBox.getValue();
         generateCalendar(month, year);
-        updateChartsAndSummary();
+        updateCharts();
     }
 
     private void generateCalendar(int month, int year) {
@@ -206,6 +228,7 @@ public class AppController implements Initializable {
     }
 
     private void showTransactionsOfDay(LocalDate date) {
+        currentSelectedDate = date; // 🟢 lưu ngày đang xem
         List<Transaction> list = repo.findByDate(currentUserId, date);
         VBox box = new VBox(6);
         box.setPadding(new Insets(8));
@@ -213,11 +236,12 @@ public class AppController implements Initializable {
             box.getChildren().add(new Label("Không có giao dịch"));
         } else {
             for (Transaction t : list) {
-                Label label = new Label(String.format("%s | %s | %,.0f đ | %s", t.getType(), t.getCategory(), Math.abs(t.getAmount()), t.getNote()));
+                Label label = new Label(String.format("%s | %s | %,.0f đ | %s",
+                        t.getType(), t.getCategory(), Math.abs(t.getAmount()), t.getNote()));
                 label.setMaxWidth(Double.MAX_VALUE);
                 label.setWrapText(true);
                 Button detail = new Button(">");
-                detail.setOnAction(e-> openTransactionDetailWindow(t));
+                detail.setOnAction(e -> openTransactionDetailWindow(t));
                 HBox row = new HBox(label, detail);
                 HBox.setHgrow(label, Priority.ALWAYS);
                 row.setAlignment(Pos.CENTER_LEFT);
@@ -229,52 +253,134 @@ public class AppController implements Initializable {
         transcContainer.setContent(box);
     }
 
-    private void openTransactionDetailWindow(Transaction t){
+    private void openTransactionDetailWindow(Transaction t) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/project2ver2/transaction_detail.fxml"));
             Scene scene = new Scene(loader.load());
-            org.example.project2ver2.controller.TransactionDetailController ctrl = loader.getController();
+            TransactionDetailController ctrl = loader.getController();
             ctrl.setTransaction(t);
+
+            // 🟢 Gán callback
+            ctrl.setListener(this);
+
             Stage st = new Stage();
             st.initModality(Modality.APPLICATION_MODAL);
             st.setScene(scene);
             st.setTitle("Chi tiết giao dịch");
             st.showAndWait();
-            // refresh after close
-            refreshCalendar();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void updateChartsAndSummary(){
-        List<Transaction> all = repo.findAll(currentUserId);
-        double income = all.stream().filter(t-> "Thu".equalsIgnoreCase(t.getType())).mapToDouble(Transaction::getAmount).sum();
-        double expense = all.stream().filter(t-> "Chi".equalsIgnoreCase(t.getType())).mapToDouble(Transaction::getAmount).sum();
+    // 🟢 Callback thực thi khi con cập nhật hoặc xóa
+    @Override
+    public void onTransactionUpdated(Transaction transaction) {
+        refreshCalendar();
+        updateCharts();
+        monthlySummary();
+        showTransactionsOfDay(currentSelectedDate);
+    }
+
+    @Override
+    public void onTransactionDeleted(Transaction transaction) {
+        refreshCalendar();
+        updateCharts();
+        monthlySummary();
+        showTransactionsOfDay(currentSelectedDate);
+    }
+
+
+
+    private void monthlySummary(){
+        List<Transaction> all = repo.findByMonth(currentUserId,monthComboBox.getValue(),yearComboBox.getValue());
+
+        // ==== 1. Tính tổng thu, chi, tổng cộng ====
+        double income = all.stream()
+                .filter(t -> "Thu".equalsIgnoreCase(t.getType()))
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+
+        double expense = all.stream()
+                .filter(t -> "Chi".equalsIgnoreCase(t.getType()))
+                .mapToDouble(Transaction::getAmount)
+                .sum();
         incomeLabel.setText(String.format("%,.0f", income));
         expenseLabel.setText(String.format("%,.0f", Math.abs(expense)));
-        totalLabel.setText(String.format("%,.0f", income + expense));
-
-        // Pie by category (Chi only)
-        Map<String, Double> byCat = all.stream()
-                .filter(t-> "Chi".equalsIgnoreCase(t.getType()))
-                .collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(t->Math.abs(t.getAmount()))));
-        pieChart.getData().clear();
-        byCat.forEach((k,v)-> pieChart.getData().add(new PieChart.Data(k, v)));
-
-        // Bar chart: total per month (this year)
-        barChart.getData().clear();
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Thu/Chi");
-        Map<Integer, Double> monthly = all.stream()
-                .filter(t-> t.getCreatedAt()!=null && t.getCreatedAt().getYear() == LocalDate.now().getYear())
-                .collect(Collectors.groupingBy(t->t.getCreatedAt().getMonthValue(), Collectors.summingDouble(Transaction::getAmount)));
-        for (int m=1;m<=12;m++){
-            double val = monthly.getOrDefault(m, 0.0);
-            series.getData().add(new XYChart.Data<>(String.valueOf(m), val));
-        }
-        barChart.getData().add(series);
+        totalLabel.setText(String.format("%,.0f", income + expense)); // hoặc income - expense nếu bạn muốn chênh lệch thực tế
     }
+
+
+    private void updateCharts() {
+
+        List<Transaction> all = repo.findAll(currentUserId);
+
+
+        Map<String, Double> revenueCate = all.stream()
+                .filter(t -> "Thu".equalsIgnoreCase(t.getType()))
+                .collect(Collectors.groupingBy(
+                        Transaction::getCategory,
+                        Collectors.summingDouble(t -> Math.abs(t.getAmount()))
+                ));
+
+        revenuePieChart.getData().clear();
+        revenueCate.forEach((k, v) -> revenuePieChart.getData().add(new PieChart.Data(k, v)));
+
+
+
+        // ==== 2. Biểu đồ tròn (PieChart) theo danh mục Chi ====
+        Map<String, Double> expenseCate = all.stream()
+                .filter(t -> "Chi".equalsIgnoreCase(t.getType()))
+                .collect(Collectors.groupingBy(
+                        Transaction::getCategory,
+                        Collectors.summingDouble(t -> Math.abs(t.getAmount()))
+                ));
+
+        expensePieChart.getData().clear();
+        expenseCate.forEach((k, v) -> expensePieChart.getData().add(new PieChart.Data(k, v)));
+
+
+
+        // ==== 3. Biểu đồ cột (BarChart) Thu & Chi theo tháng ====
+        barChart.getData().clear();
+
+        XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
+        incomeSeries.setName("Thu");
+
+        XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
+        expenseSeries.setName("Chi");
+
+        // Lọc dữ liệu của năm hiện tại
+        int currentYear = LocalDate.now().getYear();
+        List<Transaction> yearData = all.stream()
+                .filter(t -> t.getCreatedAt() != null && t.getCreatedAt().getYear() == currentYear)
+                .toList();
+
+        for (int m = 1; m <= 12; m++) {
+            final int month = m;
+            double thu = yearData.stream()
+                    .filter(t -> "Thu".equalsIgnoreCase(t.getType()) &&
+                            t.getCreatedAt().getMonthValue() == month)
+                    .mapToDouble(Transaction::getAmount)
+                    .sum();
+
+            double chi = yearData.stream()
+                    .filter(t -> "Chi".equalsIgnoreCase(t.getType()) &&
+                            t.getCreatedAt().getMonthValue() == month)
+                    .mapToDouble(Transaction::getAmount)
+                    .sum();
+
+            incomeSeries.getData().add(new XYChart.Data<>(String.valueOf(month), thu));
+            expenseSeries.getData().add(new XYChart.Data<>(String.valueOf(month), chi));
+        }
+
+        barChart.getData().addAll(incomeSeries, expenseSeries);
+    }
+
+
+
+
 
     @FXML private void openCategoryDialog() {
         try {
@@ -286,4 +392,6 @@ public class AppController implements Initializable {
             refreshCategories();
         } catch (Exception ex) { ex.printStackTrace(); }
     }
+
+
 }

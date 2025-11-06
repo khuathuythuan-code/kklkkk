@@ -97,4 +97,5 @@ public class SettingsController {
         Stage s = (Stage) closeBtn.getScene().getWindow();
         s.close();
     }
+
 }
