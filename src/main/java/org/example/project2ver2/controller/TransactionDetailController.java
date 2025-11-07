@@ -23,6 +23,7 @@ public class TransactionDetailController {
     @FXML private ComboBox<String> categoryCombo;
     @FXML private Button updateBtn, deleteBtn, closeBtn;
 
+
     private Transaction transaction;
     private final TransactionRepository repo = new TransactionRepository();
     private CategoryRepository categoryRepository = new CategoryRepository();
@@ -73,7 +74,7 @@ public class TransactionDetailController {
     }
 
     @FXML private void deleteTransaction(){
-        repo.delete(transaction.getId());
+        repo.delete(transaction.getId(), transaction.getUserId());
 
         // 🟢 Gọi callback
         if (listener != null) listener.onTransactionDeleted(transaction);

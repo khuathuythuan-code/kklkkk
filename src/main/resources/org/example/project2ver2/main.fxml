@@ -9,7 +9,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -17,6 +16,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -28,19 +28,41 @@
                     <content>
                         <AnchorPane prefHeight="640" prefWidth="900">
                             <children>
-                                <Label layoutX="20" layoutY="20" text="Tiền:" />
-                                <TextField fx:id="inputMoneyField" layoutX="80" layoutY="16" prefWidth="180" />
-                                <Label layoutX="280" layoutY="20" text="Ngày:" />
-                                <DatePicker fx:id="inputDateField" layoutX="320" layoutY="16" />
-                                <Label layoutX="20" layoutY="60" text="Danh mục:" />
-                                <ComboBox fx:id="categoryCombo" layoutX="80" layoutY="56" prefWidth="180" />
-                                <Label layoutX="20" layoutY="100" text="Ghi chú:" />
-                                <TextArea fx:id="inputNoteField" layoutX="80" layoutY="96" prefHeight="120" prefWidth="400" />
-                                <Button fx:id="expenseBtn" layoutX="520" layoutY="16" onAction="#toggleType" text="Thu/Chi" />
-                                <Button fx:id="inputDataBtn" layoutX="305.0" layoutY="240.0" onAction="#createTransaction" prefHeight="42.0" prefWidth="204.0" text="Lưu" />
-                                <Button layoutX="520" layoutY="96" onAction="#openCategoryDialog" text="Quản lý danh mục" />
+                                <VBox alignment="TOP_LEFT" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+
+                                    <!-- Hàng 1: Số tiền + Ngày + Nút Thu/Chi -->
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                        <Label text="Tiền:" />
+                                        <TextField fx:id="inputMoneyField" prefWidth="180" />
+
+                                        <Label text="Ngày:" />
+                                        <DatePicker fx:id="inputDateField" />
+
+                                        <Button fx:id="expenseBtn" onAction="#toggleType" text="Thu / Chi" />
+                                    </HBox>
+
+                                    <!-- Hàng 2: Danh mục + Nút quản lý -->
+                                    <HBox alignment="CENTER_LEFT" spacing="20">
+                                        <Label text="Danh mục:" />
+                                        <ComboBox fx:id="categoryCombo" prefWidth="200" />
+                                        <Button onAction="#openCategoryDialog" text="Quản lý danh mục" />
+                                    </HBox>
+
+                                    <!-- Hàng 3: Ghi chú -->
+                                    <VBox spacing="5">
+                                        <Label text="Ghi chú:" />
+                                        <TextArea fx:id="inputNoteField" prefHeight="120" wrapText="true" />
+                                    </VBox>
+
+                                    <!-- Hàng 4: Nút Lưu -->
+                                    <HBox alignment="CENTER">
+                                        <Button fx:id="inputDataBtn" onAction="#createTransaction" prefHeight="40" prefWidth="150" text="Lưu" />
+                                    </HBox>
+
+                                </VBox>
                             </children>
                         </AnchorPane>
+
                     </content>
                 </Tab>
 
@@ -64,6 +86,8 @@
                                 </VBox>
                         <Text layoutX="33.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tháng" wrappingWidth="54.041015625" />
                         <Text layoutX="205.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Năm" wrappingWidth="54.041015625" />
+                        <TextField fx:id="searchField" layoutX="121.0" layoutY="289.0" />
+                        <Text layoutX="30.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tìm giao dịch:" wrappingWidth="92.13671875" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -73,11 +97,11 @@
                     <content>
                         <AnchorPane>
                             <children>
-                        <ComboBox fx:id="monthComboBox1" layoutX="595.0" layoutY="81.0" prefHeight="25.0" prefWidth="61.0" />
-                        <ComboBox fx:id="yearComboBox1" layoutX="758.0" layoutY="81.0" prefHeight="25.0" prefWidth="68.0" />
-                                <PieChart fx:id="expensePieChart" layoutX="79.0" layoutY="288.0" prefHeight="233.0" prefWidth="232.0" titleSide="BOTTOM" />
-                                <PieChart fx:id="revenuePieChart" layoutX="79.0" layoutY="17.0" prefHeight="249.0" prefWidth="248.0" />
-                                <BarChart fx:id="barChart" layoutX="437.0" layoutY="232.0" prefHeight="344.0" prefWidth="365.0">
+                        <ComboBox fx:id="statsMonthComboBox" layoutX="595.0" layoutY="81.0" prefHeight="25.0" prefWidth="112.0" />
+                        <ComboBox fx:id="statsYearComboBox" layoutX="758.0" layoutY="81.0" prefHeight="25.0" prefWidth="118.0" />
+                                <PieChart fx:id="expensePieChart" layoutX="73.0" layoutY="276.0" legendVisible="false" prefHeight="332.0" prefWidth="405.0" titleSide="BOTTOM" />
+                                <PieChart fx:id="revenuePieChart" layoutX="452.0" layoutY="276.0" legendVisible="false" prefHeight="332.0" prefWidth="405.0" />
+                                <BarChart fx:id="barChart" layoutX="38.0" layoutY="16.0" legendSide="RIGHT" prefHeight="306.0" prefWidth="409.0">
                                     <xAxis>
                                         <CategoryAxis fx:id="barXAxis" label="Tháng" />
                                     </xAxis>
@@ -88,17 +112,15 @@
 
 
 
-                        <Text layoutX="533.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tháng" wrappingWidth="60.041015625" />
-                        <Text layoutX="708.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Năm" wrappingWidth="60.041015625" />
-                        <Label alignment="CENTER" layoutX="595.0" layoutY="125.0" prefHeight="17.0" prefWidth="105.0" style="-fx-background-color: lightgray;" text="0đ" />
-                        <Label alignment="CENTER" layoutX="769.0" layoutY="125.0" prefHeight="17.0" prefWidth="95.0" style="-fx-background-color: lightgray;" text="0đ" />
-                        <Label alignment="CENTER" layoutX="595.0" layoutY="163.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: lightgray;" text="0đ" />
+                        <Text fx:id="statsMonthLabel" layoutX="533.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tháng" wrappingWidth="60.041015625" />
+                        <Text layoutX="714.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Năm" wrappingWidth="60.041015625" />
+                        <Label fx:id="statsExpenseLabel" alignment="CENTER" layoutX="595.0" layoutY="125.0" prefHeight="17.0" prefWidth="105.0" style="-fx-background-color: lightgray;" text="0đ" />
+                        <Label fx:id="statsRevenueLabel" alignment="CENTER" layoutX="769.0" layoutY="125.0" prefHeight="17.0" prefWidth="95.0" style="-fx-background-color: lightgray;" text="0đ" />
+                        <Label fx:id="statsSumLabel" alignment="CENTER" layoutX="595.0" layoutY="163.0" prefHeight="17.0" prefWidth="268.0" style="-fx-background-color: lightgray;" text="0đ" />
                         <Text layoutX="533.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chi tiêu" wrappingWidth="60.041015625" />
                         <Text layoutX="709.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu nhập" wrappingWidth="60.041015625" />
                         <Text layoutX="533.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu chi" wrappingWidth="60.041015625" />
-                        <Button layoutX="738.0" layoutY="25.0" mnemonicParsing="false" text="Hàng năm" />
-                        <Button layoutX="638.0" layoutY="25.0" mnemonicParsing="false" text="Hàng tháng" />
-                        <Separator layoutX="717.0" layoutY="19.0" orientation="VERTICAL" prefHeight="37.0" prefWidth="27.0" />
+                        <Button fx:id="statsBtn" layoutX="593.0" layoutY="9.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" text="Hàng tháng" wrapText="true" />
 
                             </children>
                         </AnchorPane>

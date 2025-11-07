@@ -1,5 +1,7 @@
 package org.example.project2ver2.controller;
 
+import javafx.animation.PauseTransition;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.project2ver2.model.Transaction;
 import org.example.project2ver2.repository.TransactionRepository;
 import org.example.project2ver2.repository.CategoryRepository;
@@ -20,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,13 +34,19 @@ public class AppController implements Initializable, TransactionUpdateListener  
     private LocalDate currentSelectedDate = LocalDate.now();
 
     @FXML private TextField inputMoneyField;
+    @FXML private TextField searchField;
+
     @FXML private DatePicker inputDateField;
     @FXML private TextArea inputNoteField;
     @FXML private ComboBox<String> categoryCombo;
-    @FXML private Button expenseBtn, inputDataBtn;
+    @FXML private Button expenseBtn;
+    @FXML private Button statsBtn;
+    @FXML private Button inputDataBtn;
+
 
     @FXML private ComboBox<Integer> monthComboBox;
-    @FXML private ComboBox<Integer> yearComboBox;
+    @FXML private ComboBox<Integer> yearComboBox, statsMonthComboBox, statsYearComboBox;
+
     @FXML private GridPane calendarGrid;
     @FXML private ScrollPane transcContainer;
     @FXML private Label incomeLabel, expenseLabel, totalLabel;
@@ -46,6 +56,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
     @FXML private javafx.scene.chart.BarChart<String, Number> barChart;
 
     private boolean isExpense = true;
+    private boolean isMonthlyChart = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,10 +69,22 @@ public class AppController implements Initializable, TransactionUpdateListener  
 
         // init month/year
         int curYear = LocalDate.now().getYear();
-        for (int m=1;m<=12;m++) monthComboBox.getItems().add(m);
-        for (int y = curYear-5; y <= curYear+1; y++) yearComboBox.getItems().add(y);
+        for (int m=1;m<=12;m++) {
+            monthComboBox.getItems().add(m);
+            statsMonthComboBox.getItems().add(m);
+        }
+        for (int y = curYear-5; y <= curYear+1; y++) {
+            yearComboBox.getItems().add(y);
+            statsYearComboBox.getItems().add(y);
+        }
         monthComboBox.setValue(LocalDate.now().getMonthValue());
         yearComboBox.setValue(curYear);
+
+        statsMonthComboBox.setValue(LocalDate.now().getMonthValue());
+        statsYearComboBox.setValue(curYear);
+
+        inputDataBtn.setOnAction(e-> createTransaction());
+
 
         monthComboBox.setOnAction(e -> {
             monthlySummary();
@@ -72,13 +95,37 @@ public class AppController implements Initializable, TransactionUpdateListener  
             refreshCalendar();
         });
 
+
+        statsYearComboBox.setOnAction(e-> updateCharts());
+        statsMonthComboBox.setOnAction(e-> updateCharts());
+
+        barChart.setVisible(false);
+        statsBtn.setOnAction(e-> toggleMonthYearInStats());
+
         monthlySummary();
         refreshCalendar();
         updateCharts();
 
+        PauseTransition pause = new PauseTransition(Duration.millis(300));
+        searchField.textProperty().addListener((obs, oldValue, newValue) -> {
+            pause.setOnFinished(e -> {
+                List<Transaction> result;
+                String keyword = newValue.trim();
+
+                if (keyword.isEmpty()) {
+                    // Nếu người dùng xóa hết chữ → trở lại hiển thị theo ngày đang chọn
+                    result = repo.findByDate(currentUserId, currentSelectedDate);
+                } else {
+                    result = repo.searchByKey(currentUserId, keyword);
+                }
+
+                showSearchResults(result);
+            });
+            pause.playFromStart();
+        });
+
 
     }
-
 
 
     private void refreshCategories(){
@@ -98,6 +145,17 @@ public class AppController implements Initializable, TransactionUpdateListener  
         expenseBtn.setText(isExpense ? "Chi" : "Thu");
         refreshCategories();
     }
+
+    @FXML
+    private void toggleMonthYearInStats(){
+        isMonthlyChart = !isMonthlyChart;
+        statsBtn.setText(isMonthlyChart ? "Hàng tháng" : "Hàng năm");
+        barChart.setVisible(!isMonthlyChart);
+        statsMonthComboBox.setDisable(!isMonthlyChart);
+
+        updateCharts();
+    }
+
 
     @FXML
     private void createTransaction(){
@@ -121,7 +179,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
             yearComboBox.setValue(ld.getYear());
             refreshCalendar(); // vẽ lại calendar
             updateCharts(); // cập nhật biểu đồ
-            showTransactionsOfDay(ld); // ✅ cập nhật danh sách giao dịch trong ngày
+            showTransactions(ld); // ✅ cập nhật danh sách giao dịch trong ngày
             monthlySummary();
 
         } catch (Exception ex) {
@@ -214,7 +272,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
             }
 
             final LocalDate dateForHandler = date;
-            cellBox.setOnMouseClicked(e -> showTransactionsOfDay(dateForHandler));
+            cellBox.setOnMouseClicked(e -> showTransactions(dateForHandler));
 
             if (isCurrent) {
                 cellBox.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0;");
@@ -223,35 +281,162 @@ public class AppController implements Initializable, TransactionUpdateListener  
                 dayLabel.setStyle("-fx-text-fill: #999;");
             }
 
+            if (date.equals(LocalDate.now())) {
+                cellBox.setStyle("-fx-background-color: #cdeffd; -fx-border-color: #00aaff;");
+            }
+
+            cellBox.setOnMouseEntered(e -> cellBox.setStyle("-fx-background-color: #e6f7ff;"));
+            cellBox.setOnMouseExited(e -> {
+                if (isCurrent) {
+                    cellBox.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0;");
+                }
+                else {
+                    cellBox.setStyle("-fx-background-color: #f5f5f5; -fx-text-fill: #999;");
+                }
+                if (date.equals(LocalDate.now())) {
+                    cellBox.setStyle("-fx-background-color: #cdeffd; -fx-border-color: #00aaff;");
+                }
+            });
+
             calendarGrid.add(cellBox, col, row);
         }
     }
 
-    private void showTransactionsOfDay(LocalDate date) {
-        currentSelectedDate = date; // 🟢 lưu ngày đang xem
+
+
+    private void showTransactions(LocalDate date) {
+        currentSelectedDate = date;
         List<Transaction> list = repo.findByDate(currentUserId, date);
-        VBox box = new VBox(6);
-        box.setPadding(new Insets(8));
+        renderTransactionList(list);
+    }
+
+    private void showSearchResults(List<Transaction> list) {
+        renderTransactionList(list);
+    }
+
+
+    private void renderTransactionList(List<Transaction> list) {
+        VBox box = new VBox(12);
+        box.setPadding(new Insets(10));
+        box.setStyle("-fx-background-color: #f4f6f8;");
+        box.setFillWidth(true);
+
         if (list.isEmpty()) {
-            box.getChildren().add(new Label("Không có giao dịch"));
+            Label noData = new Label("Không có giao dịch nào.");
+            noData.setStyle("-fx-font-size: 14px; -fx-text-fill: #666;");
+            noData.setAlignment(Pos.CENTER);
+            noData.setMaxWidth(Double.MAX_VALUE);
+            box.getChildren().add(noData);
         } else {
-            for (Transaction t : list) {
-                Label label = new Label(String.format("%s | %s | %,.0f đ | %s",
-                        t.getType(), t.getCategory(), Math.abs(t.getAmount()), t.getNote()));
-                label.setMaxWidth(Double.MAX_VALUE);
-                label.setWrapText(true);
-                Button detail = new Button(">");
-                detail.setOnAction(e -> openTransactionDetailWindow(t));
-                HBox row = new HBox(label, detail);
-                HBox.setHgrow(label, Priority.ALWAYS);
-                row.setAlignment(Pos.CENTER_LEFT);
-                row.setSpacing(8);
-                row.setStyle("-fx-padding:6; -fx-background-color: #fff;");
-                box.getChildren().add(row);
+            // 🔽 Gom theo ngày (mới nhất trước)
+            Map<LocalDate, List<Transaction>> grouped =
+                    list.stream()
+                            .sorted(Comparator.comparing(Transaction::getCreatedAt).reversed())
+                            .collect(Collectors.groupingBy(
+                                    t -> t.getCreatedAt().toLocalDate(),
+                                    LinkedHashMap::new,
+                                    Collectors.toList()
+                            ));
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            for (Map.Entry<LocalDate, List<Transaction>> entry : grouped.entrySet()) {
+                LocalDate date = entry.getKey();
+                List<Transaction> dayList = entry.getValue();
+
+                // 📅 Nhãn ngày
+                Label dateLabel = new Label("📅 " + df.format(date));
+                dateLabel.setStyle("""
+                -fx-font-size: 15px;
+                -fx-font-weight: bold;
+                -fx-background-color: #dfe6e9;
+                -fx-text-fill: #2d3436;
+                -fx-padding: 6 10 6 10;
+                -fx-background-radius: 6;
+            """);
+                dateLabel.setMaxWidth(Double.MAX_VALUE);
+                dateLabel.setAlignment(Pos.CENTER_LEFT);
+
+                VBox dayBox = new VBox(6);
+                dayBox.setFillWidth(true);
+
+                for (Transaction t : dayList) {
+                    boolean isIncome = "Thu".equalsIgnoreCase(t.getType());
+
+                    // 🟢 Loại giao dịch
+                    Label typeLabel = new Label(isIncome ? "Thu" : "Chi");
+                    typeLabel.setStyle(String.format("""
+                        -fx-font-weight: bold;
+                        -fx-text-fill: %s;
+                        -fx-font-size: 13px;
+                        -fx-min-width: 40;
+                    """, isIncome ? "#27ae60" : "#c0392b"));
+
+                    // 📁 Danh mục + ghi chú (bên trái)
+                    VBox leftBox = new VBox(2);
+                    Label category = new Label(t.getCategory());
+                    category.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+                    Label note = new Label(t.getNote() == null ? "" : t.getNote());
+                    note.setStyle("-fx-font-size: 12px; -fx-text-fill: #666;");
+                    note.setWrapText(true);
+
+                    leftBox.getChildren().addAll(category, note);
+
+                    // 💰 Số tiền (bên phải)
+                    Label amount = new Label(String.format("%,.0f đ", Math.abs(t.getAmount())));
+                    amount.setStyle(String.format("""
+                        -fx-font-size: 14px;
+                        -fx-font-weight: bold;
+                        -fx-text-fill: %s;
+                    """, isIncome ? "#2ecc71" : "#e74c3c"));
+                    amount.setAlignment(Pos.CENTER_RIGHT);
+
+                    // 🔘 Nút xem chi tiết
+                    Button detail = new Button("Chi tiết");
+                    detail.setOnAction(e -> openTransactionDetailWindow(t));
+                    detail.setStyle("""
+                        -fx-background-color: transparent;
+                        -fx-text-fill: #3498db;
+                        -fx-underline: true;
+                        -fx-cursor: hand;
+                        -fx-font-size: 12px;
+                    """);
+
+                    // 🔹 HBox chứa số tiền + nút
+                    VBox rightBox = new VBox(2, amount, detail);
+                    rightBox.setAlignment(Pos.CENTER_RIGHT);
+
+                    // 🧱 HBox chính của dòng giao dịch
+                    HBox row = new HBox(10, typeLabel, leftBox, rightBox);
+                    row.setAlignment(Pos.CENTER_LEFT);
+                    row.setStyle(String.format("""
+                        -fx-background-color: %s;
+                        -fx-background-radius: 8;
+                        -fx-padding: 8 12 8 12;
+                    """, isIncome ? "#ecf9f1" : "#fdecea"));
+                    row.setMaxWidth(Double.MAX_VALUE);
+
+                    // ⚖️ Phân bố không gian linh hoạt
+                    HBox.setHgrow(leftBox, Priority.ALWAYS);
+                    HBox.setHgrow(rightBox, Priority.SOMETIMES);
+
+                    dayBox.getChildren().add(row);
+                }
+
+                VBox group = new VBox(5, dateLabel, dayBox);
+                group.setMaxWidth(Double.MAX_VALUE);
+                box.getChildren().add(group);
             }
         }
+        transcContainer.setFitToWidth(true);
         transcContainer.setContent(box);
     }
+
+
+
+
+
 
     private void openTransactionDetailWindow(Transaction t) {
         try {
@@ -280,7 +465,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
         refreshCalendar();
         updateCharts();
         monthlySummary();
-        showTransactionsOfDay(currentSelectedDate);
+        showTransactions(currentSelectedDate);
     }
 
     @Override
@@ -288,7 +473,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
         refreshCalendar();
         updateCharts();
         monthlySummary();
-        showTransactionsOfDay(currentSelectedDate);
+        showTransactions(currentSelectedDate);
     }
 
 
@@ -314,10 +499,12 @@ public class AppController implements Initializable, TransactionUpdateListener  
 
     private void updateCharts() {
 
-        List<Transaction> all = repo.findAll(currentUserId);
+        List<Transaction> annualData = repo.findByYear(currentUserId,statsYearComboBox.getValue());
+        List<Transaction> monthlyData = repo.findByMonth(currentUserId, statsMonthComboBox.getValue(), statsYearComboBox.getValue());
 
 
-        Map<String, Double> revenueCate = all.stream()
+
+        Map<String, Double> revenueCate = (isMonthlyChart?monthlyData: annualData).stream()
                 .filter(t -> "Thu".equalsIgnoreCase(t.getType()))
                 .collect(Collectors.groupingBy(
                         Transaction::getCategory,
@@ -330,7 +517,7 @@ public class AppController implements Initializable, TransactionUpdateListener  
 
 
         // ==== 2. Biểu đồ tròn (PieChart) theo danh mục Chi ====
-        Map<String, Double> expenseCate = all.stream()
+        Map<String, Double> expenseCate = (isMonthlyChart?monthlyData: annualData).stream()
                 .filter(t -> "Chi".equalsIgnoreCase(t.getType()))
                 .collect(Collectors.groupingBy(
                         Transaction::getCategory,
@@ -352,20 +539,20 @@ public class AppController implements Initializable, TransactionUpdateListener  
         expenseSeries.setName("Chi");
 
         // Lọc dữ liệu của năm hiện tại
-        int currentYear = LocalDate.now().getYear();
-        List<Transaction> yearData = all.stream()
-                .filter(t -> t.getCreatedAt() != null && t.getCreatedAt().getYear() == currentYear)
-                .toList();
+//        int currentYear = LocalDate.now().getYear();
+//        List<Transaction> yearData = annualData.stream()
+//                .filter(t -> t.getCreatedAt() != null && t.getCreatedAt().getYear() == currentYear)
+//                .toList();
 
         for (int m = 1; m <= 12; m++) {
             final int month = m;
-            double thu = yearData.stream()
+            double thu = annualData.stream()
                     .filter(t -> "Thu".equalsIgnoreCase(t.getType()) &&
                             t.getCreatedAt().getMonthValue() == month)
                     .mapToDouble(Transaction::getAmount)
                     .sum();
 
-            double chi = yearData.stream()
+            double chi = annualData.stream()
                     .filter(t -> "Chi".equalsIgnoreCase(t.getType()) &&
                             t.getCreatedAt().getMonthValue() == month)
                     .mapToDouble(Transaction::getAmount)
