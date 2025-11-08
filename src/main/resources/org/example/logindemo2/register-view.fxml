@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.logindemo2.RegisterController"
+           stylesheets="@css/style.css">
+    <VBox alignment="CENTER" spacing="15" styleClass="auth-container">
+        <Label text="Create Account" styleClass="title"/>
+        <TextField fx:id="usernameField" promptText="Username"/>
+        <PasswordField fx:id="passwordField" promptText="Password"/>
+        <PasswordField fx:id="confirmField" promptText="Confirm Password"/>
+        <Button text="Register" onAction="#onRegister" styleClass="btn-primary"/>
+        <Hyperlink text="Already have an account? Login" onAction="#switchToLogin"/>
+        <Label fx:id="messageLabel" styleClass="message"/>
+    </VBox>
+</StackPane>

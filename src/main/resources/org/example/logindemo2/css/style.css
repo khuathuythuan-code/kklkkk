@@ -1,0 +1,40 @@
+.root {
+    -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2c2c54);
+    -fx-text-fill: white;
+}
+
+.auth-container {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-padding: 40;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10,0,0,5);
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+}
+
+.text-field, .password-field {
+    -fx-pref-width: 240;
+    -fx-background-radius: 6;
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-text-fill: white;
+}
+
+.btn-primary {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-pref-width: 240;
+}
+.btn-primary:hover {
+    -fx-background-color: #837DFF;
+}
+
+.message {
+    -fx-text-fill: #FFD479;
+    -fx-font-size: 13px;
+}
