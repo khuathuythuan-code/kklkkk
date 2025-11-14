@@ -1,0 +1,95 @@
+/* ======= Nền chung ======= */
+#mainPane {
+    -fx-background-color: #121212;
+    -fx-font-family: "Segoe UI";
+}
+
+/* ======= Nút toggle trên cùng ======= */
+.toggle-button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 6 20;
+    -fx-cursor: hand;
+    -fx-background-insets: 0;
+    -fx-transition: all 0.3s ease;
+}
+
+/* Toggle khi được chọn */
+.toggle-button:selected {
+    -fx-background-color: #2ecc71;
+}
+
+/* Hover cho toggle */
+.toggle-button:hover {
+    -fx-opacity: 0.85;
+}
+
+/* ======= Nút thông tin giao dịch ======= */
+.button {
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+/* Nút trung tính (màu xám) */
+.button {
+    -fx-background-color: #2c2c2c;
+}
+
+/* Hover cho nút trung tính */
+.button:hover {
+    -fx-background-color: #3b3b3b;
+}
+
+/* ======= Nút danh mục gợi ý nhanh ======= */
+.button-quick {
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-pref-width: 60;
+    -fx-pref-height: 60;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.button-quick:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-opacity: 0.9;
+}
+
+/* ======= Nút lưu ======= */
+.button-save {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-background-radius: 10;
+    -fx-pref-width: 400;
+    -fx-pref-height: 50;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.button-save:hover {
+    -fx-background-color: #27ae60;
+}
+
+/* ======= Menu dưới cùng ======= */
+.bottom-bar {
+    -fx-background-color: #1e1e1e;
+    -fx-padding: 15;
+}
+
+.bottom-bar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+}
+
+.bottom-bar .button:hover {
+    -fx-text-fill: #2ecc71;
+}

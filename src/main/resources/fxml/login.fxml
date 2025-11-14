@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';">
+
+    <VBox alignment="CENTER" spacing="35">
+
+        <!-- Tiêu đề -->
+        <Label text="Sổ Thu Chi"
+               style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;"/>
+
+        <!-- Form chính -->
+        <VBox alignment="CENTER" spacing="20"
+              style="-fx-background-color: #1E1E1E;
+                     -fx-padding: 30 40 35 40;
+                     -fx-background-radius: 12;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0, 0, 2);
+                     -fx-min-width: 380;
+                     -fx-max-width: 420;">
+
+            <!-- Tên đăng nhập -->
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Tên đăng nhập" style="-fx-text-fill: #cccccc;"/>
+                <TextField promptText="Nhập tên đăng nhập"
+                           style="-fx-background-color: #2C2C2C;
+                                  -fx-text-fill: white;
+                                  -fx-background-radius: 8;
+                                  -fx-border-color: transparent;
+                                  -fx-pref-height: 34;"/>
+            </VBox>
+
+            <!-- Mật khẩu -->
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Mật khẩu" style="-fx-text-fill: #cccccc;"/>
+                <PasswordField promptText="Nhập mật khẩu"
+                               style="-fx-background-color: #2C2C2C;
+                                      -fx-text-fill: white;
+                                      -fx-background-radius: 8;
+                                      -fx-border-color: transparent;
+                                      -fx-pref-height: 34;"/>
+            </VBox>
+
+            <!-- Nút đăng nhập -->
+            <VBox spacing="12" alignment="CENTER">
+                <Button text="Đăng nhập"
+                        style="-fx-background-color: #2ecc71;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;
+                               -fx-pref-width: 180;
+                               -fx-pref-height: 38;"/>
+                <Button text="Đăng ký tài khoản"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #2ecc71;
+                               -fx-font-weight: bold;
+                               -fx-cursor: hand;"/>
+            </VBox>
+        </VBox>
+
+        <!-- Ngôn ngữ -->
+        <Button text="🌐 Ngôn ngữ / Language"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #888;
+                       -fx-border-color: #333;
+                       -fx-border-radius: 8;
+                       -fx-background-radius: 8;
+                       -fx-pref-width: 180;
+                       -fx-pref-height: 30;"/>
+    </VBox>
+</StackPane>

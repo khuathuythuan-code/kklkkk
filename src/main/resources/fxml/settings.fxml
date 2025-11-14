@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';">
+
+    <!-- ======= TOP ======= -->
+    <top>
+        <HBox alignment="CENTER_LEFT" style="-fx-padding: 20 40;">
+            <Label text="Cài đặt"
+                   style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <!-- ======= CENTER ======= -->
+    <center>
+        <VBox spacing="40" alignment="TOP_CENTER"
+              style="-fx-padding: 40 40 0 40;"> <!-- thêm padding-top để kéo cụm tùy chọn lên -->
+
+            <!-- ===== CỤM TÙY CHỌN ===== -->
+            <VBox spacing="15" alignment="CENTER" prefWidth="400">
+
+                <!-- Chế độ giao diện -->
+                <HBox alignment="CENTER_LEFT" spacing="10"
+                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                    <Label text="Chế độ giao diện (sáng / tối)"
+                           style="-fx-text-fill: white; -fx-font-size: 14;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <CheckBox fx:id="toggleTheme" style="-fx-scale-x: 1.2; -fx-scale-y: 1.2;" />
+                </HBox>
+
+                <!-- Ngôn ngữ -->
+                <HBox alignment="CENTER_LEFT" spacing="10"
+                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                    <Label text="Ngôn ngữ"
+                           style="-fx-text-fill: white; -fx-font-size: 14;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnChangeLanguage" text=">"
+                            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 16;" />
+                </HBox>
+
+                <!-- Đổi mật khẩu -->
+                <HBox alignment="CENTER_LEFT" spacing="10"
+                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                    <Label text="Đổi mật khẩu"
+                           style="-fx-text-fill: white; -fx-font-size: 14;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnChangePassword" text=">"
+                            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 16;" />
+                </HBox>
+            </VBox>
+
+            <!-- ===== NÚT ĐĂNG XUẤT ===== -->
+            <Button fx:id="btnLogout" text="ĐĂNG XUẤT"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;
+                           -fx-font-size: 14; -fx-background-radius: 10;
+                           -fx-pref-width: 300; -fx-pref-height: 40; -fx-cursor: hand;" />
+        </VBox>
+    </center>
+
+    <!-- ======= BOTTOM MENU ======= -->
+    <bottom>
+        <HBox spacing="60" alignment="CENTER"
+              style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+            <Button fx:id="btnHome" text="Trang chủ" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+            <Button fx:id="btnHistory" text="Lịch sử" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+            <Button fx:id="btnReport" text="Báo cáo" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+            <Button fx:id="btnSettings" text="Cài đặt" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

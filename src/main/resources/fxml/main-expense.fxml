@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainPane"
+            style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';">
+
+    <!-- ======= TOP (Thanh lựa chọn + ProgressBox + Avatar) ======= -->
+    <top>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 20 40;">
+            <!-- Hai nút toggle -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ToggleButton text="Chi tiêu"
+                              style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;
+                                     -fx-background-radius: 20; -fx-padding: 6 20;" />
+                <ToggleButton text="Thu nhập"
+                              style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-font-weight: bold;
+                                     -fx-background-radius: 20; -fx-padding: 6 20;" />
+            </HBox>
+
+            <!-- Phần fill giữa -->
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <!-- Box nhỏ góc phải (Tiết kiệm + progress) -->
+            <HBox spacing="8" alignment="CENTER_RIGHT"
+                  style="-fx-background-color: #1E1E1E;
+                         -fx-background-radius: 10;
+                         -fx-padding: 6 10;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0, 0, 2);">
+                <Button text="💰" style="-fx-background-color: #2ecc71;
+                                         -fx-background-radius: 6;
+                                         -fx-pref-width: 34;
+                                         -fx-pref-height: 34;
+                                         -fx-text-fill: white;
+                                         -fx-font-weight: bold;
+                                         -fx-font-size: 14;"/>
+                <ProgressBar progress="0.6"
+                             style="-fx-accent: #2ecc71;
+                                    -fx-pref-width: 100;
+                                    -fx-pref-height: 10;"/>
+                <Label text="60%" style="-fx-text-fill: white; -fx-font-size: 12;"/>
+            </HBox>
+
+            <!-- Avatar -->
+            <ImageView fitWidth="40" fitHeight="40"
+                       style="-fx-background-color: gray;
+                              -fx-background-radius: 20;
+                              -fx-border-radius: 20;"/>
+        </HBox>
+    </top>
+
+    <!-- ======= CENTER (Căn giữa thật sự) ======= -->
+    <center>
+        <StackPane alignment="CENTER">
+            <VBox spacing="25" alignment="CENTER">
+                <!-- Số tiền -->
+                <Label text="4,500,000"
+                       style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;"/>
+
+                <!-- Thông tin giao dịch -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Thông tin giao dịch"
+                           style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                    <GridPane hgap="20" vgap="10" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER"/>
+                            <ColumnConstraints halignment="CENTER"/>
+                        </columnConstraints>
+
+                        <HBox alignment="CENTER">
+                            <Button text="🍕 Danh mục: Ăn uống"
+                                    style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-pref-width: 300; -fx-padding: 10 15;"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER" GridPane.columnIndex="1">
+                            <Button text="📅 Ngày: Hôm nay"
+                                    style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-pref-width: 300; -fx-padding: 10 15;"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER" GridPane.rowIndex="1">
+                            <Button text="👛 Tài khoản: Tiền mặt"
+                                    style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-pref-width: 300; -fx-padding: 10 15;"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Button text="✎ Ghi chú: Bữa trưa với bạn bè"
+                                    style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-pref-width: 300; -fx-padding: 10 15;"/>
+                        </HBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- Danh mục gợi ý nhanh -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Danh mục gợi ý nhanh"
+                           style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <Button text="🍔" style="-fx-background-color: #27ae60; -fx-font-size: 18; -fx-text-fill: white; -fx-background-radius: 10; -fx-pref-width: 60; -fx-pref-height: 60;"/>
+                        <Button text="🛒" style="-fx-background-color: #3498db; -fx-font-size: 18; -fx-text-fill: white; -fx-background-radius: 10; -fx-pref-width: 60; -fx-pref-height: 60;"/>
+                        <Button text="🏠" style="-fx-background-color: #e74c3c; -fx-font-size: 18; -fx-text-fill: white; -fx-background-radius: 10; -fx-pref-width: 60; -fx-pref-height: 60;"/>
+                        <Button text="🚗" style="-fx-background-color: #e67e22; -fx-font-size: 18; -fx-text-fill: white; -fx-background-radius: 10; -fx-pref-width: 60; -fx-pref-height: 60;"/>
+                        <Button text="..." style="-fx-background-color: #555; -fx-font-size: 18; -fx-text-fill: white; -fx-background-radius: 10; -fx-pref-width: 60; -fx-pref-height: 60;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Nút lưu -->
+                <Button text="LƯU GIAO DỊCH"
+                        style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16; -fx-background-radius: 10; -fx-pref-width: 400; -fx-pref-height: 50; -fx-cursor: hand;"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <!-- ======= BOTTOM (Thanh menu) ======= -->
+    <bottom>
+        <HBox spacing="60" alignment="CENTER"
+              style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+            <Button text="Trang chủ" style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+            <Button text="Lịch sử" style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+            <Button text="Báo cáo" style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+            <Button text="Cài đặt" style="-fx-background-color: transparent; -fx-text-fill: white;"/>
+        </HBox>
+    </bottom>
+</BorderPane>
