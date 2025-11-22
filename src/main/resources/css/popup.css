@@ -1,0 +1,103 @@
+/* =========================
+   Card Container
+   ========================= */
+.vbox-card {
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 12;
+    -fx-padding: 25;
+    -fx-spacing: 20;
+}
+
+/* =========================
+   Title
+   ========================= */
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* =========================
+   Save Button
+   ========================= */
+.button-save {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 20;
+}
+
+.button-save:hover {
+    -fx-background-color: #45a049;
+}
+
+/* =========================
+   Slider giới hạn chi tiêu
+   ========================= */
+.slider-limit {
+    -fx-control-inner-background: #2b2b2b;
+    -fx-padding: 5;
+}
+
+.slider-limit .track {
+    -fx-background-color: #444444;
+    -fx-background-insets: 0.25;
+    -fx-background-radius: 5;
+}
+
+.slider-limit .thumb {
+    -fx-background-color: #2ecc71;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0.25, 0, 2);
+}
+
+.slider-limit .tick-label {
+    -fx-text-fill: #bbbbbb;
+    -fx-font-size: 11px;
+}
+
+/* =========================
+   TextField giới hạn chi tiêu
+   ========================= */
+.textfield-limit {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 8;
+    -fx-border-color: #2ecc71;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.5;
+}
+
+.textfield-limit:hover {
+    -fx-border-color: #27ae60;
+}
+
+/* =========================
+   Progress
+   ========================= */
+.progress-bar-main {
+    -fx-accent: #2ecc71;
+}
+
+.label-progress-title {
+    -fx-text-fill: #dddddd;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.label-item-value {
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 13px;
+}
+
+/* =========================
+   Status Label
+   ========================= */
+.status-label {
+    -fx-text-fill: #2ecc71;
+    -fx-font-weight: bold;
+}
+

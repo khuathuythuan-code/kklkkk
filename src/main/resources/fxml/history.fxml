@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            style="-fx-background-color: #121212;-fx-padding: 50 0 0 0;"
+            fx:controller="com.ExpenseTracker.controller.HistoryController">
+
+    <!-- TOP: Tháng - Năm -->
+    <top>
+        <VBox style="-fx-padding: 0; -fx-background-color: transparent;">
+
+            <HBox spacing="15" alignment="CENTER_LEFT"
+                  style="-fx-padding: 0 25 5 25;">   <!-- Cực sát trên -->
+
+                <Text text="Tháng" style="-fx-fill: white;" />
+                <ComboBox fx:id="monthComboBox" prefWidth="110"/>
+
+                <Text text="Năm" style="-fx-fill: white;" />
+                <ComboBox fx:id="yearComboBox" prefWidth="130"/>
+
+                <Pane HBox.hgrow="ALWAYS"/>
+
+            </HBox>
+
+        </VBox>
+    </top>
+
+
+
+    <!-- CENTER -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 0 30 30 30;">
+
+            <GridPane fx:id="calendarGrid" hgap="4" vgap="4"
+                      prefHeight="320" />
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Text text="Tìm giao dịch:" style="-fx-fill:white;" />
+                <TextField fx:id="searchField" prefWidth="220"/>
+            </HBox>
+
+            <ScrollPane fx:id="transcContainer"
+                        fitToWidth="true"
+                        style="-fx-background: transparent; -fx-padding: 0;"
+                        prefHeight="260"/>
+        </VBox>
+    </center>
+
+    <!-- ======= BOTTOM MENU ======= -->
+    <bottom>
+        <HBox spacing="60" alignment="CENTER"
+              style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+            <Button fx:id="btnHome" text="Trang chủ"
+                    style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    onAction="#changeScene"/>
+
+            <Button fx:id="btnHistory" text="Lịch sử"
+                    style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    onAction="#changeScene"/>
+
+            <Button fx:id="btnReport" text="Báo cáo"
+                    style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    onAction="#changeScene"/>
+
+            <Button fx:id="btnSettings" text="Cài đặt"
+                    style="-fx-background-color: transparent; -fx-text-fill: white;"
+                    onAction="#changeScene"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

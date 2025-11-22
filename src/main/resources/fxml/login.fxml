@@ -6,15 +6,14 @@
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.ExpenseTracker.controller.LoginController"
            style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';">
 
     <VBox alignment="CENTER" spacing="35">
 
-        <!-- Tiêu đề -->
         <Label text="Sổ Thu Chi"
                style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;"/>
 
-        <!-- Form chính -->
         <VBox alignment="CENTER" spacing="20"
               style="-fx-background-color: #1E1E1E;
                      -fx-padding: 30 40 35 40;
@@ -26,7 +25,8 @@
             <!-- Tên đăng nhập -->
             <VBox spacing="5" alignment="CENTER_LEFT">
                 <Label text="Tên đăng nhập" style="-fx-text-fill: #cccccc;"/>
-                <TextField promptText="Nhập tên đăng nhập"
+                <TextField fx:id="usernameField"
+                           promptText="Nhập tên đăng nhập"
                            style="-fx-background-color: #2C2C2C;
                                   -fx-text-fill: white;
                                   -fx-background-radius: 8;
@@ -37,7 +37,8 @@
             <!-- Mật khẩu -->
             <VBox spacing="5" alignment="CENTER_LEFT">
                 <Label text="Mật khẩu" style="-fx-text-fill: #cccccc;"/>
-                <PasswordField promptText="Nhập mật khẩu"
+                <PasswordField fx:id="passwordField"
+                               promptText="Nhập mật khẩu"
                                style="-fx-background-color: #2C2C2C;
                                       -fx-text-fill: white;
                                       -fx-background-radius: 8;
@@ -45,16 +46,22 @@
                                       -fx-pref-height: 34;"/>
             </VBox>
 
-            <!-- Nút đăng nhập -->
+            <!-- Buttons -->
             <VBox spacing="12" alignment="CENTER">
-                <Button text="Đăng nhập"
+
+                <Button fx:id="loginBtn"
+                        text="Đăng nhập"
+                        onAction="#onLogin"
                         style="-fx-background-color: #2ecc71;
                                -fx-text-fill: white;
                                -fx-font-weight: bold;
                                -fx-background-radius: 8;
                                -fx-pref-width: 180;
                                -fx-pref-height: 38;"/>
-                <Button text="Đăng ký tài khoản"
+
+                <Button fx:id="switchToRegisterBtn"
+                        text="Đăng ký tài khoản"
+                        onAction="#changeScene"
                         style="-fx-background-color: transparent;
                                -fx-text-fill: #2ecc71;
                                -fx-font-weight: bold;
@@ -62,7 +69,6 @@
             </VBox>
         </VBox>
 
-        <!-- Ngôn ngữ -->
         <Button text="🌐 Ngôn ngữ / Language"
                 style="-fx-background-color: transparent;
                        -fx-text-fill: #888;

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.ExpenseTracker.controller.CalculatorPopupController"
+            prefWidth="300" prefHeight="400"
+            stylesheets="@/css/calculator.css">
+    <padding>
+        <Insets top="30" right="10" bottom="10" left="30"/>
+    </padding>
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+
+        <TextField fx:id="display" editable="false" prefHeight="50" style="-fx-font-size: 20px;"/>
+
+        <GridPane hgap="5" vgap="5">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+            </columnConstraints>
+
+            <!-- Nút số -->
+            <Button text="7" onAction="#appendNumber" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Button text="8" onAction="#appendNumber" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Button text="9" onAction="#appendNumber" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <Button text="/" onAction="#appendOperator" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+            <Button text="4" onAction="#appendNumber" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Button text="5" onAction="#appendNumber" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Button text="6" onAction="#appendNumber" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <Button text="*" onAction="#appendOperator" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            <Button text="1" onAction="#appendNumber" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Button text="2" onAction="#appendNumber" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Button text="3" onAction="#appendNumber" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+            <Button text="-" onAction="#appendOperator" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+            <Button text="0" onAction="#appendNumber" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <Button text="." onAction="#appendDot" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Button text="C" onAction="#clearDisplay" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+            <Button text="+" onAction="#appendOperator" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        </GridPane>
+
+        <Button text="=" onAction="#calculate" prefWidth="5" style="-fx-font-size: 18px;"/>
+    </VBox>
+</AnchorPane>

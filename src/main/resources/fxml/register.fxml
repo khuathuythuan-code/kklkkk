@@ -7,7 +7,8 @@
 
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           style="-fx-background-color: #121212;">
+           style="-fx-background-color: #121212;"
+           fx:controller="com.ExpenseTracker.controller.RegisterController">
 
     <VBox alignment="CENTER" spacing="35">
 
@@ -27,43 +28,36 @@
 
             <center>
                 <VBox alignment="CENTER" spacing="18">
-
-                    <!-- Họ tên -->
+                    <!-- Tên đăng nhập -->
                     <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
-                        <Label text="Họ tên" style="-fx-text-fill: #cccccc;"/>
-                        <TextField promptText="Nhập họ tên"
+                        <Label text="Tên đăng nhập" style="-fx-text-fill: #cccccc;"/>
+                        <TextField fx:id="usernameField" promptText="Tạo tên đăng nhập"
                                    prefWidth="500"
                                    style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
                     </VBox>
 
-                    <!-- Ngày sinh -->
+                    <!-- Số điện thoại -->
                     <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
-                        <Label text="Ngày sinh" style="-fx-text-fill: #cccccc;"/>
-                        <DatePicker promptText="Chọn ngày sinh"
-                                    prefWidth="550"
-                                    style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
+                        <Label text="Số điện thoại" style="-fx-text-fill: #cccccc;"/>
+                        <TextField fx:id="phoneField" promptText="Nhập số điện thoại"
+                                   prefWidth="500"
+                                   style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
                     </VBox>
 
                     <!-- Email -->
                     <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
                         <Label text="Email" style="-fx-text-fill: #cccccc;"/>
-                        <TextField promptText="Nhập email"
+                        <TextField fx:id="emailField" promptText="Nhập email"
                                    prefWidth="500"
                                    style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
                     </VBox>
 
-                    <!-- Tên đăng nhập -->
-                    <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
-                        <Label text="Tên đăng nhập" style="-fx-text-fill: #cccccc;"/>
-                        <TextField promptText="Tạo tên đăng nhập"
-                                   prefWidth="500"
-                                   style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
-                    </VBox>
+
 
                     <!-- Mật khẩu -->
                     <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
                         <Label text="Mật khẩu" style="-fx-text-fill: #cccccc;"/>
-                        <PasswordField promptText="Nhập mật khẩu"
+                        <PasswordField fx:id="passwordField" promptText="Nhập mật khẩu"
                                        prefWidth="500"
                                        style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
                     </VBox>
@@ -71,12 +65,14 @@
                     <!-- Xác nhận mật khẩu -->
                     <VBox alignment="CENTER_LEFT" spacing="5" prefWidth="500">
                         <Label text="Xác nhận mật khẩu" style="-fx-text-fill: #cccccc;"/>
-                        <PasswordField promptText="Nhập lại mật khẩu"
+                        <PasswordField fx:id="confirmPasswordField" promptText="Nhập lại mật khẩu"
                                        prefWidth="500"
                                        style="-fx-background-color: #2C2C2C; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: transparent; -fx-pref-height: 34;"/>
                     </VBox>
 
-                    <!-- Nút đăng ký -->
+
+
+                    <!-- Nút đăng ký + Quay lại -->
                     <VBox alignment="CENTER" spacing="8">
                         <padding>
                             <Insets top="15" right="0" bottom="0" left="0"/>
@@ -87,9 +83,11 @@
                                        -fx-font-weight: bold;
                                        -fx-background-radius: 20;
                                        -fx-pref-width: 220;
-                                       -fx-pref-height: 38;"/>
+                                       -fx-pref-height: 38;"
+                                onAction="#handleRegister"/>
                         <Hyperlink text="← Quay lại đăng nhập"
-                                   style="-fx-text-fill: #1DB954; -fx-font-size: 13;"/>
+                                   style="-fx-text-fill: #1DB954; -fx-font-size: 13;"
+                                   onAction="#changeScene"/>
                     </VBox>
 
                 </VBox>
