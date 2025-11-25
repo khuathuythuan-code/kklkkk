@@ -19,8 +19,7 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
             Scene scene = new Scene(loader.load());
-//            scene.getStylesheets().add(getClass().getResource("/com/ExpenseTracker/css/main.css").toExternalForm());
-            primaryStage.setTitle("Expense Manager");
+//            Application.setUserAgentStylesheet(getClass().getResource("/css/main.css").toExternalForm());            primaryStage.setTitle("Expense Manager");
             primaryStage.setScene(scene);
             primaryStage.setWidth(900);
             primaryStage.setHeight(900);

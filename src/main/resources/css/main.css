@@ -1,152 +1,32 @@
-/* ===== Toggle Thu / Chi ===== */
+/* trạng thái mặc định */
 .toggle-type {
-    -fx-background-color: #333333;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-background-radius: 6;
-}
-
-/* ===== Progress Box góc phải ===== */
-.progress-box {
-    -fx-background-color: #1E1E1E;
-    -fx-background-radius: 10;
-    -fx-padding: 6 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0, 0, 2);
-    -fx-alignment: center;
-}
-
-/* Goal button */
-.goal-button {
     -fx-background-color: #2ecc71;
     -fx-background-radius: 6;
-    -fx-pref-width: 34;
-    -fx-pref-height: 34;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 14;
-}
-
-/* ProgressBar goal */
-.progress-bar {
-    -fx-accent: #2ecc71;
     -fx-pref-width: 100;
-    -fx-pref-height: 10;
-}
-
-/* Progress label */
-.progress-label {
-    -fx-text-fill: white;
-    -fx-font-size: 12;
-}
-
-/* Avatar */
-.avatar {
-    -fx-background-color: yellow;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-}
-
-/* Calculator button */
-.calc-button {
-    -fx-background-color: #27ae60;
-    -fx-font-size: 12;
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-    -fx-pref-width: 80;
-    -fx-pref-height: 50;
-}
-
-/* Input Money Button */
-.money-btn {
-    -fx-text-fill: white;
-    -fx-font-size: 40;
-    -fx-font-weight: bold;
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-/* GridPane Buttons */
-.grid-btn {
-    -fx-background-color: #2c2c2c;
-    -fx-text-fill: white;
-    -fx-pref-width: 300;
-    -fx-padding: 10 15;
-}
-
-/* TextArea note */
-.note-area {
-    -fx-background-color: #2c2c2c;
-    -fx-text-fill: #2c2c2c;
-    -fx-pref-width: 300;
-    -fx-pref-height: 300;
-    -fx-padding: 10 15;
-}
-
-/* Instant category buttons */
-.instant-btn {
-    -fx-font-size: 18;
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-    -fx-pref-width: 60;
-    -fx-pref-height: 60;
-}
-
-/* Income instant colors */
-.income-1 { -fx-background-color: #2ecc71; }
-.income-2 { -fx-background-color: #a368fc; }
-.income-3 { -fx-background-color: #f8a502; }
-.income-4 { -fx-background-color: #FFC107; }
-
-/* Expense instant colors */
-.expense-1 { -fx-background-color: #27ae60; }
-.expense-2 { -fx-background-color: #3498db; }
-.expense-3 { -fx-background-color: #e74c3c; }
-.expense-4 { -fx-background-color: #e67e22; }
-
-/* Edit category button */
-.edit-cat-btn {
-    -fx-background-color: #555;
-    -fx-font-size: 14;
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-    -fx-pref-width: 110;
-    -fx-pref-height: 60;
-}
-
-/* Save transaction button */
-.save-btn {
-    -fx-background-color: #2ecc71;
+    -fx-pref-height: 40;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 16;
-    -fx-background-radius: 10;
-    -fx-pref-width: 400;
-    -fx-pref-height: 50;
+    -fx-font-size: 16px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+    -fx-transition: all 0.2s ease;
 }
 
-/* Bottom menu buttons */
-.bottom-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
+/* Hover */
+.toggle-type:hover {
+    -fx-background-color: #27ae60;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 0, 3);
 }
 
-/* ===== Hidden / visible nodes ===== */
-.hidden-node {
-    -fx-opacity: 0;
-    -fx-max-height: 0;
-    -fx-max-width: 0;
-    -fx-min-height: 0;
-    -fx-min-width: 0;
-    -fx-padding: 0;
-    -fx-margin: 0;
+/* Pressed / Click */
+.toggle-type:pressed {
+    -fx-background-color: #1e8449;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-translate-y: 2;
 }
 
-.visible-node {
-    -fx-opacity: 1;
-    -fx-max-height: USE_COMPUTED_SIZE;
-    -fx-max-width: USE_COMPUTED_SIZE;
-    -fx-min-height: USE_COMPUTED_SIZE;
-    -fx-min-width: USE_COMPUTED_SIZE;
+/* Active */
+.toggle-type.active {
+    -fx-background-color: #16a085; /* Màu khi active */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 6, 0, 0, 3);
 }

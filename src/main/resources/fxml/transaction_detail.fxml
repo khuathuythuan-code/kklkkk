@@ -12,18 +12,18 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.ExpenseTracker.controller.TransactionDetailController">
     <children>
-        <Label layoutX="220" layoutY="10" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Chi tiết giao dịch" />
-        <Label layoutX="40" layoutY="60" text="Tiền:" />
+        <Label fx:id="titleLabel" layoutX="220" layoutY="10" style="-fx-font-size: 18; -fx-font-weight: bold;"  />
+        <Label fx:id="moneyLabel" layoutX="40" layoutY="60" />
         <TextField fx:id="inputMoneyField" layoutX="100" layoutY="56" prefWidth="160" />
-        <Label layoutX="280" layoutY="60" text="Ngày:" />
+        <Label fx:id="dateLabel" layoutX="280" layoutY="60" />
         <DatePicker fx:id="inputDateField" layoutX="330" layoutY="56" />
-        <Label layoutX="40" layoutY="110" text="Danh mục:" />
+        <Label fx:id="categoryLabel" layoutX="40" layoutY="110" />
         <TextField fx:id="categoryField" layoutX="100" layoutY="106" prefWidth="220" />
-        <Label layoutX="40" layoutY="160" text="Ghi chú:" />
+        <Label fx:id="noteLabel" layoutX="40" layoutY="160" />
         <TextArea fx:id="inputNoteField" layoutX="100" layoutY="156" prefHeight="120" prefWidth="420" />
 
-        <Button fx:id="updateBtn" layoutX="140" layoutY="300" onAction="#updateTransaction" prefWidth="100" text="Cập nhật" />
-        <Button fx:id="deleteBtn" layoutX="260" layoutY="300" onAction="#deleteTransaction" prefWidth="100" text="Xóa" />
-        <Button fx:id="closeBtn" layoutX="380" layoutY="300" onAction="#closeWindow" prefWidth="100" text="Đóng" />
+        <Button fx:id="updateBtn" layoutX="140" layoutY="300" onAction="#updateTransaction" prefWidth="100"  />
+        <Button fx:id="deleteBtn" layoutX="260" layoutY="300" onAction="#deleteTransaction" prefWidth="100"  />
+        <Button fx:id="closeBtn" layoutX="380" layoutY="300" onAction="#closeWindow" prefWidth="100"  />
     </children>
 </AnchorPane>

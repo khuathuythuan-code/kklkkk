@@ -4,13 +4,11 @@ import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.repository.UserRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.DBUtil;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import com.ExpenseTracker.utility.ValidatorUlti;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,16 +16,38 @@ import java.sql.Connection;
 
 public class LoginController {
 
+
     @FXML
     private TextField usernameField;
 
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private Label title,userNameLabel,passwordLabel;
 
+    @FXML private Button loginBtn,switchToRegisterBtn,languageBtn;
 
     private UserRepository userRepository = new UserRepository();
 
+    @FXML
+    private void initialize(){
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage); // default
+        bindTexts();
+
+        languageBtn.setOnAction(e -> {
+            // Đổi ngôn ngữ
+            Singleton.getInstance().currentLanguage =
+                    Singleton.getInstance().currentLanguage.equals("vi") ? "en" : "vi";
+
+            // Cập nhật locale
+            LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+            // Cập nhật text cho UI
+            bindTexts();
+        });
+
+    }
 
     @FXML
     private void onLogin(ActionEvent event) throws IOException {
@@ -75,5 +95,16 @@ public class LoginController {
 
         Stage stage = (Stage) btn.getScene().getWindow();
         ChangeSceneUtil.navigate(stage, fxml);
+    }
+
+
+    private void bindTexts(){
+        title.setText(LanguageManagerUlti.get("login.title"));
+        userNameLabel.setText(LanguageManagerUlti.get("login.username"));
+        passwordLabel.setText(LanguageManagerUlti.get("login.password"));
+        loginBtn.setText(LanguageManagerUlti.get("login.button.login"));
+        switchToRegisterBtn.setText(LanguageManagerUlti.get("login.button.signup"));
+        usernameField.setPromptText(LanguageManagerUlti.get("login.textfield.username.input"));
+        passwordField.setPromptText(LanguageManagerUlti.get("login.textfield.password.input"));
     }
 }

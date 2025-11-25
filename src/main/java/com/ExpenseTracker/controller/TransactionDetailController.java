@@ -1,9 +1,11 @@
 package com.ExpenseTracker.controller;
 
+import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.TransactionUpdateListener;
 import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,7 +24,11 @@ public class TransactionDetailController {
     @FXML private TextArea inputNoteField;
     @FXML private TextField categoryField;
     @FXML private Button updateBtn, deleteBtn, closeBtn;
-
+    @FXML private Label titleLabel;
+    @FXML private Label moneyLabel;
+    @FXML private Label dateLabel;
+    @FXML private Label categoryLabel;
+    @FXML private Label noteLabel;
 
     private Transaction transaction;
     private final TransactionRepository repo = new TransactionRepository();
@@ -31,6 +37,16 @@ public class TransactionDetailController {
     public void setListener(TransactionUpdateListener listener) {
         this.listener = listener;
     }
+
+    @FXML
+    private void initialize() {
+        // Cập nhật locale
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+        // Cập nhật text cho UI
+        bindTexts();
+    }
+
 
     public void setTransaction(Transaction t){
         this.transaction = t;
@@ -74,13 +90,21 @@ public class TransactionDetailController {
         closeWindow();
     }
 
-
-
-
-
     @FXML private void closeWindow(){
         Stage s = (Stage) closeBtn.getScene().getWindow();
         s.close();
+    }
+
+    private void bindTexts() {
+        titleLabel.setText(LanguageManagerUlti.get("TransactionDetail.label.title"));
+        moneyLabel.setText(LanguageManagerUlti.get("TransactionDetail.label.money"));
+        dateLabel.setText(LanguageManagerUlti.get("TransactionDetail.label.date"));
+        categoryLabel.setText(LanguageManagerUlti.get("TransactionDetail.label.category"));
+        noteLabel.setText(LanguageManagerUlti.get("TransactionDetail.label.note"));
+
+        updateBtn.setText(LanguageManagerUlti.get("TransactionDetail.button.update"));
+        deleteBtn.setText(LanguageManagerUlti.get("TransactionDetail.button.delete"));
+        closeBtn.setText(LanguageManagerUlti.get("TransactionDetail.button.close"));
     }
 
 }

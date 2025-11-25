@@ -11,7 +11,7 @@
 
     <VBox alignment="CENTER" spacing="35">
 
-        <Label text="Sổ Thu Chi"
+        <Label fx:id="title"
                style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;"/>
 
         <VBox alignment="CENTER" spacing="20"
@@ -24,9 +24,8 @@
 
             <!-- Tên đăng nhập -->
             <VBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="Tên đăng nhập" style="-fx-text-fill: #cccccc;"/>
+                <Label fx:id="userNameLabel" style="-fx-text-fill: #cccccc;"/>
                 <TextField fx:id="usernameField"
-                           promptText="Nhập tên đăng nhập"
                            style="-fx-background-color: #2C2C2C;
                                   -fx-text-fill: white;
                                   -fx-background-radius: 8;
@@ -36,9 +35,8 @@
 
             <!-- Mật khẩu -->
             <VBox spacing="5" alignment="CENTER_LEFT">
-                <Label text="Mật khẩu" style="-fx-text-fill: #cccccc;"/>
+                <Label fx:id="passwordLabel" style="-fx-text-fill: #cccccc;"/>
                 <PasswordField fx:id="passwordField"
-                               promptText="Nhập mật khẩu"
                                style="-fx-background-color: #2C2C2C;
                                       -fx-text-fill: white;
                                       -fx-background-radius: 8;
@@ -50,7 +48,6 @@
             <VBox spacing="12" alignment="CENTER">
 
                 <Button fx:id="loginBtn"
-                        text="Đăng nhập"
                         onAction="#onLogin"
                         style="-fx-background-color: #2ecc71;
                                -fx-text-fill: white;
@@ -60,7 +57,6 @@
                                -fx-pref-height: 38;"/>
 
                 <Button fx:id="switchToRegisterBtn"
-                        text="Đăng ký tài khoản"
                         onAction="#changeScene"
                         style="-fx-background-color: transparent;
                                -fx-text-fill: #2ecc71;
@@ -69,7 +65,7 @@
             </VBox>
         </VBox>
 
-        <Button text="🌐 Ngôn ngữ / Language"
+        <Button fx:id="languageBtn" text="🌐 Ngôn ngữ / Language"
                 style="-fx-background-color: transparent;
                        -fx-text-fill: #888;
                        -fx-border-color: #333;

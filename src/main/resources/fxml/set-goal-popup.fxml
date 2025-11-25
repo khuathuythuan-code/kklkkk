@@ -9,14 +9,15 @@
       fx:controller="com.ExpenseTracker.controller.SetGoalPopupController"
       spacing="20"
       styleClass="vbox-card"
-      stylesheets="@/css/popup.css">
+      stylesheets="@/css/popup.css"
+      >
 
     <padding>
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
     <!-- Title -->
-    <Label text="Đặt mục tiêu &amp; giới hạn chi tiêu" styleClass="title-label"/>
+    <Label fx:id="titleLabel" styleClass="title-label"/>
 
     <!-- Form Inputs -->
     <GridPane hgap="15" vgap="12">
@@ -25,16 +26,16 @@
             <ColumnConstraints prefWidth="250"/>
         </columnConstraints>
 
-        <Label text="Tên mục tiêu:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="goalNameField" promptText="Nhập tên mục tiêu" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label fx:id="goalLabel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="goalNameField"  GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <Label text="Số tiền mục tiêu (VND):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="goalAmountField" promptText="Ví dụ: 5,000,000" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label fx:id="goalAmountLabel"  GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="goalAmountField"  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Thời hạn:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label fx:id="goalDateLabel" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <DatePicker fx:id="goalDatePicker" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Giới hạn chi tiêu/tháng:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label fx:id="spendingLimitLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <VBox spacing="5" GridPane.rowIndex="3" GridPane.columnIndex="1">
             <Slider fx:id="spendingLimitSlider" min="0" max="10000000" blockIncrement="500000"
                     majorTickUnit="2000000" showTickMarks="true" showTickLabels="true"/>
@@ -43,30 +44,30 @@
     </GridPane>
 
     <!-- Save Button -->
-    <Button fx:id="saveButton" text="Lưu mục tiêu" styleClass="button-save" maxWidth="200" onAction="#saveGoal"/>
+    <Button fx:id="saveButton"  styleClass="button-save" maxWidth="200" onAction="#saveGoal"/>
 
     <!-- Current Goal Display -->
     <!-- Current Goal Display -->
     <VBox fx:id="currentGoalBox" spacing="10" visible="false">
         <Label fx:id="goalNameLabel" text="" styleClass="title-label"/>
-        <Label fx:id="targetDateLabel" text="Thời hạn: "/>
+        <Label fx:id="targetDateLabel" />
 
         <VBox spacing="5">
-            <Label text="Tiến độ mục tiêu:"/>
+            <Label fx:id="progressTitleLabel"/>
             <ProgressBar fx:id="progressBar" progress="0" prefWidth="400"/>
-            <Label fx:id="progressLabel" text="0 / 0 VND"/>
+            <Label fx:id="progressLabel" />
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Chi tiêu trong tháng:"/>
+            <Label fx:id="spendingTitleLabel"/>
             <ProgressBar fx:id="spendingProgressBar" progress="0" prefWidth="400"/>
-            <Label fx:id="spendingLabel" text="0 / 0 VND"/>
+            <Label fx:id="spendingLabel" />
         </VBox>
 
         <HBox spacing="10" fx:id="actionButtons">
-            <Button fx:id="editButton" text="Sửa"/>
-            <Button fx:id="deleteButton" text="Xóa"/>
-            <Button fx:id="completeButton" text="Hoàn thành" visible="false"/>
+            <Button fx:id="editButton" />
+            <Button fx:id="deleteButton" />
+            <Button fx:id="completeButton"  visible="false"/>
         </HBox>
 
         <Label fx:id="completedInfoLabel" text="" visible="false"/>
@@ -74,7 +75,7 @@
 
 
     <!-- Completed Goals List -->
-    <Label text="Mục tiêu đã hoàn thành:" styleClass="title-label"/>
+    <Label fx:id="completedGoalsTitle" styleClass="title-label"/>
     <ListView fx:id="completedGoalsList" prefHeight="200"/>
 
     <!-- Status -->

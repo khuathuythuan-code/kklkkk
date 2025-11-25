@@ -6,6 +6,7 @@ import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -35,7 +36,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML private Button catergoryBtn, dateBtn, methodBtn, noteBtn, inputMoneyBtn,
-            saveTransBtn, editCategoryBtn, goalSettingButton, incomeToggle, expenseToggle;
+            saveTransBtn, editCategoryBtn, goalSettingButton, incomeToggle, expenseToggle, calculator;
     @FXML private ComboBox<String> catergoryComboBox, methodComboBox;
     @FXML private DatePicker datePicker;
     @FXML private TextArea noteTextArea;
@@ -44,6 +45,10 @@ public class MainController implements Initializable {
     @FXML private ProgressBar goalSupervisorBar;
     @FXML private Label goalSupervisorLabel;
     @FXML private HBox instantExpenseList, instantIncomeList;
+    @FXML private Button btnHome;
+    @FXML private Button btnHistory;
+    @FXML private Button btnReport;
+    @FXML private Button btnSettings;
 
 
     private final TransactionRepository repo = new TransactionRepository();
@@ -54,10 +59,25 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // --- Thiết lập ngôn ngữ mặc định ---
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+        bindTexts();
 
         // --- Toggle Thu / Chi ---
-        incomeToggle.setOnAction(e -> { isExpense = false; refreshCategories(); });
-        expenseToggle.setOnAction(e -> { isExpense = true; refreshCategories(); });
+
+
+        expenseToggle.setOnAction(e -> {
+            expenseToggle.getStyleClass().add("active");
+            incomeToggle.getStyleClass().remove("active");
+            isExpense = true; refreshCategories();
+        });
+
+        incomeToggle.setOnAction(e -> {
+            incomeToggle.getStyleClass().add("active");
+            expenseToggle.getStyleClass().remove("active");
+            isExpense = false; refreshCategories();
+        });
+
 
         // --- Button <-> Field ---
         pairs = List.of(
@@ -79,11 +99,11 @@ public class MainController implements Initializable {
         });
 
         // --- Cập nhật button khi chọn / nhập ---
-        catergoryComboBox.setOnAction(e -> { updateButtonText(catergoryBtn, "Danh mục", catergoryComboBox.getValue()); resetAll(); });
-        methodComboBox.setOnAction(e -> { updateButtonText(methodBtn, "Phương thức", methodComboBox.getValue()); resetAll(); });
-        datePicker.setOnAction(e -> { updateButtonText(dateBtn, "Ngày", datePicker.getValue().toString()); resetAll(); });
-        noteTextArea.setOnKeyReleased(e -> updateButtonText(noteBtn, "Ghi chú", noteTextArea.getText()));
-        inputMoneyTextField.setOnKeyReleased(e -> updateButtonText(inputMoneyBtn, "Số tiền", inputMoneyTextField.getText()));
+        catergoryComboBox.setOnAction(e -> { updateButtonText(catergoryBtn, LanguageManagerUlti.get("main.button.category.select"), catergoryComboBox.getValue()); resetAll(); });
+        methodComboBox.setOnAction(e -> { updateButtonText(methodBtn, LanguageManagerUlti.get("main.button.method.select"), methodComboBox.getValue()); resetAll(); });
+        datePicker.setOnAction(e -> { updateButtonText(dateBtn, LanguageManagerUlti.get("main.button.date.select"), datePicker.getValue().toString()); resetAll(); });
+        noteTextArea.setOnKeyReleased(e -> updateButtonText(noteBtn, LanguageManagerUlti.get("main.button.note.select"), noteTextArea.getText()));
+        inputMoneyTextField.setOnKeyReleased(e -> updateButtonText(inputMoneyBtn,LanguageManagerUlti.get("currency.unit"), inputMoneyTextField.getText()));
 
         // --- Dialogs ---
         editCategoryBtn.setOnAction(this::openDialog);
@@ -118,20 +138,27 @@ public class MainController implements Initializable {
         GoalMonitor.updateProgressBarNow();
     }
 
+
     private void refreshCategories() {
         String typeCate = isExpense ? "chi" : "thu";
         List<String> cats = catRepo.findCategories(currentUserId, typeCate);
 
         if (cats.isEmpty()) {
-            // nếu là chi
-            if (isExpense) {
-                cats = Arrays.asList("Ăn uống", "Di chuyển", "Mua sắm", "Học tập", "Giải trí", "Khác");
-
-            } else {
-                cats = Arrays.asList("Lương", "Bất động sản", "Bán Hàng", "Giao hàng", "Trợ cấp", "Khác");
-
+            if(Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")){
+                if (isExpense) {
+                    cats = Arrays.asList("Ăn uống", "Di chuyển", "Mua sắm", "Học tập", "Giải trí", "Khác");
+                } else {
+                    cats = Arrays.asList("Lương", "Bất động sản", "Bán Hàng", "Giao hàng", "Trợ cấp", "Khác");
+                }
+            }else {
+                if (isExpense) {
+                    cats = Arrays.asList("Food & Drink", "Transport", "Shopping", "Study", "Entertainment", "Other");
+                } else {
+                    cats = Arrays.asList("Salary", "Real Estate", "Sales", "Delivery", "Allowance", "Other");
+                }
             }
         }
+
         if (isExpense) {
             instantIncomeList.setVisible(false);
             instantIncomeList.setManaged(false);
@@ -147,7 +174,6 @@ public class MainController implements Initializable {
         catergoryComboBox.getItems().setAll(cats);
         catergoryComboBox.setValue(cats.get(0));
     }
-
 
     private void clearInput() {
         inputMoneyTextField.clear();
@@ -173,29 +199,31 @@ public class MainController implements Initializable {
             notifySuccessfulTrans();
             clearInput();
         } catch (Exception ex) {
-            new Alert(Alert.AlertType.ERROR, "Số tiền không hợp lệ").showAndWait();
+            new Alert(Alert.AlertType.ERROR, LanguageManagerUlti.get("main.alert.invalid.amount")).showAndWait();
         }
     }
 
     private void notifySuccessfulTrans() {
-        inputMoneyBtn.setText("Lưu thành công");
+        inputMoneyBtn.setText(LanguageManagerUlti.get("main.button.transaction.saved"));
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(event -> inputMoneyBtn.setText("Số tiền: 0"));
+        pause.setOnFinished(event -> inputMoneyBtn.setText(LanguageManagerUlti.get("main.button.transaction.amount") + ": 0"));
         pause.play();
     }
 
     private void setUpField() {
-        methodComboBox.getItems().setAll("Tiền mặt","Thẻ","Ví điện tử");
-        methodComboBox.setValue("Tiền mặt");
+        methodComboBox.getItems().setAll(LanguageManagerUlti.get("main.method.cash"),
+                LanguageManagerUlti.get("main.method.card"),
+                LanguageManagerUlti.get("main.method.e-wallet"));
+        methodComboBox.setValue(LanguageManagerUlti.get("main.method.cash"));
         datePicker.setValue(LocalDate.now());
         noteTextArea.clear();
         inputMoneyTextField.setText("");
 
-        updateButtonText(catergoryBtn, "Danh mục", catergoryComboBox.getValue());
-        updateButtonText(methodBtn, "Phương thức", methodComboBox.getValue());
-        updateButtonText(dateBtn, "Ngày", datePicker.getValue().toString());
-        updateButtonText(noteBtn, "Ghi chú", "");
-        updateButtonText(inputMoneyBtn, "Số tiền", "0 đ");
+        updateButtonText(catergoryBtn, LanguageManagerUlti.get("main.button.category.select"), catergoryComboBox.getValue());
+        updateButtonText(methodBtn, LanguageManagerUlti.get("main.button.method.select"), methodComboBox.getValue());
+        updateButtonText(dateBtn, LanguageManagerUlti.get("main.button.date.select"), datePicker.getValue().toString());
+        updateButtonText(noteBtn, LanguageManagerUlti.get("main.button.note.select"), "");
+        updateButtonText(inputMoneyBtn, LanguageManagerUlti.get("currency.unit"), "0");
     }
 
     private void showField(Node btn, Node field) {
@@ -220,7 +248,11 @@ public class MainController implements Initializable {
         if (value == null || value.isBlank()) value = "";
         int maxLength = 15;
         if (value.length() > maxLength) value = value.substring(0, maxLength) + "...";
-        btn.setText(label + ": " + value);
+        if (btn == inputMoneyBtn){
+            btn.setText(value +" "+ label);
+        }else {
+            btn.setText(label + ": " + value);
+        }
     }
 
     @FXML
@@ -256,4 +288,31 @@ public class MainController implements Initializable {
         } catch (Exception ex) { ex.printStackTrace(); }
     }
 
+    private void bindTexts() {
+        // Nút toggle
+        expenseToggle.setText(LanguageManagerUlti.get("main.button.expense.toggle"));
+        incomeToggle.setText(LanguageManagerUlti.get("main.button.income.toggle"));
+
+        // Nút mục tiêu & máy tính
+        goalSettingButton.setText(LanguageManagerUlti.get("main.button.goal.setting"));
+        calculator.setText(LanguageManagerUlti.get("main.button.calculator.open"));
+
+        // Thông tin giao dịch
+        catergoryBtn.setText(LanguageManagerUlti.get("main.button.category.select"));
+        dateBtn.setText(LanguageManagerUlti.get("main.button.date.select"));
+        methodBtn.setText(LanguageManagerUlti.get("main.button.method.select"));
+        noteBtn.setText(LanguageManagerUlti.get("main.button.note.select"));
+
+        // Nút sửa danh mục
+        editCategoryBtn.setText(LanguageManagerUlti.get("main.button.category.edit"));
+
+        // Nút lưu giao dịch
+        saveTransBtn.setText(LanguageManagerUlti.get("main.button.transaction.save"));
+
+        // Nút menu dưới cùng
+        btnHome.setText(LanguageManagerUlti.get("main.button.menu.home"));
+        btnHistory.setText(LanguageManagerUlti.get("main.button.menu.history"));
+        btnReport.setText(LanguageManagerUlti.get("main.button.menu.report"));
+        btnSettings.setText(LanguageManagerUlti.get("main.button.menu.settings"));
+    }
 }

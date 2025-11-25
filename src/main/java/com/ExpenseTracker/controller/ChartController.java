@@ -1,14 +1,18 @@
 package com.ExpenseTracker.controller;
 
+import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.repository.UserRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -33,15 +37,26 @@ public class ChartController implements Initializable {
     @FXML private PieChart revenuePieChart;
     @FXML private javafx.scene.chart.BarChart<String, Number> barChart;
     @FXML private Button yearToggleBtn, monthToggleBtn;
-    @FXML private Label expenseLabel, incomeLabel, totalLabel;
-
+    @FXML private Label expenseLabel, incomeLabel, totalLabel, monthComboBoxLabel, yearComboBoxLabel;
+    @FXML private  Label expenseAboveLabel, incomeAboveLabel, totalAboveLabel;
+    @FXML private CategoryAxis barXAxis;
+    @FXML private NumberAxis barYAxis;
     private boolean isMonthlyChart = true;
     private boolean firstLoad = true;
-
+    @FXML private Button btnHome;
+    @FXML private Button btnHistory;
+    @FXML private Button btnReport;
+    @FXML private Button btnSettings;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Cập nhật locale
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+        // Cập nhật text cho UI
+        bindTexts();
+
         int curYear = LocalDate.now().getYear();
         for (int m=1;m<=12;m++) {
             statsMonthComboBox.getItems().add(m);
@@ -200,5 +215,28 @@ public class ChartController implements Initializable {
         Stage stage = (Stage) btn.getScene().getWindow();
         ChangeSceneUtil.navigate(stage, fxml);
     }
+
+    private void bindTexts() {
+        yearToggleBtn.setText(LanguageManagerUlti.get("Chart.button.toggle.year"));
+        monthToggleBtn.setText(LanguageManagerUlti.get("Chart.button.toggle.month"));
+
+        expenseAboveLabel.setText(LanguageManagerUlti.get("Chart.text.expense.title"));
+        incomeAboveLabel.setText(LanguageManagerUlti.get("Chart.text.income.title"));
+        totalAboveLabel.setText(LanguageManagerUlti.get("Chart.text.total.title"));
+        monthComboBoxLabel.setText(LanguageManagerUlti.get("Chart.label.month.text"));
+        yearComboBoxLabel.setText(LanguageManagerUlti.get("Chart.label.year.text"));
+
+
+        // Bar chart axes
+        barXAxis.setLabel(LanguageManagerUlti.get("Chart.categoryaxis.barchart.xaxis"));
+        barYAxis.setLabel(LanguageManagerUlti.get("Chart.numberaxis.barchart.yaxis"));
+
+        // Bottom menu
+        btnHome.setText(LanguageManagerUlti.get("Chart.button.menu.home"));
+        btnHistory.setText(LanguageManagerUlti.get("Chart.button.menu.history"));
+        btnReport.setText(LanguageManagerUlti.get("Chart.button.menu.report"));
+        btnSettings.setText(LanguageManagerUlti.get("Chart.button.menu.settings"));
+    }
+
 
 }

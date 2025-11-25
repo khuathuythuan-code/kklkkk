@@ -2,6 +2,7 @@ package com.ExpenseTracker.controller;
 
 import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.repository.CategoryRepository;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,7 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CategoryController implements Initializable {
-
+    @FXML
+    private Label title;
     @FXML private ListView<String> categoryList;
     @FXML private TextField newCategoryField;
     @FXML private ComboBox<String> typeCombo;
@@ -26,8 +28,19 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        typeCombo.getItems().addAll("Chi", "Thu");
-        typeCombo.setValue("Chi");
+        // Cập nhật locale
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+        // Cập nhật text cho UI
+        bindTexts();
+
+        if (Singleton.getInstance().currentLanguage.equalsIgnoreCase("en")){
+            typeCombo.getItems().addAll("Expense", "Income");
+            typeCombo.setValue("Expense");
+        }else {
+            typeCombo.getItems().addAll("Chi", "Thu");
+            typeCombo.setValue("Chi");
+        }
 
         categoryList.setItems(categories); // bind ListView với ObservableList
 
@@ -49,7 +62,13 @@ public class CategoryController implements Initializable {
     @FXML
     private void addCategory() {
         String name = newCategoryField.getText();
-        String type = typeCombo.getValue();
+        String type;
+        if (typeCombo.getValue().equalsIgnoreCase("expense")){
+            type = "Chi";
+        }else{
+            type = "Thu";
+        }
+
 
         if (name == null || name.isBlank()) {
             new Alert(Alert.AlertType.WARNING, "Tên danh mục trống").showAndWait();
@@ -76,5 +95,14 @@ public class CategoryController implements Initializable {
         Stage s = (Stage) categoryList.getScene().getWindow();
         s.close();
     }
+
+    private void bindTexts() {
+        title.setText(LanguageManagerUlti.get("Category.label.title"));
+        newCategoryField.setPromptText(LanguageManagerUlti.get("Category.textfield.new.category.input"));
+        addCate.setText(LanguageManagerUlti.get("Category.button.add.category"));
+        deleteCate.setText(LanguageManagerUlti.get("Category.button.delete.category"));
+        closeDialog.setText(LanguageManagerUlti.get("Category.button.close.dialog"));
+    }
+
 
 }

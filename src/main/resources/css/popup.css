@@ -101,3 +101,32 @@
     -fx-font-weight: bold;
 }
 
+
+.goal-wrapper {
+    -fx-padding: 10;
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 10;
+    -fx-spacing: 10;
+}
+
+.goal-box {
+    -fx-spacing: 4;
+}
+
+.goal-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4b8df8;
+}
+
+.goal-money {
+    -fx-font-size: 14px;
+    -fx-text-fill: #00d46a;
+}
+
+.goal-dates {
+    -fx-font-size: 12px;
+    -fx-text-fill: #bbbbbb;
+}
+
+

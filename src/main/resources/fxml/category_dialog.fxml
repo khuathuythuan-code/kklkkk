@@ -9,21 +9,21 @@
             prefWidth="400" prefHeight="300"
             fx:controller="com.ExpenseTracker.controller.CategoryController">
     <children>
-        <Label layoutX="20" layoutY="10" text="Quản lý danh mục" style="-fx-font-size:16; -fx-font-weight:bold;"/>
+        <Label fx:id="title" layoutX="20" layoutY="10"  style="-fx-font-size:16; -fx-font-weight:bold;"/>
         <VBox layoutX="20" layoutY="40" spacing="8" prefWidth="360" prefHeight="220">
             <children>
                 <ListView fx:id="categoryList" prefHeight="140"/>
                 <HBox spacing="8">
                     <children>
-                        <TextField fx:id="newCategoryField" promptText="Tên danh mục" />
+                        <TextField fx:id="newCategoryField" />
                         <ComboBox fx:id="typeCombo" prefWidth="120"/>
-                        <Button fx:id="addCate" text="Thêm"  />
+                        <Button fx:id="addCate"   />
                     </children>
                 </HBox>
                 <HBox spacing="8">
                     <children>
-                        <Button fx:id="deleteCate" text="Xóa mục chọn" />
-                        <Button fx:id="closeDialog" text="Đóng"/>
+                        <Button fx:id="deleteCate"  />
+                        <Button fx:id="closeDialog" />
                     </children>
                 </HBox>
             </children>

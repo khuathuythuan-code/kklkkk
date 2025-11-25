@@ -20,22 +20,22 @@
         <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 20 30;">
 
             <VBox spacing="4">
-                <Text style="-fx-fill: white;" text="Tháng" />
+                <Label fx:id="monthComboBoxLabel" style="-fx-fill: white;"  />
                 <ComboBox fx:id="statsMonthComboBox" prefHeight="30" prefWidth="130" style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-background-radius: 8;" />
             </VBox>
 
             <VBox spacing="4">
-                <Text style="-fx-fill: white;" text="Năm" />
+                <Label fx:id="yearComboBoxLabel" style="-fx-fill: white;"  />
                 <ComboBox fx:id="statsYearComboBox" prefHeight="30" prefWidth="130" style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-background-radius: 8;" />
             </VBox>
 
             <Pane HBox.hgrow="ALWAYS" />
 
             <Button fx:id="yearToggleBtn" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 8 16"
-                    text="Hàng Năm" />
+                    />
             <Button fx:id="monthToggleBtn" layoutX="706.0" layoutY="40.0"
                     style="-fx-background-color: #2ecc71;                         -fx-text-fill: white;                         -fx-background-radius: 8;                         -fx-font-weight: bold;                         -fx-padding: 8 16"
-                    text="Hàng tháng" />
+                    />
         </HBox>
     </top>
 
@@ -48,17 +48,17 @@
             <HBox alignment="CENTER" spacing="20">
 
                 <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e;                              -fx-padding: 12 20;                              -fx-background-radius: 10;">
-                    <Text style="-fx-fill:#b8ffa8;" text="Chi tiêu" />
+                    <Label fx:id="expenseAboveLabel" style="-fx-fill:#b8ffa8;"  />
                     <Label fx:id="expenseLabel"  alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" text="0" />
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e;                              -fx-padding: 12 20;                              -fx-background-radius: 10;">
-                    <Text style="-fx-fill:#ffabab;" text="Thu nhập" />
+                    <Label fx:id="incomeAboveLabel" style="-fx-fill:#ffabab;" />
                     <Label fx:id="incomeLabel" alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" text="0" />
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e;                              -fx-padding: 12 20;                              -fx-background-radius: 10;">
-                    <Text style="-fx-fill:#a8c8ff;" text="Thu chi" />
+                    <Label fx:id="totalAboveLabel" style="-fx-fill:#a8c8ff;"/>
                     <Label fx:id="totalLabel" alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" text="0" />
                 </VBox>
 
@@ -91,13 +91,13 @@
     <!-- ======= BOTTOM MENU ======= -->
     <bottom>
         <HBox alignment="CENTER" spacing="60" style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
-            <Button fx:id="btnHome" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Trang chủ" />
+            <Button fx:id="btnHome" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;"  />
 
-            <Button fx:id="btnHistory" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Lịch sử" />
+            <Button fx:id="btnHistory" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;"  />
 
-            <Button fx:id="btnReport" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Báo cáo" />
+            <Button fx:id="btnReport" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;"  />
 
-            <Button fx:id="btnSettings" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Cài đặt" />
+            <Button fx:id="btnSettings" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;"  />
         </HBox>
     </bottom>
 

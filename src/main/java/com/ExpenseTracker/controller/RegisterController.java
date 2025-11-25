@@ -1,9 +1,11 @@
 package com.ExpenseTracker.controller;
 
+import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.model.User;
 import com.ExpenseTracker.repository.UserRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.DBUtil;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import com.ExpenseTracker.utility.ValidatorUlti;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +22,27 @@ public class RegisterController {
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
     @FXML private TextField phoneField;
+    @FXML private Label titleLabel;
+    @FXML private Label usernameLabel;
+    @FXML private Label phoneLabel;
+    @FXML private Label emailLabel;
+    @FXML private Label passwordLabel;
+    @FXML private Label confirmPassLabel;
 
+    @FXML private Button signupBtn;
+    @FXML private Hyperlink backToLoginLink;
 
     private UserRepository userRepository = new UserRepository();
+
+
+    @FXML
+    private void initialize(){
+        // Cập nhật locale
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+        // Cập nhật text cho UI
+        bindTexts();
+    }
 
 
     @FXML
@@ -66,4 +86,25 @@ public class RegisterController {
         Stage stage = (Stage) passwordField.getScene().getWindow();
         ChangeSceneUtil.navigate(stage, "/fxml/login.fxml");
     }
+
+    private void bindTexts() {
+        titleLabel.setText(LanguageManagerUlti.get("signup.title")); // nếu bạn muốn thêm
+
+        usernameLabel.setText(LanguageManagerUlti.get("signup.username"));
+        phoneLabel.setText(LanguageManagerUlti.get("signup.phone"));
+        emailLabel.setText(LanguageManagerUlti.get("signup.email"));
+        passwordLabel.setText(LanguageManagerUlti.get("signup.password"));
+        confirmPassLabel.setText(LanguageManagerUlti.get("signup.passwordcheking"));
+
+        signupBtn.setText(LanguageManagerUlti.get("signup.button.signup"));
+        backToLoginLink.setText(LanguageManagerUlti.get("signup.hyperlink.backtologin"));
+
+        usernameField.setPromptText(LanguageManagerUlti.get("signup.textfield.username.input"));
+        phoneField.setPromptText(LanguageManagerUlti.get("signup.textfield.phone.input"));
+        emailField.setPromptText(LanguageManagerUlti.get("signup.textfield.email.input"));
+        passwordField.setPromptText(LanguageManagerUlti.get("signup.textfield.password.input"));
+        confirmPasswordField.setPromptText(LanguageManagerUlti.get("signup.textfield.confirm.password.input"));
+
+    }
+
 }

@@ -6,6 +6,7 @@ import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
+import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,10 +38,17 @@ public class HistoryController implements Initializable, TransactionUpdateListen
     @FXML private ScrollPane transcContainer;
     @FXML private GridPane calendarGrid;
     @FXML private ComboBox<Integer> monthComboBox, yearComboBox;
-
-
+    @FXML private Text monthLabel, yearLabel,searchLabel;
+    @FXML private Button btnHome,btnHistory, btnReport,btnSettings;
+    Label typeLabel;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Cập nhật locale
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+
+        // Cập nhật text cho UI
+        bindTexts();
+
         initMonthYear();
         refreshCalendar();
         monthComboBox.setOnAction(e -> refreshCalendar());
@@ -106,9 +115,14 @@ public class HistoryController implements Initializable, TransactionUpdateListen
         }
 
         // Header weekday labels
-        String[] days = {"T2","T3","T4","T5","T6","T7","CN"};
+        String[] vidays = {"T2","T3","T4","T5","T6","T7","CN"};
+        String[] endays = {"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+
+
         for (int i = 0; i < 7; i++) {
-            Label l = new Label(days[i]);
+            Label l = new Label(
+                    Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi") ? vidays[i] : endays[i]
+            );
             l.setStyle("-fx-font-weight:bold; -fx-font-size:14px; -fx-text-fill:#4b0082;");
             l.setAlignment(Pos.CENTER);
             l.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -225,7 +239,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
         box.setFillWidth(true);
 
         if (list.isEmpty()) {
-            Label noData = new Label("Không có giao dịch nào.");
+            Label noData = new Label(LanguageManagerUlti.get("History.transaction.noData"));
             noData.setStyle("-fx-font-size: 14px; -fx-text-fill: #666;");
             noData.setAlignment(Pos.CENTER);
             noData.setMaxWidth(Double.MAX_VALUE);
@@ -263,8 +277,12 @@ public class HistoryController implements Initializable, TransactionUpdateListen
 
                 for (Transaction t : dayList) {
                     boolean isIncome = "Thu".equalsIgnoreCase(t.getType());
+                    if (Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")){
+                        typeLabel = new Label(isIncome ? "Thu" : "Chi");
+                    }else {
+                        typeLabel = new Label(isIncome ? "Income" : "Expense");
 
-                    Label typeLabel = new Label(isIncome ? "Thu" : "Chi");
+                    }
                     typeLabel.setStyle(String.format("""
                     -fx-font-weight: bold;
                     -fx-text-fill: %s;
@@ -281,8 +299,8 @@ public class HistoryController implements Initializable, TransactionUpdateListen
                     note.setWrapText(true);
 
                     String paymentMethod = t.getTransMethod() == null || t.getTransMethod().isBlank()
-                            ? "Phương thức: không rõ"
-                            : "Phương thức: " + t.getTransMethod();
+                            ? LanguageManagerUlti.get("History.transaction.method.unknown")
+                            : LanguageManagerUlti.get("History.transaction.method") + t.getTransMethod();
                     Label method = new Label(paymentMethod);
                     method.setStyle("-fx-font-size: 12px; -fx-text-fill: #555;");
                     method.setWrapText(true);
@@ -297,7 +315,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
                 """, isIncome ? "#1e8449" : "#c0392b"));
                     amount.setAlignment(Pos.CENTER_RIGHT);
 
-                    Button detail = new Button("Chi tiết");
+                    Button detail = new Button(LanguageManagerUlti.get("History.transaction.detail.button"));
                     detail.setOnAction(e -> openTransactionDetailWindow(t));
                     detail.setStyle("""
                     -fx-background-color: transparent;
@@ -355,7 +373,6 @@ public class HistoryController implements Initializable, TransactionUpdateListen
             Stage st = new Stage();
             st.initModality(Modality.APPLICATION_MODAL);
             st.setScene(scene);
-            st.setTitle("Chi tiết giao dịch");
             st.showAndWait();
 
         } catch (Exception ex) {
@@ -392,4 +409,20 @@ public class HistoryController implements Initializable, TransactionUpdateListen
         // cập nhật lại danh sách
         showTransactions(transaction.getCreatedAt().toLocalDate());
     }
+
+    private void bindTexts() {
+        // Top
+        monthLabel.setText(LanguageManagerUlti.get("History.text.month.label"));
+        yearLabel.setText(LanguageManagerUlti.get("History.text.year.label"));
+
+        searchLabel.setText(LanguageManagerUlti.get("History.text.search.label"));
+
+        // Bottom Menu
+        btnHome.setText(LanguageManagerUlti.get("History.button.menu.home"));
+        btnHistory.setText(LanguageManagerUlti.get("History.button.menu.history"));
+        btnReport.setText(LanguageManagerUlti.get("History.button.menu.report"));
+        btnSettings.setText(LanguageManagerUlti.get("History.button.menu.settings"));
+    }
+
+
 }

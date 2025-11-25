@@ -9,6 +9,8 @@ public class Singleton {
 
     // 2. public variable
     public int currentUser;
+
+    public String currentLanguage = "vi";
     // Goal progress global, mọi listener subscribe
     public DoubleProperty goalSupervisorBar = new SimpleDoubleProperty(0);
 

@@ -16,10 +16,10 @@
             <HBox spacing="15" alignment="CENTER_LEFT"
                   style="-fx-padding: 0 25 5 25;">   <!-- Cực sát trên -->
 
-                <Text text="Tháng" style="-fx-fill: white;" />
+                <Text fx:id="monthLabel" style="-fx-fill: white;" />
                 <ComboBox fx:id="monthComboBox" prefWidth="110"/>
 
-                <Text text="Năm" style="-fx-fill: white;" />
+                <Text fx:id="yearLabel" style="-fx-fill: white;" />
                 <ComboBox fx:id="yearComboBox" prefWidth="130"/>
 
                 <Pane HBox.hgrow="ALWAYS"/>
@@ -39,7 +39,7 @@
                       prefHeight="320" />
 
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Text text="Tìm giao dịch:" style="-fx-fill:white;" />
+                <Text fx:id="searchLabel" style="-fx-fill:white;" />
                 <TextField fx:id="searchField" prefWidth="220"/>
             </HBox>
 
@@ -54,19 +54,19 @@
     <bottom>
         <HBox spacing="60" alignment="CENTER"
               style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
-            <Button fx:id="btnHome" text="Trang chủ"
+            <Button fx:id="btnHome"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>
 
-            <Button fx:id="btnHistory" text="Lịch sử"
+            <Button fx:id="btnHistory"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>
 
-            <Button fx:id="btnReport" text="Báo cáo"
+            <Button fx:id="btnReport"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>
 
-            <Button fx:id="btnSettings" text="Cài đặt"
+            <Button fx:id="btnSettings"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>
         </HBox>
