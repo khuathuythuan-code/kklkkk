@@ -67,16 +67,27 @@ public class MainController implements Initializable {
 
 
         expenseToggle.setOnAction(e -> {
-            expenseToggle.getStyleClass().add("active");
+            // Thêm class "active" nếu chưa có
+            if (!expenseToggle.getStyleClass().contains("active")) {
+                expenseToggle.getStyleClass().add("active");
+            }
+            // Xóa class "active" của nút kia nếu còn
             incomeToggle.getStyleClass().remove("active");
-            isExpense = true; refreshCategories();
+
+            isExpense = true;
+            refreshCategories(); // Luôn chạy khi click
         });
 
         incomeToggle.setOnAction(e -> {
-            incomeToggle.getStyleClass().add("active");
+            if (!incomeToggle.getStyleClass().contains("active")) {
+                incomeToggle.getStyleClass().add("active");
+            }
             expenseToggle.getStyleClass().remove("active");
-            isExpense = false; refreshCategories();
+
+            isExpense = false;
+            refreshCategories(); // Luôn chạy khi click
         });
+
 
 
         // --- Button <-> Field ---
@@ -184,7 +195,7 @@ public class MainController implements Initializable {
     private void createTransaction() {
         try {
             float amount = Float.parseFloat(inputMoneyTextField.getText());
-            amount = isExpense ? -Math.abs(amount) : Math.abs(amount);
+//            amount = isExpense ? -Math.abs(amount) : Math.abs(amount);
 
             Transaction t = new Transaction();
             t.setUserId(currentUserId);
@@ -209,6 +220,7 @@ public class MainController implements Initializable {
         pause.setOnFinished(event -> inputMoneyBtn.setText(LanguageManagerUlti.get("main.button.transaction.amount") + ": 0"));
         pause.play();
     }
+
 
     private void setUpField() {
         methodComboBox.getItems().setAll(LanguageManagerUlti.get("main.method.cash"),
@@ -280,7 +292,9 @@ public class MainController implements Initializable {
         };
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Stage main = (Stage) inputMoneyBtn.getScene().getWindow();
             Stage st = new Stage();
+            st.initOwner(main);
             if (!btn.getId().equalsIgnoreCase("calculator")) st.initModality(Modality.APPLICATION_MODAL);
             st.setScene(new Scene(loader.load()));
             st.showAndWait();

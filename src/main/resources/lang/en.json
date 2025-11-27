@@ -7,6 +7,13 @@
   "login.textfield.username.input": "Enter username",
   "login.textfield.password.input": "Enter password",
 
+  "login.alert.invalid.username": "Invalid username",
+  "login.alert.password.length.error": "Invalid password (minimum 6 characters)",
+  "login.alert.password.typo.error": "Invalid password (must contain at least 1 special character, 1 uppercase letter, and 1 digit)",
+  "login.alert.success": "Login successful!",
+  "login.alert.fail": "Incorrect username or password!",
+  "login.alert.title": "Notification",
+
 
   "signup.title": "Sign Up",
   "signup.textfield.username.input": "Create username",
@@ -21,6 +28,19 @@
   "signup.email": "Email",
   "signup.button.signup": "Sign Up",
   "signup.hyperlink.backtologin": "← Back to Login",
+  "signup.alert.invalid.email": "Invalid email",
+  "signup.alert.invalid.username": "Invalid username",
+  "signup.alert.username.exists": "Username already exists",
+  "signup.alert.email.exists": "Email already exists",
+  "signup.alert.password.length.error": "Invalid password (minimum 6 characters)",
+  "signup.alert.password.typo.error": "Invalid password (must contain at least 1 special character, 1 uppercase letter and 1 digit)",
+  "signup.alert.password.notmatch": "Password confirmation does not match",
+  "signup.alert.invalid.phone": "Invalid phone number",
+  "signup.alert.success": "Registration successful!",
+  "signup.alert.fail": "Registration failed!",
+  "signup.alert.title": "Notification",
+
+
 
   "main.button.expense.toggle": "Expense",
   "main.button.income.toggle": "Income",
@@ -70,6 +90,7 @@
   "SetGoalPopup.status.goal.delete": "Goal deleted!",
   "SetGoalPopup.status.goal.complete.error": "Error completing goal: %s",
   "SetGoalPopup.status.goal.delete.error": "Error deleting goal: %s",
+  "SetGoalPopup.status.goal.load.error": "Error loanding goal: %s",
   "SetGoalPopup.validation.name.empty": "Goal name cannot be empty!",
   "SetGoalPopup.validation.amount.empty": "Goal amount cannot be empty!",
   "SetGoalPopup.validation.limit.empty": "Spending limit cannot be empty!",
@@ -81,6 +102,7 @@
   "SetGoalPopup.status.goal.updated": "Goal updated!",
   "SetGoalPopup.status.goal.save.error": "Error saving goal: %s",
   "SetGoalPopup.status.goal.general.error": "Error: %s",
+  "SetGoalPopup.status.goal.delete.warn": "Are you sure you want to delete the target:",
 
 
 
@@ -99,6 +121,8 @@
   "Chart.text.total.title": "Total",
   "Chart.categoryaxis.barchart.xaxis": "Month",
   "Chart.numberaxis.barchart.yaxis": "Amount",
+  "Chart.barchart.incomeSeries": "Income",
+  "Chart.barchart.expenseSeries": "Expense",
   "Chart.button.menu.home": "Home",
   "Chart.button.menu.history": "History",
   "Chart.button.menu.report": "Report",
@@ -139,5 +163,16 @@
   "TransactionDetail.label.note": "Note:",
   "TransactionDetail.button.update": "Update",
   "TransactionDetail.button.delete": "Delete",
-  "TransactionDetail.button.close": "Close"
+  "TransactionDetail.button.close": "Close",
+
+  "PasswordChangingPopup.label.enterNewPass": "Enter new password:",
+  "PasswordChangingPopup.label.enterNewPassAgain": "Confirm new password",
+  "PasswordChangingPopup.notif.password_too_short": "Password must be at least 6 characters",
+  "PasswordChangingPopup.notif.password_typo": "Password must contain at least 1 special character, 1 uppercase letter, and 1 digit",
+  "PasswordChangingPopup.notif.password_mismatch": "Passwords do not match",
+  "PasswordChangingPopup.notif.password_change_success": "Password changed successfully!",
+  "PasswordChangingPopup.notif.password_change_fail": "Password change failed!",
+  "PasswordChangingPopup.title": "Enter your new password",
+  "PasswordChangingPopup.button.save": "Save"
+
 }

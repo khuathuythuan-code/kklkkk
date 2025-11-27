@@ -4,9 +4,16 @@
   "login.password": "Mật khẩu",
   "login.textfield.username.input": "Nhập tên đăng nhập",
   "login.textfield.password.input": "Nhập mật khẩu",
-
   "login.button.login": "Đăng nhập",
   "login.button.signup": "Đăng ký tài khoản",
+
+  "login.alert.invalid.username": "Tên đăng nhập không hợp lệ",
+  "login.alert.password.length.error": "Mật khẩu không hợp lệ (tối thiểu 6 ký tự)",
+  "login.alert.password.typo.error": "Mật khẩu không hợp lệ (tối thiểu 1 ký tự đặc biệt, 1 chữ viết hoa và 1 số)",
+  "login.alert.success": "Đăng nhập thành công!",
+  "login.alert.fail": "Sai tên đăng nhập hoặc mật khẩu!",
+  "login.alert.title": "Thông báo",
+
 
   "signup.title": "Đăng ký tài khoản",
   "signup.phone": "Số điện thoại",
@@ -21,6 +28,18 @@
   "signup.textfield.email.input": "Nhập email",
   "signup.textfield.password.input": "Nhập mật khẩu",
   "signup.textfield.confirm.password.input": "Nhập lại mật khẩu",
+
+  "signup.alert.invalid.email": "Email không hợp lệ",
+  "signup.alert.invalid.username": "Tên đăng nhập không hợp lệ",
+  "signup.alert.username.exists": "Tên đăng nhập đã tồn tại",
+  "signup.alert.email.exists": "Email đã tồn tại",
+  "signup.alert.password.length.error": "Mật khẩu không hợp lệ (tối thiểu 6 ký tự)",
+  "signup.alert.password.typo.error": "Mật khẩu không hợp lệ (tối thiểu 1 ký tự đặc biệt, 1 chữ viết hoa và 1 số)",
+  "signup.alert.password.notmatch": "Mật khẩu xác nhận không khớp",
+  "signup.alert.invalid.phone": "Số điện thoại không hợp lệ",
+  "signup.alert.success": "Đăng ký thành công!",
+  "signup.alert.fail": "Đăng ký thất bại!",
+  "signup.alert.title": "Thông báo",
 
 
   "main.button.expense.toggle": "Chi tiêu",
@@ -72,6 +91,7 @@
   "SetGoalPopup.status.goal.delete": "Đã xóa mục tiêu!",
   "SetGoalPopup.status.goal.complete.error": "Lỗi khi hoàn thành mục tiêu: %s",
   "SetGoalPopup.status.goal.delete.error": "Lỗi khi xóa mục tiêu: %s",
+  "SetGoalPopup.status.goal.load.error": "Error loanding goal: %s",
   "SetGoalPopup.validation.name.empty": "Tên mục tiêu không được để trống!",
   "SetGoalPopup.validation.amount.empty": "Số tiền mục tiêu không được để trống!",
   "SetGoalPopup.validation.limit.empty": "Giới hạn chi tiêu không được để trống!",
@@ -83,6 +103,8 @@
   "SetGoalPopup.status.goal.updated": "Đã cập nhật mục tiêu!",
   "SetGoalPopup.status.goal.save.error": "Lỗi khi lưu mục tiêu: %s",
   "SetGoalPopup.status.goal.general.error": "Lỗi: %s",
+  "SetGoalPopup.status.goal.delete.warn": "Bạn có chắc chắn muốn xóa mục tiêu:",
+
 
 
   "Category.label.title": "Quản lý danh mục",
@@ -100,6 +122,8 @@
   "Chart.text.total.title": "Thu chi",
   "Chart.categoryaxis.barchart.xaxis": "Tháng",
   "Chart.numberaxis.barchart.yaxis": "Số tiền",
+  "Chart.barchart.incomeSeries": "Thu",
+  "Chart.barchart.expenseSeries": "Chi",
   "Chart.button.menu.home": "Trang chủ",
   "Chart.button.menu.history": "Lịch sử",
   "Chart.button.menu.report": "Báo cáo",
@@ -141,6 +165,15 @@
   "TransactionDetail.label.note": "Ghi chú:",
   "TransactionDetail.button.update": "Cập nhật",
   "TransactionDetail.button.delete": "Xóa",
-  "TransactionDetail.button.close": "Đóng"
+  "TransactionDetail.button.close": "Đóng",
 
+  "PasswordChangingPopup.label.enterNewPass": "Nhập mật khẩu mới:",
+  "PasswordChangingPopup.label.enterNewPassAgain": "Xác nhận mật khẩu mới",
+  "PasswordChangingPopup.notif.password_too_short": "Mật khẩu tối thiểu 6 ký tự",
+  "PasswordChangingPopup.notif.password_typo": "Mật khẩu không hợp lệ (tối thiểu 1 ký tự đặc biệt, 1 chữ viết hoa và 1 số)",
+  "PasswordChangingPopup.notif.password_mismatch": "Mật khẩu xác nhận không khớp",
+  "PasswordChangingPopup.notif.password_change_success": "Đổi mật khẩu thành công!",
+  "PasswordChangingPopup.notif.password_change_fail": "Đổi mật khẩu thất bại!",
+  "PasswordChangingPopup.title": "Nhập mật khẩu mới",
+  "PasswordChangingPopup.button.save": "Lưu"
 }

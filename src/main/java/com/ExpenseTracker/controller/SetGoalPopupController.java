@@ -7,20 +7,16 @@ import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.GoalRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 
 public class SetGoalPopupController {
@@ -78,7 +74,7 @@ public class SetGoalPopupController {
         deleteButton.setOnAction(e -> {
             if (currentGoal != null) {
                 Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                        "Bạn có chắc chắn muốn xóa mục tiêu: " + currentGoal.getGoalName() + "?",
+                        LanguageManagerUlti.get("SetGoalPopup.status.goal.delete.warn") + currentGoal.getGoalName() + "?",
                         ButtonType.OK, ButtonType.CANCEL);
                 confirm.showAndWait().ifPresent(btn -> {
                     if (btn == ButtonType.OK) deleteGoal(currentGoal);
@@ -107,7 +103,16 @@ public class SetGoalPopupController {
             displayCompletedGoals(goals);
 
         } catch (SQLException e) {
-            statusLabel.setText("Lỗi load mục tiêu: " + e.getMessage());
+
+            String template = LanguageManagerUlti.get(
+                    "SetGoalPopup.status.goal.load.error",
+                    "Error loading goal: %s"
+            );
+
+            String message = String.format(template, e.getMessage());
+            showError(message);
+
+//            statusLabel.setText("Lỗi load mục tiêu: " + e.getMessage());
         }
     }
 
@@ -122,14 +127,19 @@ public class SetGoalPopupController {
         saveButton.setDisable(true);
 
         goalNameLabel.setText(goal.getGoalName());
-        targetDateLabel.setText("Thời hạn: " + goal.getTargetDate());
+        targetDateLabel.setText(LanguageManagerUlti.get("SetGoalPopup.label.current.goal.date") + goal.getTargetDate());
 
         if (goal.isCompleted()) {
             editButton.setVisible(false);
             deleteButton.setVisible(false);
             completeButton.setVisible(false);
-            completedInfoLabel.setText("Bắt đầu: " + goal.getCreatedDate().toLocalDate()
-                    + " - Hoàn thành: " + goal.getCompletedDate());
+            String template = LanguageManagerUlti.get("SetGoalPopup.label.goal.date.range");
+            String dateText = String.format(template, goal.getCreatedDate().toLocalDate(), goal.getCompletedDate());
+            completedInfoLabel.setText(dateText);
+
+//            completedInfoLabel.setText("Bắt đầu: " + goal.getCreatedDate().toLocalDate()
+//                    + " - Hoàn thành: " + goal.getCompletedDate());
+
             completedInfoLabel.setVisible(true);
         } else {
             editButton.setVisible(true);
@@ -148,12 +158,12 @@ public class SetGoalPopupController {
         double progressRatio = Math.min((double) progress / currentGoal.getGoalAmount(), 1.0);
         Singleton.getInstance().goalSupervisorBar.set(progressRatio);
         progressBar.setProgress(progressRatio);
-        progressLabel.setText(progress + " / " + currentGoal.getGoalAmount() + " VND");
+        progressLabel.setText(progress + " / " + currentGoal.getGoalAmount() + LanguageManagerUlti.get("currency.unit"));
 
         long spent = calculateSpending();
         double spentProgress = (double) spent / currentGoal.getSpendingLimit();
         spendingProgressBar.setProgress(Math.min(spentProgress , 1.0));
-        spendingLabel.setText(spent + " / " + currentGoal.getSpendingLimit() + " VND");
+        spendingLabel.setText(spent + " / " + currentGoal.getSpendingLimit() + LanguageManagerUlti.get("currency.unit"));
 
 
 
@@ -170,12 +180,12 @@ public class SetGoalPopupController {
     private long calculateProgress(Goal goal) {
         if (goal == null) return 0;
 
-        final LocalDateTime finalStartDateTime = goal.getCreatedDate();
+        final LocalDateTime StartDateTime = goal.getCreatedDate();
 
         // Tính progress từ các giao dịch
         double progressDouble = transactionRepo.findAllCached(currentUserId).stream()
                 .filter(t -> t.getCreatedAt() != null)
-                .filter(t -> !t.getCreatedAt().isBefore(finalStartDateTime))
+                .filter(t -> !t.getCreatedAt().isBefore(StartDateTime))
                 .mapToDouble(Transaction::getAmount)
                 .sum();
 
@@ -187,14 +197,14 @@ public class SetGoalPopupController {
      * ----------------------- */
     private Long calculateSpending() {
         if (currentGoal == null) return (long) 0;
-        final LocalDateTime finalStartDateTime = currentGoal.getCreatedDate();
+        final LocalDateTime StartDateTime = currentGoal.getCreatedDate();
 
         LocalDate now = LocalDate.now();
         return transactionRepo.findAllCached(currentUserId).stream()
                 .filter(t -> "chi".equalsIgnoreCase(t.getType()))
                 .filter(t -> t.getCreatedAt() != null)
-                .filter(t -> !t.getCreatedAt().isBefore(finalStartDateTime))
-                .mapToLong(t -> (long) -t.getAmount())
+                .filter(t -> !t.getCreatedAt().isBefore(StartDateTime))
+                .mapToLong(t -> (long) t.getAmount())
                 .sum();
 
     }
@@ -213,32 +223,51 @@ public class SetGoalPopupController {
 
             // VALIDATE
             if (name.isEmpty()) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.name.empty", "Tên mục tiêu không được để trống!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.name.empty",
+                        "Tên mục tiêu không được để trống!"
+                ));
                 goalNameField.requestFocus();
                 return;
             }
+
             if (amountStr.isEmpty()) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.amount.empty", "Số tiền mục tiêu không được để trống!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.amount.empty",
+                        "Số tiền mục tiêu không được để trống!"
+                ));
                 goalAmountField.requestFocus();
                 return;
             }
+
             if (limitStr.isEmpty()) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.limit.empty", "Giới hạn chi tiêu không được để trống!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.limit.empty",
+                        "Giới hạn chi tiêu không được để trống!"
+                ));
                 spendingLimitField.requestFocus();
                 return;
             }
+
             if (targetDate == null) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.date.empty", "Vui lòng chọn thời hạn!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.date.empty",
+                        "Vui lòng chọn thời hạn!"
+                ));
                 goalDatePicker.requestFocus();
                 return;
             }
+
 
             long amount, limit;
             try {
                 amount = Long.parseLong(amountStr);
                 if (amount <= 0) throw new NumberFormatException();
             } catch (NumberFormatException e) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.amount.invalid", "Số tiền mục tiêu phải >0!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.amount.invalid",
+                        "Số tiền mục tiêu phải >0!"
+                ));
                 goalAmountField.requestFocus();
                 return;
             }
@@ -247,42 +276,56 @@ public class SetGoalPopupController {
                 limit = Long.parseLong(limitStr);
                 if (limit <= 0) throw new NumberFormatException();
             } catch (NumberFormatException e) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.limit.invalid", "Giới hạn chi tiêu phải >0!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.limit.invalid",
+                        "Giới hạn chi tiêu phải >0!"
+                ));
                 spendingLimitField.requestFocus();
                 return;
             }
 
             if (targetDate.isBefore(today)) {
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.validation.date.beforeToday", "Ngày kết thúc mục tiêu phải từ hôm nay trở đi!"));
+                showError(LanguageManagerUlti.get(
+                        "SetGoalPopup.validation.date.beforeToday",
+                        "Ngày kết thúc mục tiêu phải từ hôm nay trở đi!"
+                ));
                 goalDatePicker.requestFocus();
                 return;
             }
 
-            // Ngày bắt đầu dựa vào completedDate trước
-            Goal lastCompletedGoal = goalRepo.getGoalsByUserCached(currentUserId).stream()
-                    .filter(Goal::isCompleted)
-                    .filter(g -> g.getCompletedDate() != null)
-                    .max(Comparator.comparing(Goal::getCompletedDate))
-                    .orElse(null);
 
-            LocalDate startDate = (lastCompletedGoal != null) ? lastCompletedGoal.getCompletedDate().toLocalDate().plusDays(1) : today;
-            LocalDateTime goalCreatedDate = (today.isAfter(startDate) ? today.atStartOfDay() : startDate.atStartOfDay());
+            // Ngày bắt đầu dựa vào completedDate trước
+//            Goal lastCompletedGoal = goalRepo.getGoalsByUserCached(currentUserId).stream()
+//                    .filter(Goal::isCompleted)
+//                    .filter(g -> g.getCompletedDate() != null)
+//                    .max(Comparator.comparing(Goal::getCompletedDate))
+//                    .orElse(null);
+//
+//            LocalDate startDate = (lastCompletedGoal != null) ? lastCompletedGoal.getCompletedDate().toLocalDate().plusDays(1) : today;
+//            LocalDateTime goalCreatedDate = (today.isAfter(startDate) ? today.atStartOfDay() : startDate.atStartOfDay());
+            LocalDateTime goalCreatedDate = LocalDateTime.now();
 
             // SAVE / UPDATE
             if (currentGoal == null) {
                 Goal g = new Goal(0, currentUserId, name, amount, limit,
                         goalCreatedDate, targetDate, 0, 0, null);
                 goalRepo.addGoal(g);
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.status.goal.added", "Đã tạo mục tiêu mới!"));
+                showInfo(LanguageManagerUlti.get(
+                        "SetGoalPopup.status.goal.added",
+                        "Đã tạo mục tiêu mới!"));
                 currentGoal = g;
             } else {
                 currentGoal.setGoalName(name);
                 currentGoal.setGoalAmount(amount);
                 currentGoal.setSpendingLimit(limit);
                 currentGoal.setTargetDate(targetDate);
+//                currentGoal.setCreatedDate(goalCreatedDate);
                 currentGoal.setCreatedDate(goalCreatedDate);
                 goalRepo.updateGoal(currentGoal);
-                statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.status.goal.updated", "Đã cập nhật mục tiêu!"));
+                showInfo(LanguageManagerUlti.get(
+                        "SetGoalPopup.status.goal.updated",
+                        "Đã cập nhật mục tiêu!"
+                ));
             }
 
             clearForm();
@@ -291,16 +334,19 @@ public class SetGoalPopupController {
             GoalMonitor.resetPopups();
 
         } catch (SQLException e) {
-            statusLabel.setText(String.format(
+            String msg = String.format(
                     LanguageManagerUlti.get("SetGoalPopup.status.goal.save.error", "Lỗi khi lưu mục tiêu: %s"),
                     e.getMessage()
-            ));
+            );
+            showError(msg);
         } catch (Exception e) {
-            statusLabel.setText(String.format(
+            String msg = String.format(
                     LanguageManagerUlti.get("SetGoalPopup.status.goal.general.error", "Lỗi: %s"),
                     e.getMessage()
-            ));
+            );
+            showError(msg);
         }
+
     }
 
 
@@ -310,6 +356,7 @@ public class SetGoalPopupController {
         spendingLimitField.clear();
         goalDatePicker.setValue(null);
     }
+
 
 
 
@@ -364,7 +411,7 @@ public class SetGoalPopupController {
         Label title = new Label(name);
         title.getStyleClass().add("goal-title");
 
-        Label money = new Label(amount + " VND");
+        Label money = new Label(amount + LanguageManagerUlti.get("currency.unit"));
         money.getStyleClass().add("goal-money");
 
         // ⭐ Lấy template từ JSON và dùng String.format
@@ -387,7 +434,6 @@ public class SetGoalPopupController {
 
 
     private void completeCurrentGoal(Goal goal) {
-        // đóng tất cả alert đang mở
         GoalMonitor.closeAllAlerts();
 
         try {
@@ -395,42 +441,50 @@ public class SetGoalPopupController {
             goal.setCompletedDate(LocalDateTime.now());
             goalRepo.updateGoal(goal);
 
-            // Lấy thông báo từ JSON
-            statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.status.goal.completed"));
+            showInfo(LanguageManagerUlti.get(
+                    "SetGoalPopup.status.goal.completed",
+                    "Goal completed successfully!"
+            ));
 
             currentGoal = null;
             currentGoalBox.setVisible(false);
             saveButton.setDisable(false);
             loadGoals();
+
         } catch (SQLException e) {
-            // Chèn thông báo lỗi vào string format
-            String errorMsg = String.format(
-                    LanguageManagerUlti.get("SetGoalPopup.status.goal.complete.error", "Error completing goal: %s"),
+            showError(String.format(
+                    LanguageManagerUlti.get("SetGoalPopup.status.goal.complete.error",
+                            "Error completing goal: %s"),
                     e.getMessage()
-            );
-            statusLabel.setText(errorMsg);
+            ));
         }
     }
+
 
     private void deleteGoal(Goal goal) {
         try {
             goalRepo.deleteGoal(goal.getId());
 
-            // Lấy thông báo từ JSON
-            statusLabel.setText(LanguageManagerUlti.get("SetGoalPopup.status.goal.delete"));
+            showInfo(LanguageManagerUlti.get(
+                    "SetGoalPopup.status.goal.delete",
+                    "Goal deleted successfully!"
+            ));
 
             currentGoal = null;
             currentGoalBox.setVisible(false);
             saveButton.setDisable(false);
             loadGoals();
+
         } catch (SQLException e) {
-            String errorMsg = String.format(
-                    LanguageManagerUlti.get("SetGoalPopup.status.goal.delete.error", "Error deleting goal: %s"),
+            showError(String.format(
+                    LanguageManagerUlti.get("SetGoalPopup.status.goal.delete.error",
+                            "Error deleting goal: %s"),
                     e.getMessage()
-            );
-            statusLabel.setText(errorMsg);
+            ));
         }
     }
+
+
 
 
     private void loadGoalForEdit(Goal goal) {
@@ -441,6 +495,20 @@ public class SetGoalPopupController {
         goalDatePicker.setValue(goal.getTargetDate());
         saveButton.setDisable(false);
         currentGoal = goal;
+    }
+
+    private void showInfo(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
     }
 
     public void bindTexts() {

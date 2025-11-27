@@ -24,8 +24,8 @@ public class CategoryRepository {
             try (ResultSet rs = p.executeQuery()) {
                 while (rs.next()) {
                     String name = rs.getString("name");
-                    String typeDb = rs.getString("type");
-                    list.add(name + " (" + typeDb + ")");
+//                    String typeDb = rs.getString("type");
+                    list.add(name);
                 }
             }
         } catch (SQLException e) {

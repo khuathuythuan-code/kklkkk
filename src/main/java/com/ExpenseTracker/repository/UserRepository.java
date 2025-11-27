@@ -76,4 +76,39 @@ public class UserRepository {
             return false;
         }
     }
+
+//    public boolean updatePassword(String newPass) {
+//        String sql = "UPDATE users SET password = ? WHERE id = ?";
+//        try (Connection conn = DBUtil.getConnection();
+//             PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//            stmt.setString(1, newPass);
+//            stmt.setInt(2, currentUserID);
+//
+//            int rowsAffected = stmt.executeUpdate();
+//            return rowsAffected > 0; // Nếu có ít nhất 1 dòng bị update => thành công
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return false; // Catch exception => thất bại
+//        }
+//    }
+
+    public boolean updatePassword(String newPass) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, newPass);
+            stmt.setInt(2, currentUserID);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Nếu có ít nhất 1 dòng bị update => thành công
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Catch exception => thất bại
+        }
+    }
+
 }

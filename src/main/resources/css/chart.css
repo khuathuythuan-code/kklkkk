@@ -1,0 +1,41 @@
+#statsMonthComboBox, #statsYearComboBox {
+
+    -fx-background-radius: 8;
+}
+
+/* ==== PIE CHART ==== */
+.pie-chart {
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+}
+
+.chart-pie-label {
+    -fx-fill: white;
+    -fx-font-weight: bold;
+}
+
+.chart-legend-item-label {
+    -fx-text-fill: white;
+}
+
+/* ==== BAR CHART ==== */
+.bar-chart {
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+.bar-chart .chart-title {
+    -fx-text-fill: white;
+}
+
+.category-axis .axis-label,
+.number-axis .axis-label {
+    -fx-text-fill: white;
+}
+
+.category-axis .tick-label,
+.number-axis .tick-label {
+    -fx-text-fill: white;
+}

@@ -1,3 +1,13 @@
+DROP PROCEDURE IF EXISTS insert_diverse_transactions;
+--nếu hiện lỗi #1304 - PROCEDURE insert_diverse_transactions already exists
+-- thì copy câu trên
+
+
+
+
+
+
+
 DELIMITER $$
 
 CREATE PROCEDURE insert_diverse_transactions()
@@ -97,3 +107,8 @@ DELIMITER ;
 
 -- Gọi procedure để chèn dữ liệu
 CALL insert_diverse_transactions();
+
+
+-- xóa các giao dịch từ sau 0h ngày hôm nay để chức năng đặt mục tiêu chạy đúng
+DELETE FROM transactions
+WHERE created_at > CURDATE();

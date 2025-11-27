@@ -16,6 +16,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -74,8 +75,15 @@ public class ChartController implements Initializable {
         yearToggleBtn.setOnAction(e-> switchYearMonthData(false));
         monthToggleBtn.setOnAction(e-> switchYearMonthData(true));
 
+        barChart.setAnimated(false);
         barChart.setVisible(false);
+
         updateCharts();
+        // BarChart axis text
+        barXAxis.setTickLabelFill(Color.WHITE);
+        barYAxis.setTickLabelFill(Color.WHITE);
+
+
     }
 
 
@@ -127,9 +135,9 @@ public class ChartController implements Initializable {
         // BarChart Thu & Chi theo tháng
         barChart.getData().clear();
         XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
-        incomeSeries.setName("Thu");
+        incomeSeries.setName(LanguageManagerUlti.get("Chart.barchart.incomeSeries"));
         XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
-        expenseSeries.setName("Chi");
+        expenseSeries.setName(LanguageManagerUlti.get("Chart.barchart.expenseSeries"));
 
         for (int m = 1; m <= 12; m++) {
             final int month = m;
@@ -176,8 +184,9 @@ public class ChartController implements Initializable {
                 .sum();
         incomeLabel.setText(String.format("%,.0f", income));
         expenseLabel.setText(String.format("%,.0f", Math.abs(expense)));
-        totalLabel.setText(String.format("%,.0f", income + expense)); // hoặc income - expense nếu bạn muốn chênh lệch thực tế
+        totalLabel.setText(String.format("%,.0f", income - expense)); // hoặc income - expense nếu bạn muốn chênh lệch thực tế
     }
+
 
     private void yearSummary(){
         List<Transaction> all = repo.findByYear(currentUserId,statsYearComboBox.getValue());
@@ -194,7 +203,7 @@ public class ChartController implements Initializable {
                 .sum();
         incomeLabel.setText(String.format("%,.0f", income));
         expenseLabel.setText(String.format("%,.0f", Math.abs(expense)));
-        totalLabel.setText(String.format("%,.0f", income + expense)); // hoặc income - expense nếu bạn muốn chênh lệch thực tế
+        totalLabel.setText(String.format("%,.0f", income - expense)); // hoặc income - expense nếu bạn muốn chênh lệch thực tế
     }
 
 

@@ -53,34 +53,38 @@ public class LoginController {
     private void onLogin(ActionEvent event) throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
+
         if (!ValidatorUlti.isUsernameValid(username)) {
-            showAlert("Tên đăng nhập không hợp lệ");
+            showAlert(LanguageManagerUlti.get("login.alert.invalid.username"));
             return;
         }
 
-        if (!ValidatorUlti.isPasswordValid(password)) {
-            showAlert("Mật khẩu không hợp lệ (tối thiểu 6 ký tự)");
+        String check = ValidatorUlti.isPasswordValid(password);
+        if (check.equals("lengthError")) {
+            showAlert(LanguageManagerUlti.get("login.alert.password.length.error"));
+            return;
+        } else if (check.equals("typoError")) {
+            showAlert(LanguageManagerUlti.get("login.alert.password.typo.error"));
             return;
         }
 
         if (userRepository.checkLogin(username, password)) {
-            showAlert("Đăng nhập thành công!");
+            showAlert(LanguageManagerUlti.get("login.alert.success"));
             Singleton.getInstance().currentUser = UserRepository.currentUserID;
             changeScene(event);
         } else {
-            showAlert("Sai tên đăng nhập hoặc mật khẩu!");
+            showAlert(LanguageManagerUlti.get("login.alert.fail"));
         }
-
     }
-
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
+        alert.setTitle(LanguageManagerUlti.get("login.alert.title"));
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 
     @FXML
     private void changeScene(ActionEvent e) throws IOException {

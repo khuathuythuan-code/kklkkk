@@ -5,9 +5,12 @@ import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,6 +57,8 @@ public class SettingsController {
                 throw new RuntimeException(ex);
             }
         });
+
+        btnChangePassword.setOnAction(this::openDialog);
     }
 
 
@@ -98,4 +103,15 @@ public class SettingsController {
         btnSettings.setText(LanguageManagerUlti.get("Settings.button.menu.settings"));
     }
 
+    private void openDialog(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/password-changing-popup.fxml"));
+            Stage main = (Stage) btnChangePassword.getScene().getWindow();
+            Stage st = new Stage();
+            st.initOwner(main);
+            st.initModality(Modality.WINDOW_MODAL);
+            st.setScene(new Scene(loader.load()));
+            st.showAndWait();
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
 }

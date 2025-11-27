@@ -54,28 +54,55 @@ public class RegisterController {
         String phoneStr = phoneField.getText().trim();
 
         // Validate form
-        if (!ValidatorUlti.isEmailValid(email)) { showAlert("Email không hợp lệ"); return; }
-        if (!ValidatorUlti.isUsernameValid(username)) { showAlert("Tên đăng nhập không hợp lệ"); return; }
-        if (userRepository.isUsernameExists(username)) { showAlert("Tên đăng nhập đã tồn tại"); return; }
-        if (userRepository.isEmailExists(email)) { showAlert("Email đã tồn tại"); return; }
-        if (!ValidatorUlti.isPasswordValid(password)) { showAlert("Mật khẩu tối thiểu 6 ký tự"); return; }
-        if (!password.equals(confirmPassword)) { showAlert("Mật khẩu xác nhận không khớp"); return; }
-        if (!ValidatorUlti.isPhoneValid(phoneStr)) { showAlert("Số điện thoại không hợp lệ"); return; }
+        if (!ValidatorUlti.isEmailValid(email)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.invalid.email"));
+            return;
+        }
+        if (!ValidatorUlti.isUsernameValid(username)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.invalid.username"));
+            return;
+        }
+        if (userRepository.isUsernameExists(username)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.username.exists"));
+            return;
+        }
+        if (userRepository.isEmailExists(email)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.email.exists"));
+            return;
+        }
+
+        String passwordCheck = ValidatorUlti.isPasswordValid(password);
+        if (passwordCheck.equals("lengthError")) {
+            showAlert(LanguageManagerUlti.get("signup.alert.password.length.error"));
+            return;
+        } else if (passwordCheck.equals("typoError")) {
+            showAlert(LanguageManagerUlti.get("signup.alert.password.typo.error"));
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.password.notmatch"));
+            return;
+        }
+        if (!ValidatorUlti.isPhoneValid(phoneStr)) {
+            showAlert(LanguageManagerUlti.get("signup.alert.invalid.phone"));
+            return;
+        }
 
         int phone = Integer.parseInt(phoneStr);
-
         User user = new User(0, username, password, email, phone);
+
         if (userRepository.save(user)) {
-            showAlert("Đăng ký thành công!");
+            showAlert(LanguageManagerUlti.get("signup.alert.success"));
             changeScene();
         } else {
-            showAlert("Đăng ký thất bại!");
+            showAlert(LanguageManagerUlti.get("signup.alert.fail"));
         }
     }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Thông báo");
+        alert.setTitle(LanguageManagerUlti.get("signup.alert.title"));
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

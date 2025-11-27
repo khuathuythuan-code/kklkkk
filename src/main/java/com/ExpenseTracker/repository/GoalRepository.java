@@ -24,10 +24,10 @@ public class GoalRepository {
 
     /** Lấy trực tiếp từ DB */
     public List<Goal> getGoalsByUserFromDB(int userId) throws SQLException {
-        Connection conn = DBUtil.getConnection();
         List<Goal> goals = new ArrayList<>();
         String sql = "SELECT * FROM goals WHERE user_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) { // conn sẽ tự động đóng
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -48,13 +48,13 @@ public class GoalRepository {
         return goals;
     }
 
+
     /** Thêm mục tiêu */
     public void addGoal(Goal goal) throws SQLException {
-        Connection conn = DBUtil.getConnection();
-        String sql = "INSERT INTO goals (user_id, goal_name, goal_amount, spending_limit, target_date, progress, is_completed, completed_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = "INSERT INTO goals (user_id, goal_name, goal_amount, spending_limit, target_date, progress, is_completed, completed_date, created_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, goal.getUserId());
             stmt.setString(2, goal.getGoalName());
             stmt.setLong(3, goal.getGoalAmount());
@@ -63,11 +63,13 @@ public class GoalRepository {
             stmt.setLong(6, goal.getProgress());
             stmt.setInt(7, goal.getIsCompleted());
             stmt.setTimestamp(8, goal.getCompletedDate() != null ? Timestamp.valueOf(goal.getCompletedDate()) : null);
+            stmt.setTimestamp(9, goal.getCreatedDate() != null ? Timestamp.valueOf(goal.getCreatedDate()) : null);
             stmt.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                goal.setId(rs.getInt(1));
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    goal.setId(rs.getInt(1));
+                }
             }
         }
 
@@ -75,12 +77,13 @@ public class GoalRepository {
             cache.add(goal);
     }
 
+
+
     /** Cập nhật toàn bộ mục tiêu */
     public void updateGoal(Goal goal) throws SQLException {
-        Connection conn = DBUtil.getConnection();
-        String sql = "UPDATE goals SET goal_name=?, goal_amount=?, spending_limit=?, target_date=?, progress=?, is_completed=?, completed_date=? WHERE id=?";
+        String sql = "UPDATE goals SET goal_name=?, goal_amount=?, spending_limit=?, target_date=?, progress=?, is_completed=?, completed_date=?,created_date =? WHERE id=?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, goal.getGoalName());
             stmt.setLong(2, goal.getGoalAmount());
             stmt.setLong(3, goal.getSpendingLimit());
@@ -88,7 +91,8 @@ public class GoalRepository {
             stmt.setLong(5, goal.getProgress());
             stmt.setInt(6, goal.getIsCompleted());
             stmt.setTimestamp(7, goal.getCompletedDate() != null ? Timestamp.valueOf(goal.getCompletedDate()) : null);
-            stmt.setInt(8, goal.getId());
+            stmt.setTimestamp(8, goal.getCompletedDate() != null ? Timestamp.valueOf(goal.getCompletedDate()) : null);
+            stmt.setInt(9, goal.getId());
             stmt.executeUpdate();
         }
 
@@ -98,10 +102,10 @@ public class GoalRepository {
 
     /** Cập nhật progress */
     public void updateProgress(int goalId, long progress) throws SQLException {
-        Connection conn = DBUtil.getConnection();
         String sql = "UPDATE goals SET progress = ? WHERE id = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (        Connection conn = DBUtil.getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, progress);
             stmt.setInt(2, goalId);
             stmt.executeUpdate();
@@ -113,11 +117,12 @@ public class GoalRepository {
                 .ifPresent(g -> g.setProgress(progress));
     }
 
+
     /** Đánh dấu hoàn thành */
     public void markGoalCompleted(int id) throws SQLException {
-        Connection conn = DBUtil.getConnection();
         String sql = "UPDATE goals SET is_completed = 1, completed_date = CURRENT_TIMESTAMP WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (        Connection conn = DBUtil.getConnection();
+                     PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
@@ -135,10 +140,10 @@ public class GoalRepository {
 
     /** Xóa mục tiêu */
     public void deleteGoal(int goalId) throws SQLException {
-        Connection conn = DBUtil.getConnection();
         String sql = "DELETE FROM goals WHERE id = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (        Connection conn = DBUtil.getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, goalId);
             stmt.executeUpdate();
         }
