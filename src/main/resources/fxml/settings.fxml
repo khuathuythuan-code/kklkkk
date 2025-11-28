@@ -5,9 +5,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="settingPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';"
             fx:controller="com.ExpenseTracker.controller.SettingsController">
 
     <!-- ======= TOP ======= -->
@@ -27,17 +26,17 @@
             <VBox spacing="15" alignment="CENTER" prefWidth="400">
 
                 <!-- Chế độ giao diện -->
-                <HBox alignment="CENTER_LEFT" spacing="10"
-                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                <HBox fx:id="themeOptionLabelContainer" alignment="CENTER_LEFT" spacing="10"
+                      style="-fx-background-radius: 8; -fx-padding: 10 15;">
                     <Label fx:id="themeOptionLabel"
                            style="-fx-text-fill: white; -fx-font-size: 14;" />
                     <Region HBox.hgrow="ALWAYS" />
-                    <CheckBox fx:id="toggleTheme" style="-fx-scale-x: 1.2; -fx-scale-y: 1.2;" />
+                    <ToggleButton fx:id="themeToggle" />
                 </HBox>
 
                 <!-- Ngôn ngữ -->
-                <HBox alignment="CENTER_LEFT" spacing="10"
-                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                <HBox fx:id="languageOptionLabelContainer" alignment="CENTER_LEFT" spacing="10"
+                      style=" -fx-background-radius: 8; -fx-padding: 10 15;">
                     <Label fx:id="languageOptionLabel"
                            style="-fx-text-fill: white; -fx-font-size: 14;" />
                     <Region HBox.hgrow="ALWAYS" />
@@ -46,8 +45,8 @@
                 </HBox>
 
                 <!-- Đổi mật khẩu -->
-                <HBox alignment="CENTER_LEFT" spacing="10"
-                      style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 10 15;">
+                <HBox fx:id="changePasswordLabelContainer" alignment="CENTER_LEFT" spacing="10"
+                      style=" -fx-background-radius: 8; -fx-padding: 10 15;">
                     <Label fx:id="changePasswordLabel"
                            style="-fx-text-fill: white; -fx-font-size: 14;" />
                     <Region HBox.hgrow="ALWAYS" />
@@ -66,8 +65,7 @@
 
     <!-- ======= BOTTOM MENU ======= -->
     <bottom>
-        <HBox spacing="60" alignment="CENTER"
-              style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+        <HBox fx:id="settingNavBar" spacing="60" alignment="CENTER">
             <Button fx:id="btnHome"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>

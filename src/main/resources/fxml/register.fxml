@@ -5,9 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.effect.DropShadow?>
 
-<StackPane xmlns="http://javafx.com/javafx"
+<StackPane fx:id="registerPane" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           style="-fx-background-color: #121212;"
            fx:controller="com.ExpenseTracker.controller.RegisterController">
 
     <VBox alignment="CENTER" spacing="35">
@@ -17,8 +16,8 @@
                style="-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;"/>
 
         <!-- Khung đăng ký -->
-        <BorderPane maxWidth="650"
-                    style="-fx-background-color: #1E1E1E;
+        <BorderPane fx:id="registerContentContainer" maxWidth="650"
+                    style="
                            -fx-background-radius: 12;
                            -fx-padding: 40 50;
                            -fx-border-radius: 12;">

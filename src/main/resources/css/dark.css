@@ -1,0 +1,92 @@
+* {
+ -fx-font-family: 'Segoe UI';
+}
+
+#historyPane{
+   -fx-padding: 50 0 0 0;
+}
+
+
+#chartPane,
+#historyPane, #loginPane,
+#mainPane, #registerPane,
+#settingPane{
+    -fx-background-color: #121212;
+}
+
+#setGoalPopupPane, #transactionDetailPane,
+#passwordChangingPopupPane,#categoryDialogPane, #calculatorPane{
+      -fx-background-color: #1e1e1e;
+        -fx-background-radius: 12;
+        -fx-padding: 25;
+        -fx-spacing: 20;
+ }
+
+#chartNavBar,#historyNavBar,#mainNavBar,#settingNavBar{
+    -fx-background-color: #1e1e1e;
+    -fx-padding: 15;
+}
+
+#registerContentContainer, #loginContentContainer, #textFieldContainer {
+    -fx-background-color: #1E1E1E;
+}
+
+
+#catergoryBtn, #catergoryComboBox,
+#dateBtn, #datePicker,
+#methodBtn,#methodComboBox,
+#noteBtn,#noteTextArea{
+    -fx-background-color: #2c2c2c;
+}
+
+#goalSettingButton{
+    -fx-background-color: #22cc21;
+}
+
+#goalBtnContainer{
+    -fx-background-color: #1E1E1E;
+}
+
+
+#expenseStatsContainer,#incomeStatsContainer,#totalStatsContainer{
+-fx-background-color: #1e1e1e;
+}
+
+
+#expensePieChart,#revenuePieChart,#barChart{
+    -fx-background-color: black;
+}
+
+
+#themeOptionLabelContainer,#languageOptionLabelContainer
+,#changePasswordLabelContainer{
+    -fx-background-color: #1f1f1f;
+}
+
+
+
+
+#title {
+    -fx-text-fill: white;
+}
+
+#categoryList {
+    -fx-control-inner-background: #3a3a3a;
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #454545;
+    -fx-text-fill: white;
+}
+
+#categoryList .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+#categoryList .list-cell:hover {
+    -fx-background-color: #4b4b4b;
+}
+
+#categoryList .list-cell:selected {
+    -fx-background-color: #5e9cff;
+    -fx-text-fill: black;
+}

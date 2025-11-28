@@ -80,8 +80,8 @@ public class ChartController implements Initializable {
 
         updateCharts();
         // BarChart axis text
-        barXAxis.setTickLabelFill(Color.WHITE);
-        barYAxis.setTickLabelFill(Color.WHITE);
+//        barXAxis.setTickLabelFill(Color.WHITE);
+//        barYAxis.setTickLabelFill(Color.WHITE);
 
 
     }

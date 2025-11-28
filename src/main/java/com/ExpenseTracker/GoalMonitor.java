@@ -4,6 +4,7 @@ import com.ExpenseTracker.model.Goal;
 import com.ExpenseTracker.model.Transaction;
 import com.ExpenseTracker.repository.GoalRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
+import com.ExpenseTracker.utility.ThemeUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -184,7 +185,10 @@ public class GoalMonitor {
                         FXMLLoader loader = new FXMLLoader(GoalMonitor.class.getResource("/fxml/set-goal-popup.fxml"));
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.setScene(new Scene(loader.load()));
+                        Scene scene = new Scene(loader.load());
+                        ThemeUtil.applyTheme(scene);   // áp dụng CSS vào popup
+                        stage.setScene(scene);
+//                        stage.setScene(new Scene(loader.load()));
                         setGoalFormOpened = true;
                         stage.showAndWait();
                         setGoalFormOpened = false;

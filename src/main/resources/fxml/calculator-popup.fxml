@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.ExpenseTracker.controller.CalculatorPopupController"
+<AnchorPane fx:id="calculatorPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.ExpenseTracker.controller.CalculatorPopupController"
             prefWidth="300" prefHeight="400"
             stylesheets="@/css/calculator.css">
     <padding>

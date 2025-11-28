@@ -6,7 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class Singleton {
     // 1. private static instance
     private static Singleton instance;
-
+    public boolean isDarkMode = false;
+    public String currentTheme = "/css/light.css";
     // 2. public variable
     public int currentUser;
 
@@ -24,4 +25,11 @@ public class Singleton {
         }
         return instance;
     }
+
+
+    public void changeTheme() {
+        isDarkMode = !isDarkMode;
+        currentTheme = isDarkMode ? "/css/dark.css" : "/css/light.css";
+    }
+
 }

@@ -7,6 +7,7 @@ import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
+import com.ExpenseTracker.utility.ThemeUtil;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -364,6 +365,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/transaction_detail.fxml"));
             Scene scene = new Scene(loader.load());
+            ThemeUtil.applyTheme(scene);   // áp dụng CSS vào popup
             TransactionDetailController ctrl = loader.getController();
             ctrl.setTransaction(t);
 

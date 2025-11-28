@@ -3,6 +3,7 @@ package com.ExpenseTracker.controller;
 import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
+import com.ExpenseTracker.utility.ThemeUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -31,6 +33,7 @@ public class SettingsController {
     @FXML private Button btnHistory;
     @FXML private Button btnReport;
     @FXML private Button btnSettings;
+    @FXML private ToggleButton themeToggle;
 
 
     @FXML
@@ -59,6 +62,15 @@ public class SettingsController {
         });
 
         btnChangePassword.setOnAction(this::openDialog);
+        themeToggle.setText(Singleton.getInstance().isDarkMode ? "🌙" : "🌞");
+
+
+        themeToggle.setOnAction(e -> {
+            Singleton.getInstance().changeTheme();     // đổi theme trong singleton
+            ThemeUtil.applyTheme(themeToggle.getScene()); // cập nhật ngay Scene hiện tại
+            // cập nhật icon
+            themeToggle.setText(Singleton.getInstance().isDarkMode ? "🌙" : "🌞");
+        });
     }
 
 
@@ -110,7 +122,10 @@ public class SettingsController {
             Stage st = new Stage();
             st.initOwner(main);
             st.initModality(Modality.WINDOW_MODAL);
-            st.setScene(new Scene(loader.load()));
+            Scene scene = new Scene(loader.load());
+            ThemeUtil.applyTheme(scene);   // áp dụng CSS vào popup
+//            st.setScene(new Scene(loader.load()));
+            st.setScene(scene);
             st.showAndWait();
         } catch (Exception ex) { ex.printStackTrace(); }
     }

@@ -4,10 +4,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="historyPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            style="-fx-background-color: #121212;-fx-padding: 50 0 0 0;"
-            fx:controller="com.ExpenseTracker.controller.HistoryController">
+            fx:controller="com.ExpenseTracker.controller.HistoryController"
+            stylesheets="@/css/main.css">
 
     <!-- TOP: Tháng - Năm -->
     <top>
@@ -17,10 +17,10 @@
                   style="-fx-padding: 0 25 5 25;">   <!-- Cực sát trên -->
 
                 <Text fx:id="monthLabel" style="-fx-fill: white;" />
-                <ComboBox fx:id="monthComboBox" prefWidth="110"/>
+                <ComboBox fx:id="monthComboBox" prefWidth="130" prefHeight="30" style="-fx-background-radius: 8;"/>
 
-                <Text fx:id="yearLabel" style="-fx-fill: white;" />
-                <ComboBox fx:id="yearComboBox" prefWidth="130"/>
+                <Text fx:id="yearLabel" style="-fx-fill: white;"  />
+                <ComboBox fx:id="yearComboBox" prefWidth="130" prefHeight="30" style="-fx-background-radius: 8;"/>
 
                 <Pane HBox.hgrow="ALWAYS"/>
 
@@ -45,15 +45,15 @@
 
             <ScrollPane fx:id="transcContainer"
                         fitToWidth="true"
-                        style="-fx-background: transparent; -fx-padding: 0;"
+                        style="-fx-background: transparent; -fx-padding: 0; -fx-border-radius: 20"
                         prefHeight="260"/>
         </VBox>
     </center>
 
     <!-- ======= BOTTOM MENU ======= -->
     <bottom>
-        <HBox spacing="60" alignment="CENTER"
-              style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+        <HBox fx:id="historyNavBar" spacing="60" alignment="CENTER"
+              >
             <Button fx:id="btnHome"
                     style="-fx-background-color: transparent; -fx-text-fill: white;"
                     onAction="#changeScene"/>

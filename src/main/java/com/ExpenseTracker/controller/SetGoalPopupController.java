@@ -320,7 +320,6 @@ public class SetGoalPopupController {
                 currentGoal.setSpendingLimit(limit);
                 currentGoal.setTargetDate(targetDate);
 //                currentGoal.setCreatedDate(goalCreatedDate);
-                currentGoal.setCreatedDate(goalCreatedDate);
                 goalRepo.updateGoal(currentGoal);
                 showInfo(LanguageManagerUlti.get(
                         "SetGoalPopup.status.goal.updated",

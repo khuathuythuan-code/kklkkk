@@ -18,9 +18,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            Scene scene = new Scene(loader.load());
-//            Application.setUserAgentStylesheet(getClass().getResource("/css/main.css").toExternalForm());
-//            primaryStage.setTitle("Expense Manager");
+            Parent root = loader.load();  // load FXML ra root
+
+            // Gắn CSS vào root thì chỉ áp dụng cho mỗi cái file fxml đấy thôi
+            root.getStylesheets().add(getClass().getResource(Singleton.getInstance().currentTheme).toExternalForm());
+
+            Scene scene = new Scene(root);
+            // Gắn CSS vào scene thì sẽ áp dụng cho nhiều file fxml bao gồm overlay, popup...
+//            scene.getStylesheets().add(getClass().getResource(Singleton.getInstance().currentTheme).toExternalForm());
+
+
             primaryStage.setScene(scene);
             primaryStage.setWidth(900);
             primaryStage.setHeight(900);

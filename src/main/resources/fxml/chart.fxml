@@ -11,11 +11,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25"
+<BorderPane fx:id="chartPane" xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.ExpenseTracker.controller.ChartController"
-            style="-fx-background-color: #121212; -fx-font-family: 'Segoe UI';"
-            stylesheets="@/css/chart.css">
+           >
 
     <!-- ===== TOP: CHỌN THÁNG - NĂM ===== -->
     <top>
@@ -23,13 +22,13 @@
             <VBox spacing="4">
                 <Label fx:id="monthComboBoxLabel" style="-fx-text-fill: white;" />
                 <ComboBox fx:id="statsMonthComboBox" prefWidth="130" prefHeight="30"
-                           />
+                          style="-fx-background-radius: 8;"/>
             </VBox>
 
             <VBox spacing="4">
                 <Label fx:id="yearComboBoxLabel" style="-fx-text-fill: white;" />
                 <ComboBox fx:id="statsYearComboBox" prefWidth="130" prefHeight="30"
-                           />
+                           style="-fx-background-radius: 8;"/>
             </VBox>
 
             <Pane HBox.hgrow="ALWAYS" />
@@ -45,17 +44,17 @@
 
             <!-- BOX 3 CHỈ SỐ -->
             <HBox alignment="CENTER" spacing="20">
-                <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e; -fx-padding: 12 20; -fx-background-radius: 10;">
+                <VBox fx:id="expenseStatsContainer" alignment="CENTER" spacing="6" style=" -fx-padding: 12 20; -fx-background-radius: 10;">
                     <Label fx:id="expenseAboveLabel" style="-fx-text-fill:#b8ffa8;" />
                     <Label fx:id="expenseLabel" text="0" alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" />
                 </VBox>
 
-                <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e; -fx-padding: 12 20; -fx-background-radius: 10;">
+                <VBox fx:id="incomeStatsContainer" alignment="CENTER" spacing="6" style=" -fx-padding: 12 20; -fx-background-radius: 10;">
                     <Label fx:id="incomeAboveLabel" style="-fx-text-fill:#ffabab;" />
                     <Label fx:id="incomeLabel" text="0" alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" />
                 </VBox>
 
-                <VBox alignment="CENTER" spacing="6" style="-fx-background-color: #1e1e1e; -fx-padding: 12 20; -fx-background-radius: 10;">
+                <VBox fx:id="totalStatsContainer" alignment="CENTER" spacing="6" style=" -fx-padding: 12 20; -fx-background-radius: 10;">
                     <Label fx:id="totalAboveLabel" style="-fx-text-fill:#a8c8ff;" />
                     <Label fx:id="totalLabel" text="0" alignment="CENTER" style="-fx-text-fill: white; -fx-font-size: 18;" />
                 </VBox>
@@ -64,14 +63,14 @@
             <!-- PIE CHARTS -->
             <HBox alignment="CENTER" spacing="25">
                 <PieChart fx:id="expensePieChart" legendVisible="false" prefWidth="380" prefHeight="320"
-                          style="-fx-background-color: #1e1e1e; -fx-background-radius: 12; -fx-padding: 15;" />
+                          style=" -fx-background-radius: 12; -fx-padding: 15;" />
                 <PieChart fx:id="revenuePieChart" legendVisible="false" prefWidth="380" prefHeight="320"
-                          style="-fx-background-color: #1e1e1e; -fx-background-radius: 12; -fx-padding: 15;" />
+                          style=" -fx-background-radius: 12; -fx-padding: 15;" />
             </HBox>
 
             <!-- BAR CHART -->
             <BarChart fx:id="barChart" prefWidth="780" prefHeight="320" titleSide="TOP"
-                      style="-fx-background-color: #1e1e1e; -fx-background-radius: 12; -fx-padding: 10;">
+                      style=" -fx-background-radius: 12; -fx-padding: 10;">
                 <xAxis>
                     <CategoryAxis fx:id="barXAxis" label="Tháng" />
                 </xAxis>
@@ -84,7 +83,7 @@
 
     <!-- ===== BOTTOM MENU ===== -->
     <bottom>
-        <HBox alignment="CENTER" spacing="60" style="-fx-background-color: #1e1e1e; -fx-padding: 15;">
+        <HBox fx:id="chartNavBar" alignment="CENTER" spacing="60" >
             <Button fx:id="btnHome" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" />
             <Button fx:id="btnHistory" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" />
             <Button fx:id="btnReport" onAction="#changeScene" style="-fx-background-color: transparent; -fx-text-fill: white;" />

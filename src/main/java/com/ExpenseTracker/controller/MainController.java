@@ -7,6 +7,7 @@ import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
+import com.ExpenseTracker.utility.ThemeUtil;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -59,13 +60,12 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        expenseToggle.getStyleClass().add("active");
         // --- Thiết lập ngôn ngữ mặc định ---
         LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
         bindTexts();
 
         // --- Toggle Thu / Chi ---
-
-
         expenseToggle.setOnAction(e -> {
             // Thêm class "active" nếu chưa có
             if (!expenseToggle.getStyleClass().contains("active")) {
@@ -78,6 +78,7 @@ public class MainController implements Initializable {
             refreshCategories(); // Luôn chạy khi click
         });
 
+
         incomeToggle.setOnAction(e -> {
             if (!incomeToggle.getStyleClass().contains("active")) {
                 incomeToggle.getStyleClass().add("active");
@@ -87,6 +88,7 @@ public class MainController implements Initializable {
             isExpense = false;
             refreshCategories(); // Luôn chạy khi click
         });
+
 
 
 
@@ -281,26 +283,62 @@ public class MainController implements Initializable {
         ChangeSceneUtil.navigate(stage, fxml);
     }
 
+//
+//    @FXML
+//    private void openDialog(ActionEvent e) {
+//        Button btn = (Button) e.getSource();
+//        String fxml = switch (btn.getId()) {
+//            case "goalSettingButton" -> "/fxml/set-goal-popup.fxml";
+//            case "editCategoryBtn" -> "/fxml/category_dialog.fxml";
+//            case "calculator" -> "/fxml/calculator-popup.fxml";
+//            default -> throw new IllegalArgumentException("Không xác định nút: " + btn.getId());
+//        };
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+//            Stage main = (Stage) inputMoneyBtn.getScene().getWindow();
+//            Stage st = new Stage();
+//            st.initOwner(main);
+//            if (!btn.getId().equalsIgnoreCase("calculator")) st.initModality(Modality.APPLICATION_MODAL);
+//            st.setScene(new Scene(loader.load()));
+//            st.showAndWait();
+//            refreshCategories();
+//        } catch (Exception ex) { ex.printStackTrace(); }
+//    }
+
     @FXML
     private void openDialog(ActionEvent e) {
         Button btn = (Button) e.getSource();
+
         String fxml = switch (btn.getId()) {
             case "goalSettingButton" -> "/fxml/set-goal-popup.fxml";
             case "editCategoryBtn" -> "/fxml/category_dialog.fxml";
             case "calculator" -> "/fxml/calculator-popup.fxml";
             default -> throw new IllegalArgumentException("Không xác định nút: " + btn.getId());
         };
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = ChangeSceneUtil.loadFXML(fxml);
+
             Stage main = (Stage) inputMoneyBtn.getScene().getWindow();
             Stage st = new Stage();
             st.initOwner(main);
-            if (!btn.getId().equalsIgnoreCase("calculator")) st.initModality(Modality.APPLICATION_MODAL);
-            st.setScene(new Scene(loader.load()));
+
+            if (!btn.getId().equalsIgnoreCase("calculator"))
+                st.initModality(Modality.APPLICATION_MODAL);
+
+            Scene scene = new Scene(root);
+            ThemeUtil.applyTheme(scene);   // áp dụng CSS vào popup
+
+            st.setScene(scene);
+
             st.showAndWait();
             refreshCategories();
-        } catch (Exception ex) { ex.printStackTrace(); }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
 
     private void bindTexts() {
         // Nút toggle
