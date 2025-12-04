@@ -120,8 +120,12 @@ public class HistoryController implements Initializable, TransactionUpdateListen
             pause.playFromStart();
         });
 
+        cbFilterMode.getItems().setAll(
+                Singleton.getInstance().currentLanguage.equalsIgnoreCase("en")
+                        ? new String[]{"By default", "By month", "By year"}
+                        : new String[]{"Mặc định", "Theo tháng", "Theo năm"}
+        );
 
-        cbFilterMode.getItems().addAll("Mặc định", "Theo tháng", "Theo năm");
         cbFilterMode.getSelectionModel().selectFirst();
 
         int currentMonth = LocalDate.now().getMonthValue();
@@ -182,9 +186,16 @@ public class HistoryController implements Initializable, TransactionUpdateListen
 
     private void updateVisibleFilters() {
         String mode = cbFilterMode.getValue();
+        boolean findByMonth ;
+        boolean findByYear ;
+        if (Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")){
+           findByMonth = "Theo tháng".equals(mode);
+           findByYear = "Theo năm".equals(mode);
+        } else {
+            findByMonth = "By month".equals(mode);
+            findByYear = "By year".equals(mode);
+        }
 
-        boolean findByMonth = "Theo tháng".equals(mode);
-        boolean findByYear = "Theo năm".equals(mode);
 
         cbMonth.setVisible(findByMonth);
         cbYear.setVisible(findByMonth || findByYear);
@@ -193,9 +204,9 @@ public class HistoryController implements Initializable, TransactionUpdateListen
     private void refreshTransactionList() {
         String mode = cbFilterMode.getValue();
         switch (mode) {
-            case "Mặc định" -> loadDefaultTransactions();
-            case "Theo tháng" -> loadTransactionsByMonth();
-            case "Theo năm" -> loadTransactionsByYear();
+            case "Mặc định", "By default" -> loadDefaultTransactions();
+            case "Theo tháng", "By month" -> loadTransactionsByMonth();
+            case "Theo năm", "By year" -> loadTransactionsByYear();
         }
     }
 
@@ -621,7 +632,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
     @Override
     public void onTransactionUpdated(Transaction transaction) {
         // cập nhật lại danh sách; nếu đang ở chế độ mặc định thì refresh data source and re-render pages
-        if ("Mặc định".equals(cbFilterMode.getValue())) {
+        if ("Mặc định".equals(cbFilterMode.getValue()) || "By default".equals(cbFilterMode.getValue()) ) {
             loadDefaultTransactions();
         } else {
             showTransactions(transaction.getCreatedAt().toLocalDate());
@@ -630,7 +641,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
 
     @Override
     public void onTransactionDeleted(Transaction transaction) {
-        if ("Mặc định".equals(cbFilterMode.getValue())) {
+        if ("Mặc định".equals(cbFilterMode.getValue()) || "By default".equals(cbFilterMode.getValue())) {
             loadDefaultTransactions();
         } else {
             showTransactions(transaction.getCreatedAt().toLocalDate());
