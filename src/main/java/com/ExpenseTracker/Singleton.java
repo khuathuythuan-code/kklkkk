@@ -7,11 +7,12 @@ public class Singleton {
     // 1. private static instance
     private static Singleton instance;
     public boolean isDarkMode = false;
-    public String currentTheme = "/css/light.css";
+    public String currentUserTheme;
+    public String currentTheme = "/css/dark.css";
     // 2. public variable
     public int currentUser;
 
-    public String currentLanguage = "vi";
+    public String currentLanguage = "en";
     // Goal progress global, mọi listener subscribe
     public DoubleProperty goalSupervisorBar = new SimpleDoubleProperty(0);
 
@@ -30,6 +31,16 @@ public class Singleton {
     public void changeTheme() {
         isDarkMode = !isDarkMode;
         currentTheme = isDarkMode ? "/css/dark.css" : "/css/light.css";
+    }
+
+    public void applyUserTheme(){
+        currentTheme = currentUserTheme.equalsIgnoreCase("light")? "/css/light.css":"/css/dark.css";
+
+    }
+
+    public void setDefault(){
+        currentTheme = "/css/dark.css";
+        currentLanguage = "en";
     }
 
 }

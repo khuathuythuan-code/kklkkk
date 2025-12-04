@@ -7,8 +7,11 @@ CREATE TABLE users (
   username VARCHAR(100) UNIQUE,
   password VARCHAR(255),
   email VARCHAR(255),
-  phone VARCHAR(50)
+  phone VARCHAR(50),
+  theme VARCHAR(50) DEFAULT 'light',
+  language VARCHAR(50) DEFAULT 'en'
 );
+
 
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,

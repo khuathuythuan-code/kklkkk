@@ -1,5 +1,6 @@
 package com.ExpenseTracker.repository;
 
+import com.ExpenseTracker.Singleton;
 import com.ExpenseTracker.model.User;
 import com.ExpenseTracker.utility.DBUtil;
 
@@ -7,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 
 
 public class UserRepository {
@@ -31,6 +31,37 @@ public class UserRepository {
             return false;
         }
     }
+
+    public User getUser(int id) {
+        Connection conn = DBUtil.getConnection();
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id); // Nhận đúng tham số truyền vào
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setUserName(rs.getString("username"));
+                u.setPassWord(rs.getString("password"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getInt("phone"));
+                u.setTheme(rs.getString("theme"));
+                u.setLanguage(rs.getString("language"));
+                return u;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Không tìm thấy user
+    }
+
+
+
 
 
     // Kiểm tra username tồn tại
@@ -74,6 +105,23 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public boolean updateUI(String pathTheme, String lang) {
+        String sql = "UPDATE users SET theme = ?, language = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, pathTheme.substring(pathTheme.lastIndexOf("/") + 1, pathTheme.lastIndexOf(".")));
+            stmt.setString(2, lang);
+            stmt.setInt(3, currentUserID);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Nếu có ít nhất 1 dòng bị update => thành công
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Catch exception => thất bại
         }
     }
 

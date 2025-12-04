@@ -9,6 +9,8 @@ public class User {
     private String email;
     private int phone;
     private LocalDate DateOfBirth;
+    private String theme;
+    private String language;
 
     public User(int id, String userName,
                 String passWord, String email,
@@ -18,6 +20,37 @@ public class User {
         this.passWord = passWord;
         this.email = email;
         this.phone = phone;
+    }
+
+    public User() {
+    }
+
+    public User(int id, String userName, String passWord,
+                String email, int phone,
+                String theme, String language) {
+        this.id = id;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+        this.phone = phone;
+        this.theme = theme;
+        this.language = language;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public int getId() {

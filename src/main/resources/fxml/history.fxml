@@ -33,7 +33,7 @@
 
     <!-- CENTER -->
     <center>
-        <VBox spacing="20" style="-fx-padding: 0 30 30 30;">
+        <VBox fx:id="calendarAndSearchingContainer" spacing="20" style="-fx-padding: 0 30 30 30;">
 
             <GridPane fx:id="calendarGrid" hgap="4" vgap="4"
                       prefHeight="320" />
@@ -41,9 +41,19 @@
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Text fx:id="searchLabel" style="-fx-fill:white;" />
                 <TextField fx:id="searchField" prefWidth="220"/>
+
+                <Text fx:id="cbFilterModeLabel" style="-fx-fill: white;" />
+                <ComboBox fx:id="cbFilterMode" prefWidth="130" prefHeight="30" style="-fx-background-radius: 8;"/>
+
+                <Text fx:id="cbMonthLabel" style="-fx-fill: white;"  />
+                <ComboBox fx:id="cbMonth" prefWidth="130" prefHeight="30" style="-fx-background-radius: 8;"/>
+
+                <Text fx:id="cbYearLabel" style="-fx-fill: white;" />
+                <ComboBox fx:id="cbYear" prefWidth="130" prefHeight="30" style="-fx-background-radius: 8;"/>
+
             </HBox>
 
-            <ScrollPane fx:id="transcContainer"
+            <ScrollPane fx:id="ScrollContainer"
                         fitToWidth="true"
                         style="-fx-background: transparent; -fx-padding: 0; -fx-border-radius: 20"
                         prefHeight="260"/>

@@ -5,36 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bb1132b-bc39-46c0-bbe3-2ba1bc67853f" name="Changes" comment="almost there">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/utility/ThemeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/category-dialog.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/dark.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/light.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/transaction-detail.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/GoalMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/GoalMonitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/utility/ChangeSceneUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/utility/ChangeSceneUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/calculator.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/calculator.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/chart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/chart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/calculator-popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/calculator-popup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/category_dialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/category_dialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/repository/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/history.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/history.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/password-changing-popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/password-changing-popup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/register.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/set-goal-popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/set-goal-popup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/settings.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/transaction_detail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/transaction_detail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/createTableMysql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/createTableMysql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/mockData2022_2026.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/mockData2022_2026.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/mockData2024_2026.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="thuan_25_11_2025" />
+        <entry key="$PROJECT_DIR$" value="thuan_28_11_2025" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,7 +68,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;thuan__27__11__2025&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;thuan__01__12__2025&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Windows/IdeaProjects/Java/App/kklkkk&quot;
   }
 }</component>
@@ -148,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764235995132</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="almost there">
+      <option name="closed" value="true" />
+      <created>1764319823988</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764319823988</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

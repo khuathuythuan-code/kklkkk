@@ -1,6 +1,7 @@
 package com.ExpenseTracker.controller;
 
 import com.ExpenseTracker.Singleton;
+import com.ExpenseTracker.model.User;
 import com.ExpenseTracker.repository.UserRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.DBUtil;
@@ -45,6 +46,7 @@ public class LoginController {
 
             // Cập nhật text cho UI
             bindTexts();
+
         });
 
     }
@@ -71,6 +73,10 @@ public class LoginController {
         if (userRepository.checkLogin(username, password)) {
             showAlert(LanguageManagerUlti.get("login.alert.success"));
             Singleton.getInstance().currentUser = UserRepository.currentUserID;
+            User user = userRepository.getUser(Singleton.getInstance().currentUser);
+            Singleton.getInstance().currentLanguage = user.getLanguage();
+            Singleton.getInstance().currentUserTheme = user.getTheme() ;
+            Singleton.getInstance().applyUserTheme();
             changeScene(event);
         } else {
             showAlert(LanguageManagerUlti.get("login.alert.fail"));

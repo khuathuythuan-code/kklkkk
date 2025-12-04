@@ -71,7 +71,7 @@ public class TransactionRepository {
         return findAllCached(userId).stream()
                 .filter(t -> t.getCreatedAt() != null
                         && t.getCreatedAt().getYear() == year)
-                .sorted((a, b) -> b.getUpdatedAt().compareTo(a.getUpdatedAt()))
+                .sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 
@@ -81,17 +81,20 @@ public class TransactionRepository {
                 .filter(t -> t.getCreatedAt() != null
                         && t.getCreatedAt().getMonthValue() == month
                         && t.getCreatedAt().getYear() == year)
-                .sorted((a, b) -> b.getUpdatedAt().compareTo(a.getUpdatedAt()))
+                .sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
                 .collect(Collectors.toList());
     }
+
 
     public List<Transaction> findByDate(int userId, java.time.LocalDate date) {
         return findAllCached(userId).stream()
                 .filter(t -> t.getCreatedAt() != null
                         && t.getCreatedAt().toLocalDate().equals(date))
-                .sorted((a, b) -> b.getUpdatedAt().compareTo(a.getUpdatedAt()))
+                .sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
                 .collect(Collectors.toList());
     }
+
+
 
 
     public List<Transaction> searchByKey(int userId, String keyword) {
@@ -137,6 +140,92 @@ public class TransactionRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<Transaction> searchByKeyInMonth(int userId, String keyword, int month, int year) {
+        String sql = "SELECT * FROM transactions " +
+                "WHERE user_id = ? " +
+                "AND MONTH(created_at) = ? " +
+                "AND YEAR(created_at) = ? " +
+                "AND (LOWER(category) LIKE ? OR LOWER(note) LIKE ?) " +
+                "ORDER BY created_at DESC";
+
+        List<Transaction> list = new ArrayList<>();
+        String k = (keyword == null) ? "" : keyword.trim().toLowerCase();
+
+        if (k.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            stmt.setInt(2, month);
+            stmt.setInt(3, year);
+            String pattern = "%" + k + "%";
+            stmt.setString(4, pattern);
+            stmt.setString(5, pattern);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToTransaction(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Transaction> searchByKeyInYear(int userId, String keyword, int year) {
+        String sql = "SELECT * FROM transactions " +
+                "WHERE user_id = ? " +
+                "AND YEAR(created_at) = ? " +
+                "AND (LOWER(category) LIKE ? OR LOWER(note) LIKE ?) " +
+                "ORDER BY created_at DESC";
+
+        List<Transaction> list = new ArrayList<>();
+        String k = (keyword == null) ? "" : keyword.trim().toLowerCase();
+
+        if (k.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            stmt.setInt(2, year);
+            String pattern = "%" + k + "%";
+            stmt.setString(3, pattern);
+            stmt.setString(4, pattern);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapRowToTransaction(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private Transaction mapRowToTransaction(ResultSet rs) throws SQLException {
+        Transaction t = new Transaction();
+        t.setId(rs.getInt("id"));
+        t.setUserId(rs.getInt("user_id"));
+        t.setCategory(rs.getString("category"));
+        t.setNote(rs.getString("note"));
+        t.setAmount(rs.getFloat("amount"));
+        t.setType(rs.getString("type"));
+        t.setTransMethod(rs.getString("transaction_method"));
+
+        Timestamp ts1 = rs.getTimestamp("created_at");
+        Timestamp ts2 = rs.getTimestamp("updated_at");
+        if (ts1 != null) t.setCreatedAt(ts1.toLocalDateTime());
+        if (ts2 != null) t.setUpdatedAt(ts2.toLocalDateTime());
+
+        return t;
     }
 
 

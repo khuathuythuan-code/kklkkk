@@ -1,6 +1,7 @@
 package com.ExpenseTracker.controller;
 
 import com.ExpenseTracker.Singleton;
+import com.ExpenseTracker.repository.UserRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
 import com.ExpenseTracker.utility.ThemeUtil;
@@ -34,7 +35,7 @@ public class SettingsController {
     @FXML private Button btnReport;
     @FXML private Button btnSettings;
     @FXML private ToggleButton themeToggle;
-
+    private UserRepository userRepo = new UserRepository();
 
     @FXML
     private void initialize(){
@@ -51,10 +52,13 @@ public class SettingsController {
                     newVal.equalsIgnoreCase("English") ? "en" : "vi";
             LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
             bindTexts();
+            userRepo.updateUI(Singleton.getInstance().currentTheme, Singleton.getInstance().currentLanguage);
         });
+
 
         btnLogout.setOnAction(e -> {
             try {
+                Singleton.getInstance().setDefault();
                 changeScene(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -70,6 +74,7 @@ public class SettingsController {
             ThemeUtil.applyTheme(themeToggle.getScene()); // cập nhật ngay Scene hiện tại
             // cập nhật icon
             themeToggle.setText(Singleton.getInstance().isDarkMode ? "🌙" : "🌞");
+            userRepo.updateUI(Singleton.getInstance().currentTheme, Singleton.getInstance().currentLanguage);
         });
     }
 
