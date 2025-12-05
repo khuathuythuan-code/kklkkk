@@ -29,13 +29,17 @@ public class Singleton {
 
 
     public void changeTheme() {
-        isDarkMode = !isDarkMode;
-        currentTheme = isDarkMode ? "/css/dark.css" : "/css/light.css";
+        currentTheme = !currentTheme.equalsIgnoreCase("/css/dark.css")
+                ? "/css/dark.css"
+                : "/css/light.css";
+
+        isDarkMode = currentTheme.equalsIgnoreCase("/css/dark.css");
     }
+
 
     public void applyUserTheme(){
         currentTheme = currentUserTheme.equalsIgnoreCase("light")? "/css/light.css":"/css/dark.css";
-
+        isDarkMode = currentTheme.equalsIgnoreCase("/css/dark.css");
     }
 
     public void setDefault(){

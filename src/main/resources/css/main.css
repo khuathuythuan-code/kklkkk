@@ -2,7 +2,7 @@
 .toggle-type {
     -fx-background-color: #2ecc71;
     -fx-background-radius: 6;
-    -fx-pref-width: 100;
+    -fx-pref-width: 140;
     -fx-pref-height: 40;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -32,3 +32,29 @@
 }
 
 
+#calculator {
+    -fx-background-color:
+        linear-gradient(to right, #1a001f, #5a106b, #ff3fa3, #00c6b8),
+        radial-gradient(center 50% 50%, radius 60%, rgba(255,255,255,0.10), rgba(0,0,0,0));
+    -fx-background-radius: 12, 12;
+    -fx-background-insets: 0, 0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 12 26;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255,63,163,0.45), 24, 0.25, 0, 6);
+}
+
+#calculator:hover {
+    -fx-background-color:
+        linear-gradient(to right, #2b0033, #7a1a8c, #ff4db1, #00e5d2),
+        radial-gradient(center 50% 50%, radius 65%, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    -fx-background-radius: 12, 12;
+    -fx-background-insets: 0, 0;
+    -fx-effect: dropshadow(gaussian, rgba(255,63,163,0.65), 32, 0.3, 0, 8);
+}
+
+#calculator:pressed {
+    -fx-translate-y: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 8, 0.2, 0, 2);
+}

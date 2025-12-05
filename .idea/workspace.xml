@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bb1132b-bc39-46c0-bbe3-2ba1bc67853f" name="Changes" comment="almost there">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/utility/MoneyFormatUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,18 +59,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "thuan__04__12__2025",
-    "last_opened_file_path": "C:/Users/Windows/IdeaProjects/Java/App/kklkkk"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;thuan__04__12__2025&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Windows/IdeaProjects/Java/App/kklkkk&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ExpenseTracker.Main" />
@@ -136,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764834943074</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="almost there">
+      <option name="closed" value="true" />
+      <created>1764835775619</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764835775619</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -52,6 +52,30 @@ public class ChartController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        monthToggleBtn.getStyleClass().add("active");
+        // --- Thiết lập ngôn ngữ mặc định ---
+        LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
+        bindTexts();
+
+        // --- Toggle Thu / Chi ---
+        monthToggleBtn.setOnAction(e -> {
+            // Thêm class "active" nếu chưa có
+            if (!monthToggleBtn.getStyleClass().contains("active")) {
+                monthToggleBtn.getStyleClass().add("active");
+            }
+            // Xóa class "active" của nút kia nếu còn
+            yearToggleBtn.getStyleClass().remove("active");
+            switchYearMonthData(true);
+        });
+
+
+        yearToggleBtn.setOnAction(e -> {
+            if (!yearToggleBtn.getStyleClass().contains("active")) {
+                yearToggleBtn.getStyleClass().add("active");
+            }
+            monthToggleBtn.getStyleClass().remove("active");
+            switchYearMonthData(false);
+        });
         // Cập nhật locale
         LanguageManagerUlti.setLocale(Singleton.getInstance().currentLanguage);
 
@@ -72,8 +96,8 @@ public class ChartController implements Initializable {
         statsYearComboBox.setOnAction(e-> updateCharts());
         statsMonthComboBox.setOnAction(e-> updateCharts());
 
-        yearToggleBtn.setOnAction(e-> switchYearMonthData(false));
-        monthToggleBtn.setOnAction(e-> switchYearMonthData(true));
+//        yearToggleBtn.setOnAction(e-> switchYearMonthData(false));
+//        monthToggleBtn.setOnAction(e-> switchYearMonthData(true));
 
         barChart.setAnimated(false);
         barChart.setVisible(false);

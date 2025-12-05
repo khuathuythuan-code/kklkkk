@@ -7,6 +7,7 @@ import com.ExpenseTracker.repository.CategoryRepository;
 import com.ExpenseTracker.repository.TransactionRepository;
 import com.ExpenseTracker.utility.ChangeSceneUtil;
 import com.ExpenseTracker.utility.LanguageManagerUlti;
+import com.ExpenseTracker.utility.MoneyFormatUtil;
 import com.ExpenseTracker.utility.ThemeUtil;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -105,6 +106,7 @@ public class MainController implements Initializable {
             Node field = pair.getValue();
             btn.setOnMouseClicked(e -> { showField(btn, field); e.consume(); });
         });
+
         mainPane.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
             boolean clickOutside = pairs.stream()
                     .noneMatch(pair -> pair.getKey().isHover() || pair.getValue().isHover());
@@ -116,7 +118,24 @@ public class MainController implements Initializable {
         methodComboBox.setOnAction(e -> { updateButtonText(methodBtn, LanguageManagerUlti.get("main.button.method.select"), methodComboBox.getValue()); resetAll(); });
         datePicker.setOnAction(e -> { updateButtonText(dateBtn, LanguageManagerUlti.get("main.button.date.select"), datePicker.getValue().toString()); resetAll(); });
         noteTextArea.setOnKeyReleased(e -> updateButtonText(noteBtn, LanguageManagerUlti.get("main.button.note.select"), noteTextArea.getText()));
-        inputMoneyTextField.setOnKeyReleased(e -> updateButtonText(inputMoneyBtn,LanguageManagerUlti.get("currency.unit"), inputMoneyTextField.getText()));
+        inputMoneyTextField.setOnKeyReleased(e -> {
+            String raw = inputMoneyTextField.getText().replaceAll("[^\\d.,]", "");
+            if (raw.isEmpty()) {
+                inputMoneyBtn.setText(Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")?
+                        "0 " + LanguageManagerUlti.get("currency.unit"): LanguageManagerUlti.get("currency.unit") + "0"
+                );
+                return;
+            }
+
+            double value = MoneyFormatUtil.parse(raw);
+            String formatted = MoneyFormatUtil.format(value);
+
+            int caretPos = inputMoneyTextField.getCaretPosition();
+            inputMoneyTextField.setText(formatted);
+            inputMoneyTextField.positionCaret(Math.min(caretPos, formatted.length()));
+
+            updateButtonText(inputMoneyBtn, LanguageManagerUlti.get("currency.unit"), formatted);
+        });
 
         // --- Dialogs ---
         editCategoryBtn.setOnAction(this::openDialog);
@@ -196,7 +215,9 @@ public class MainController implements Initializable {
 
     private void createTransaction() {
         try {
-            float amount = Float.parseFloat(inputMoneyTextField.getText());
+//            float amount = Float.parseFloat(inputMoneyTextField.getText());
+            float amount = (float) MoneyFormatUtil.parse(inputMoneyTextField.getText());
+
 //            amount = isExpense ? -Math.abs(amount) : Math.abs(amount);
 
             Transaction t = new Transaction();
@@ -262,9 +283,12 @@ public class MainController implements Initializable {
         if (value == null || value.isBlank()) value = "";
         int maxLength = 15;
         if (value.length() > maxLength) value = value.substring(0, maxLength) + "...";
-        if (btn == inputMoneyBtn){
-            btn.setText(value +" "+ label);
-        }else {
+        if (btn == inputMoneyBtn && Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")) {
+            btn.setText(value + " " + label);
+        } else if (btn == inputMoneyBtn && Singleton.getInstance().currentLanguage.equalsIgnoreCase("en")) {
+            btn.setText(label + value);
+        }
+        else {
             btn.setText(label + ": " + value);
         }
     }

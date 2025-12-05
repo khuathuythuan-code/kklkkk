@@ -13,10 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SetGoalPopupController {
@@ -51,6 +53,7 @@ public class SetGoalPopupController {
     private TransactionRepository transactionRepo;
     private int currentUserId = Singleton.getInstance().currentUser ;
     private Goal currentGoal;
+    private final NumberFormat currencyFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
 
 
     public void initialize() {
@@ -151,21 +154,49 @@ public class SetGoalPopupController {
     /** -----------------------
      * REFRESH PROGRESS BAR
      * ----------------------- */
+//    private void refreshProgress() {
+//        if (currentGoal == null) return;
+//
+//        long progress = calculateProgress(currentGoal);
+//        double progressRatio = Math.min((double) progress / currentGoal.getGoalAmount(), 1.0);
+//        Singleton.getInstance().goalSupervisorBar.set(progressRatio);
+//        progressBar.setProgress(progressRatio);
+//        progressLabel.setText(progress + " / " + currentGoal.getGoalAmount() + LanguageManagerUlti.get("currency.unit"));
+//
+//        long spent = calculateSpending();
+//        double spentProgress = (double) spent / currentGoal.getSpendingLimit();
+//        spendingProgressBar.setProgress(Math.min(spentProgress , 1.0));
+//        spendingLabel.setText(spent + " / " + currentGoal.getSpendingLimit() + LanguageManagerUlti.get("currency.unit"));
+//
+//
+//
+//        completeButton.setVisible(progress >= currentGoal.getGoalAmount());
+//        completeButton.setOnAction(e -> completeCurrentGoal(currentGoal));
+//    }
+
+
+
     private void refreshProgress() {
         if (currentGoal == null) return;
 
         long progress = calculateProgress(currentGoal);
         double progressRatio = Math.min((double) progress / currentGoal.getGoalAmount(), 1.0);
-        Singleton.getInstance().goalSupervisorBar.set(progressRatio);
+
         progressBar.setProgress(progressRatio);
-        progressLabel.setText(progress + " / " + currentGoal.getGoalAmount() + LanguageManagerUlti.get("currency.unit"));
+        progressLabel.setText(
+                currencyFormat.format(progress) + " / " +
+                        currencyFormat.format(currentGoal.getGoalAmount()) +
+                        LanguageManagerUlti.get("currency.unit")
+        );
 
         long spent = calculateSpending();
         double spentProgress = (double) spent / currentGoal.getSpendingLimit();
-        spendingProgressBar.setProgress(Math.min(spentProgress , 1.0));
-        spendingLabel.setText(spent + " / " + currentGoal.getSpendingLimit() + LanguageManagerUlti.get("currency.unit"));
-
-
+        spendingProgressBar.setProgress(Math.min(spentProgress, 1.0));
+        spendingLabel.setText(
+                currencyFormat.format(spent) + " / " +
+                        currencyFormat.format(currentGoal.getSpendingLimit()) +
+                        LanguageManagerUlti.get("currency.unit")
+        );
 
         completeButton.setVisible(progress >= currentGoal.getGoalAmount());
         completeButton.setOnAction(e -> completeCurrentGoal(currentGoal));
@@ -393,7 +424,7 @@ public class SetGoalPopupController {
                         : LanguageManagerUlti.get("SetGoalPopup.text.not.completed");
 
                 // Lưu dưới dạng string để cell factory dùng
-                String text = g.getGoalName() + "|" + g.getGoalAmount() + "|" + created + "|" + completed;
+                String text = g.getGoalName() + "|" + currencyFormat.format(g.getGoalAmount()) + "|" + created + "|" + completed;
 
                 completedGoalsList.getItems().add(text);
             }

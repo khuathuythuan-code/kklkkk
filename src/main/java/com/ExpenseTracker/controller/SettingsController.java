@@ -59,6 +59,7 @@ public class SettingsController {
         btnLogout.setOnAction(e -> {
             try {
                 Singleton.getInstance().setDefault();
+                Singleton.getInstance().currentUserTheme = null;
                 changeScene(e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

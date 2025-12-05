@@ -196,9 +196,16 @@ public class HistoryController implements Initializable, TransactionUpdateListen
             findByYear = "By year".equals(mode);
         }
 
-
         cbMonth.setVisible(findByMonth);
         cbYear.setVisible(findByMonth || findByYear);
+
+        int currentMonth = LocalDate.now().getMonthValue();
+        cbMonth.getItems().addAll(IntStream.rangeClosed(1, 12).boxed().toList());
+        cbMonth.getSelectionModel().select(Integer.valueOf(currentMonth));
+
+        int currentYear = LocalDate.now().getYear();
+        cbYear.getItems().addAll(IntStream.rangeClosed(currentYear - 10, currentYear).boxed().toList());
+        cbYear.getSelectionModel().select(Integer.valueOf(currentYear));
     }
 
     private void refreshTransactionList() {
@@ -567,7 +574,13 @@ public class HistoryController implements Initializable, TransactionUpdateListen
             }
 
             final LocalDate dateForHandler = date;
-            cellBox.setOnMouseClicked(e -> showTransactions(dateForHandler));
+            cellBox.setOnMouseClicked(e -> {
+                        loadDefaultTransactions();
+                        cbFilterMode.setValue(Singleton.getInstance().currentLanguage.equalsIgnoreCase("vi")?"Mặc định":"By default");
+                        updateVisibleFilters();
+                        showTransactions(dateForHandler);
+                    }
+                    );
 
             cellBox.setOnMouseEntered(e -> cellBox.setStyle(cellBox.getStyle() + "; -fx-background-color:#e6f7ff; -fx-cursor:hand;"));
             cellBox.setOnMouseExited(e -> {
@@ -593,6 +606,7 @@ public class HistoryController implements Initializable, TransactionUpdateListen
                 .toList();
         clearAndRenderFull(list, true);
     }
+
 
     private void openTransactionDetailWindow(Transaction t) {
         try {
@@ -634,16 +648,25 @@ public class HistoryController implements Initializable, TransactionUpdateListen
         // cập nhật lại danh sách; nếu đang ở chế độ mặc định thì refresh data source and re-render pages
         if ("Mặc định".equals(cbFilterMode.getValue()) || "By default".equals(cbFilterMode.getValue()) ) {
             loadDefaultTransactions();
-        } else {
+        } else if ("Theo tháng".equals(cbFilterMode.getValue()) || "By month".equals(cbFilterMode.getValue())) {
+            loadTransactionsByMonth();
+        } else if ("Theo năm".equals(cbFilterMode.getValue()) || "By year".equals(cbFilterMode.getValue())) {
+            loadTransactionsByYear();
+        }else {
             showTransactions(transaction.getCreatedAt().toLocalDate());
         }
     }
 
     @Override
     public void onTransactionDeleted(Transaction transaction) {
-        if ("Mặc định".equals(cbFilterMode.getValue()) || "By default".equals(cbFilterMode.getValue())) {
+        // cập nhật lại danh sách; nếu đang ở chế độ mặc định thì refresh data source and re-render pages
+        if ("Mặc định".equals(cbFilterMode.getValue()) || "By default".equals(cbFilterMode.getValue()) ) {
             loadDefaultTransactions();
-        } else {
+        } else if ("Theo tháng".equals(cbFilterMode.getValue()) || "By month".equals(cbFilterMode.getValue())) {
+            loadTransactionsByMonth();
+        } else if ("Theo năm".equals(cbFilterMode.getValue()) || "By year".equals(cbFilterMode.getValue())) {
+            loadTransactionsByYear();
+        }else {
             showTransactions(transaction.getCreatedAt().toLocalDate());
         }
     }

@@ -14,7 +14,7 @@
 <BorderPane fx:id="chartPane" xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.ExpenseTracker.controller.ChartController"
-           >
+            stylesheets="/css/main.css">
 
     <!-- ===== TOP: CHỌN THÁNG - NĂM ===== -->
     <top>
@@ -33,8 +33,8 @@
 
             <Pane HBox.hgrow="ALWAYS" />
 
-            <Button fx:id="yearToggleBtn" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 8 16;" />
-            <Button fx:id="monthToggleBtn" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 8 16;" />
+            <Button fx:id="yearToggleBtn" styleClass="toggle-type" />
+            <Button fx:id="monthToggleBtn" styleClass="toggle-type" />
         </HBox>
     </top>
 
