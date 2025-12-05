@@ -7,7 +7,8 @@
 
 <BorderPane fx:id="settingPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.ExpenseTracker.controller.SettingsController">
+            fx:controller="com.ExpenseTracker.controller.SettingsController"
+stylesheets="@/css/setting.css">
 
     <!-- ======= TOP ======= -->
     <top>
@@ -57,9 +58,7 @@
 
             <!-- ===== NÚT ĐĂNG XUẤT ===== -->
             <Button fx:id="btnLogout"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;
-                           -fx-font-size: 14; -fx-background-radius: 10;
-                           -fx-pref-width: 300; -fx-pref-height: 40; -fx-cursor: hand;" />
+                    />
         </VBox>
     </center>
 

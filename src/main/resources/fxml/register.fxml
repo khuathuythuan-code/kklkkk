@@ -7,7 +7,8 @@
 
 <StackPane fx:id="registerPane" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.ExpenseTracker.controller.RegisterController">
+           fx:controller="com.ExpenseTracker.controller.RegisterController"
+            stylesheets="@/css/register.css">
 
     <VBox alignment="CENTER" spacing="35">
 
@@ -77,15 +78,19 @@
                             <Insets top="15" right="0" bottom="0" left="0"/>
                         </padding>
                         <Button fx:id="signupBtn"
-                                style="-fx-background-color: #1DB954;
-                                       -fx-text-fill: white;
-                                       -fx-font-weight: bold;
-                                       -fx-background-radius: 20;
-                                       -fx-pref-width: 220;
-                                       -fx-pref-height: 38;"
+                                style="-fx-background-color: linear-gradient(to right, #A93AFF, #FF6FD8);
+                                        -fx-text-fill: white;
+                                        -fx-font-weight: bold;
+                                        -fx-background-radius: 20;
+                                        -fx-pref-width: 220;
+                                        -fx-pref-height: 38;
+                                        -fx-effect: dropshadow(gaussian, rgba(255,110,220,0.3), 10, 0.3, 0, 2);
+                                        "
                                 onAction="#handleRegister"/>
                         <Hyperlink fx:id="backToLoginLink"
-                                   style="-fx-text-fill: #1DB954; -fx-font-size: 13;"
+                                   style="--fx-text-fill: #FF6FD8;
+-fx-font-size: 13;
+"
                                    onAction="#changeScene"/>
                     </VBox>
 

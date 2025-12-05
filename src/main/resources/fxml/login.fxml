@@ -7,7 +7,7 @@
 <StackPane fx:id="loginPane" xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.ExpenseTracker.controller.LoginController"
-            >
+            stylesheets="@/css/login.css">
 
     <VBox alignment="CENTER" spacing="35">
 
@@ -49,29 +49,35 @@
 
                 <Button fx:id="loginBtn"
                         onAction="#onLogin"
-                        style="-fx-background-color: #2ecc71;
-                               -fx-text-fill: white;
-                               -fx-font-weight: bold;
-                               -fx-background-radius: 8;
-                               -fx-pref-width: 180;
-                               -fx-pref-height: 38;"/>
+                        style="-fx-background-color: linear-gradient(to right, #A93AFF, #FF6FD8);
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-background-radius: 8;
+-fx-pref-width: 180;
+-fx-pref-height: 38;
+-fx-effect: dropshadow(gaussian, rgba(255,110,220,0.4), 10, 0.3, 0, 2);
+"/>
 
                 <Button fx:id="switchToRegisterBtn"
                         onAction="#changeScene"
                         style="-fx-background-color: transparent;
-                               -fx-text-fill: #2ecc71;
-                               -fx-font-weight: bold;
-                               -fx-cursor: hand;"/>
+-fx-text-fill: linear-gradient(to right, #A93AFF, #FF6FD8);
+
+-fx-font-weight: bold;
+-fx-cursor: hand;
+-fx-underline: false;
+"/>
             </VBox>
         </VBox>
 
         <Button fx:id="languageBtn" text="🌐 Ngôn ngữ / Language"
-                style="-fx-background-color: transparent;
-                       -fx-text-fill: #888;
-                       -fx-border-color: #333;
-                       -fx-border-radius: 8;
-                       -fx-background-radius: 8;
-                       -fx-pref-width: 180;
-                       -fx-pref-height: 30;"/>
+                style="-fx-background-color: #1A1A1A;
+-fx-text-fill: #BBB;
+-fx-border-color: #444;
+-fx-border-radius: 8;
+-fx-background-radius: 8;
+-fx-pref-width: 180;
+-fx-pref-height: 30;
+"/>
     </VBox>
 </StackPane>

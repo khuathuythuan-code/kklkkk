@@ -1,0 +1,93 @@
+/* === BACKGROUND MAIN === */
+#settingsPane, #profilePane, .root, .background {
+    -fx-background-color: linear-gradient(to bottom right,
+            #140225 0%, #24003f 40%, #3c0059 100%);
+}
+
+/* ===== LABEL CONTAINER (hàng tùy chọn) ===== */
+#themeOptionLabelContainer,
+#languageOptionLabelContainer,
+#changePasswordLabelContainer {
+    -fx-background-color: rgba(255, 75, 160, 0.10); /* hồng mờ */
+    -fx-background-radius: 10;
+    -fx-padding: 10 15;
+    -fx-border-color: rgba(255, 125, 210, 0.25);
+    -fx-border-radius: 10;
+}
+
+#themeOptionLabelContainer:hover,
+#languageOptionLabelContainer:hover,
+#changePasswordLabelContainer:hover {
+    -fx-background-color: rgba(255, 110, 200, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(255, 100, 220, 0.4), 8, 0.2, 0, 0);
+}
+
+/* === LABEL TEXT === */
+#themeOptionLabel,
+#languageOptionLabel,
+#changePasswordLabel {
+    -fx-text-fill: #f5c6ff;
+    -fx-font-size: 14;
+}
+
+/* ===== TOGGLE BUTTON ===== */
+#themeToggle {
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-pref-width: 55;
+    -fx-pref-height: 26;
+    -fx-background-color: #77239b;
+    -fx-border-radius: 12;
+}
+
+#themeToggle:hover {
+    -fx-background-color: #9b35c5;
+}
+
+#themeToggle:selected {
+    -fx-background-color: #ff4fa0; /* màu khi bật */
+}
+
+/* ===== COMBOBOX LANGUAGE ===== */
+#btnChangeLanguage {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-border-color: transparent;
+    -fx-padding: 4 8;
+    -fx-cursor: hand;
+}
+
+#btnChangeLanguage:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.20);
+}
+
+/* ===== Button đổi mật khẩu (>) ===== */
+#btnChangePassword {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff79c6;
+    -fx-font-size: 16;
+    -fx-cursor: hand;
+}
+
+#btnChangePassword:hover {
+    -fx-text-fill: #ff9ad9;
+}
+
+/* ======= NÚT ĐĂNG XUẤT ======= */
+#btnLogout {
+    -fx-background-color: linear-gradient(to right,
+            #ff2e84, #cc00a0);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+}
+
+#btnLogout:hover {
+    -fx-background-color: linear-gradient(to right,
+            #ff4fa0, #e100c5);
+    -fx-effect: dropshadow(gaussian, rgba(255, 80, 200, 0.5), 8, 0.3, 0, 0);
+}

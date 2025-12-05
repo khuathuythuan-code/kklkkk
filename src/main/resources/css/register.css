@@ -1,0 +1,66 @@
+/* ==== NỀN CHUNG ==== */
+#registerPane {
+    -fx-background-color: linear-gradient(to bottom, #0b0014, #1a0028, #25003d);
+}
+
+/* ==== CONTAINER CHÍNH ==== */
+#registerContentContainer {
+    -fx-background-color: linear-gradient(to bottom right, #2a0047, #400067);
+    -fx-effect: dropshadow(gaussian, rgba(230,0,255,0.45), 22, 0.45, 0, 3);
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255,100,255,0.3);
+    -fx-border-radius: 14;
+}
+
+/* ==== TIÊU ĐỀ ==== */
+#titleLabel {
+    -fx-text-fill: #ff8aff;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.7), 20, 0.5, 0, 0);
+}
+
+/* ==== LABEL ==== */
+#usernameLabel, #phoneLabel, #emailLabel,
+#passwordLabel, #confirmPassLabel {
+    -fx-text-fill: #e8c6ff;
+}
+
+/* ==== INPUT FIELD ==== */
+#usernameField, #phoneField, #emailField,
+#passwordField, #confirmPasswordField {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-width: 1.4;
+    -fx-border-radius: 10;
+    -fx-border-color: #b14bff;
+}
+#usernameField:focused, #phoneField:focused, #emailField:focused,
+#passwordField:focused, #confirmPasswordField:focused {
+    -fx-border-color: #ff6dff;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.55), 12, 0.4, 0, 2);
+}
+
+/* ==== BUTTON ĐĂNG KÝ ==== */
+#signupBtn {
+    -fx-background-color: linear-gradient(to bottom, #ff57c4, #d636ff);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.55), 14, 0.35, 0, 2);
+}
+#signupBtn:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff6fd4, #e44aff);
+}
+#signupBtn:pressed {
+    -fx-background-color: #b316e0;
+    -fx-translate-y: 2;
+}
+
+/* ==== LINK QUAY LẠI ĐĂNG NHẬP ==== */
+#backToLoginLink {
+    -fx-text-fill: #ff8aff;
+}
+#backToLoginLink:hover {
+    -fx-text-fill: white;
+    -fx-underline: true;
+}

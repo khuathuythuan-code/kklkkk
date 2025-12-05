@@ -1,92 +1,102 @@
+/* Global Font */
 * {
- -fx-font-family: 'Segoe UI';
+    -fx-font-family: 'Segoe UI';
 }
 
-#historyPane{
-   -fx-padding: 50 0 0 0;
+/* Main dark background with subtle cosmic gradient */
+#chartPane, #historyPane, #loginPane, #mainPane, #registerPane, #settingPane {
+    -fx-background-color:
+        linear-gradient(to bottom, #0b0011, #15001c, #1a0024);
 }
 
-
-#chartPane,
-#historyPane, #loginPane,
-#mainPane, #registerPane,
-#settingPane{
-    -fx-background-color: #121212;
-}
-
-#setGoalPopupPane, #transactionDetailPane,
-#passwordChangingPopupPane,#categoryDialogPane, #calculatorPane{
-      -fx-background-color: #1e1e1e;
-        -fx-background-radius: 12;
-        -fx-padding: 25;
-        -fx-spacing: 20;
- }
-
-#chartNavBar,#historyNavBar,#mainNavBar,#settingNavBar{
-    -fx-background-color: #1e1e1e;
+#chartNavBar, #historyNavBar, #mainNavBar, #settingNavBar {
+    -fx-background-color:
+        linear-gradient(to right, #1d0025, #260034);
     -fx-padding: 15;
 }
 
-#registerContentContainer, #loginContentContainer, #textFieldContainer {
-    -fx-background-color: #1E1E1E;
+/* Popup cosmic card style */
+#setGoalPopupPane, #transactionDetailPane, #passwordChangingPopupPane,
+#categoryDialogPane, #calculatorPane {
+    -fx-background-color:
+        linear-gradient(to bottom, #1a0020, #110016);
+    -fx-background-radius: 14;
+    -fx-padding: 22;
+    -fx-effect: dropshadow(gaussian, rgba(255,64,185,0.3), 18, 0.35, 0, 4);
 }
 
+/* Input areas = metallic dark */
+#registerContentContainer, #loginContentContainer, #textFieldContainer {
+    -fx-background-color: #100013;
+}
 
 #catergoryBtn, #catergoryComboBox,
 #dateBtn, #datePicker,
-#methodBtn,#methodComboBox,
-#noteBtn,#noteTextArea{
-    -fx-background-color: #2c2c2c;
+#methodBtn, #methodComboBox,
+#noteBtn, #noteTextArea {
+    -fx-background-color:
+        linear-gradient(to bottom, #1b1b1b, #101010);
+    -fx-text-fill: #ff78d1;
+    -fx-border-color: rgba(255,64,185,0.3);
+    -fx-border-radius: 6;
 }
 
-#goalSettingButton{
-    -fx-background-color: #22cc21;
+/* Stats cosmic panels */
+#expenseStatsContainer, #incomeStatsContainer, #totalStatsContainer {
+    -fx-background-color:
+        linear-gradient(to right, #1e0028, #0f0016);
+    -fx-effect: dropshadow(gaussian, rgba(255,64,185,0.25), 14, 0.25, 0, 3);
 }
-
-#goalBtnContainer{
-    -fx-background-color: #1E1E1E;
-}
-
-
-#expenseStatsContainer,#incomeStatsContainer,#totalStatsContainer{
--fx-background-color: #1e1e1e;
-}
-
-
-#expensePieChart,#revenuePieChart,#barChart{
-    -fx-background-color: black;
-}
-
-
-#themeOptionLabelContainer,#languageOptionLabelContainer
-,#changePasswordLabelContainer{
-    -fx-background-color: #1f1f1f;
-}
-
-
-
 
 #title {
-    -fx-text-fill: white;
+    -fx-text-fill: #ff8ee5;
+    -fx-font-weight: bold;
 }
 
+/* Category List Stylish */
 #categoryList {
-    -fx-control-inner-background: #3a3a3a;
-    -fx-background-color: #3a3a3a;
-    -fx-border-color: #454545;
-    -fx-text-fill: white;
+    -fx-control-inner-background: #22002c;
+    -fx-background-color: #22002c;
+    -fx-border-color: rgba(255,0,200,0.4);
+    -fx-text-fill: #ffc6ff;
 }
 
 #categoryList .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: #ffc6ff;
 }
 
 #categoryList .list-cell:hover {
-    -fx-background-color: #4b4b4b;
+    -fx-background-color: #39004d;
 }
 
 #categoryList .list-cell:selected {
-    -fx-background-color: #5e9cff;
-    -fx-text-fill: black;
+    -fx-background-color: #ff5fd2;
+    -fx-text-fill: #0f0016;
+}
+
+/* Highlighted Button — futuristic neon */
+#goalSettingButton {
+    -fx-background-color:
+        linear-gradient(to right, #e600a8, #8400ff);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(255,64,185,0.55), 22, 0.45, 0, 2);
+    -fx-cursor: hand;
+}
+
+#goalSettingButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,64,200,0.85), 28, 0.65, 0, 0);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Charts black hole background */
+#expensePieChart, #revenuePieChart, #barChart {
+    -fx-background-color: #000;
+}
+
+/* History Pane spacing fix */
+#historyPane {
+    -fx-padding: 50 0 0 0;
 }

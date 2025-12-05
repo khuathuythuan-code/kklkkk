@@ -1,0 +1,71 @@
+/* Toàn bộ nền login */
+#loginPane {
+    -fx-background-color: linear-gradient(to bottom, #0b0014, #1a0028, #25003d);
+}
+
+/* Container form */
+#loginContentContainer {
+    -fx-background-color: linear-gradient(to bottom right, #2a0047, #400067);
+    -fx-effect: dropshadow(gaussian, rgba(230,0,255,0.45), 18, 0.4, 0, 3);
+}
+
+/* Tiêu đề */
+#title {
+    -fx-text-fill: #ff8aff;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.7), 20, 0.5, 0, 0);
+}
+
+/* Label */
+#userNameLabel, #passwordLabel {
+    -fx-text-fill: #e8c6ff;
+}
+
+/* TextField + PasswordField */
+#usernameField, #passwordField {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 10;
+    -fx-border-color: #b14bff;
+}
+#usernameField:focused, #passwordField:focused {
+    -fx-border-color: #ff6dff;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.55), 12, 0.4, 0, 2);
+}
+
+/* Nút đăng nhập – Cosmic Neon */
+#loginBtn {
+    -fx-background-color: linear-gradient(to bottom, #ff57c4, #d636ff);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,200,0.55), 14, 0.35, 0, 2);
+}
+#loginBtn:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff6fd4, #e44aff);
+}
+#loginBtn:pressed {
+    -fx-background-color: #b316e0;
+    -fx-translate-y: 2;
+}
+
+/* Nút chuyển sang đăng ký */
+#switchToRegisterBtn {
+    -fx-text-fill: #ff8aff;
+}
+#switchToRegisterBtn:hover {
+    -fx-text-fill: white;
+    -fx-underline: true;
+}
+
+/* Nút chọn ngôn ngữ */
+#languageBtn {
+    -fx-text-fill: #c17aff;
+    -fx-border-color: #7d3cff;
+    -fx-border-radius: 8;
+}
+#languageBtn:hover {
+    -fx-border-color: #d400ff;
+    -fx-text-fill: white;
+}

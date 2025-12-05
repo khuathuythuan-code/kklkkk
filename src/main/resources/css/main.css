@@ -1,35 +1,39 @@
-/* trạng thái mặc định */
+/* ==== Default (normal) ==== */
 .toggle-type {
-    -fx-background-color: #2ecc71;
-    -fx-background-radius: 6;
-    -fx-pref-width: 140;
-    -fx-pref-height: 40;
+    -fx-background-color: linear-gradient(to bottom, #d75bff, #a23bff);
+    -fx-background-radius: 30;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
+    -fx-pref-width: 140;
+    -fx-pref-height: 40;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
-    -fx-transition: all 0.2s ease;
+
+    /* Glow ánh sáng neon tím */
+    -fx-effect: dropshadow(gaussian, rgba(217,0,255,0.45), 14, 0.35, 0, 3);
 }
 
-/* Hover */
+/* ==== Hover ==== */
 .toggle-type:hover {
-    -fx-background-color: #27ae60;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 0, 3);
+    -fx-background-color: linear-gradient(to bottom, #e670ff, #b44aff);
+    -fx-effect: dropshadow(gaussian, rgba(229,0,255,0.6), 18, 0.4, 0, 4);
 }
 
-/* Pressed / Click */
+/* ==== Pressed ==== */
 .toggle-type:pressed {
-    -fx-background-color: #1e8449;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-background-color: #9027e3;
+    -fx-effect: dropshadow(gaussian, rgba(217,0,255,0.4), 10, 0.35, 0, 1);
     -fx-translate-y: 2;
 }
 
-/* Active */
+/* ==== Active (selected) ==== */
 .toggle-type.active {
-    -fx-background-color: #16a085; /* Màu khi active */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 6, 0, 0, 3);
+    -fx-background-color: linear-gradient(to bottom, #ff57c4, #d636ff);
+    -fx-effect: dropshadow(gaussian, rgba(255,0,180,0.65), 20, 0.45, 0, 4);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
+
 
 
 #calculator {
@@ -58,3 +62,6 @@
     -fx-translate-y: 2;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 8, 0.2, 0, 2);
 }
+
+
+

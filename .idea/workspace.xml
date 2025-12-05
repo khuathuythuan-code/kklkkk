@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bb1132b-bc39-46c0-bbe3-2ba1bc67853f" name="Changes" comment="almost there">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/utility/MoneyFormatUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/setting.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/Singleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/ChartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SetGoalPopupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ExpenseTracker/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/dark.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/dark.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/chart.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main-expense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/settings.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="thuan_01_12_2025" />
+        <entry key="$PROJECT_DIR$" value="thuan_04_12_2025" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,7 +65,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;thuan__04__12__2025&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;thuan__05__12__2025&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Windows/IdeaProjects/Java/App/kklkkk&quot;
   }
 }</component>
@@ -153,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764835775619</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="almost there">
+      <option name="closed" value="true" />
+      <created>1764917216298</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764917216298</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
